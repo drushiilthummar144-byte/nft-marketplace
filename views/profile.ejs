@@ -294,7 +294,8 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <% if(order.status==='Pending' ) { %>
+                                    <% if(order.status==='Pending' || order.status==='Confirmed' ||
+                                        order.status==='Accepted' ) { %>
                                         <form action="/order/cancel" method="POST" style="display: inline;">
                                             <input type="hidden" name="orderId" value="<%= order.id %>">
                                             <button type="submit" class="btn btn-secondary"
@@ -353,18 +354,22 @@
                                                 style="background: rgba(0,255,157,0.1); border: 1px solid #00ff9d; color: #00ff9d;">Accept
                                                 Order</button>
                                         </form>
-                                        <form action="/order/cancel" method="POST" style="display: inline;">
-                                            <input type="hidden" name="orderId" value="<%= order.id %>">
-                                            <button type="submit" class="btn btn-secondary"
-                                                style="border-color: rgba(255,77,77,0.3); color: #ff4d4d;"
-                                                onclick="return confirm('Reject this order?')">Reject</button>
-                                        </form>
-                                        <% } else if(order.status==='Accepted' ) { %>
-                                            <div
-                                                style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 6px 16px; border-radius: 8px; font-size: 0.9rem;">
-                                                <i class="ph-bold ph-check"></i> Sold
-                                            </div>
-                                            <% } %>
+                                        <% } %>
+                                            <% if(order.status==='Pending' || order.status==='Confirmed' ||
+                                                order.status==='Accepted' ) { %>
+                                                <form action="/order/cancel" method="POST" style="display: inline;">
+                                                    <input type="hidden" name="orderId" value="<%= order.id %>">
+                                                    <button type="submit" class="btn btn-secondary"
+                                                        style="border-color: rgba(255,77,77,0.3); color: #ff4d4d;"
+                                                        onclick="return confirm('Cancel this order?')">Cancel</button>
+                                                </form>
+                                                <% } %>
+                                                    <% if(order.status==='Accepted' || order.status==='Confirmed' ) { %>
+                                                        <div
+                                                            style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 6px 16px; border-radius: 8px; font-size: 0.9rem;">
+                                                            <i class="ph-bold ph-check"></i> Sold
+                                                        </div>
+                                                        <% } %>
                                 </div>
                             </div>
                             <% }) %>

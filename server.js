@@ -183,9 +183,17 @@ app.post('/order/cancel', (req, res) => {
     // Check if current user is seller OR buyer
     if (order && (order.seller.toLowerCase() === '@' + req.session.user.username.toLowerCase() || order.buyer.toLowerCase() === req.session.user.username.toLowerCase())) {
         order.status = 'Cancelled';
+
+        // Revert ownership to seller if it was automatically confirmed before
+        const nft = db.listings.find(l => l.id == order.nftId);
+        if (nft) {
+            nft.owner = order.seller.replace('@', '');
+        }
+
         saveDb(db);
     }
-    res.redirect('/profile');
+    const referer = req.get('Referer') || '/profile';
+    res.redirect(referer);
 });
 // User Login Logic (Mock via db.json)
 app.post('/login', async (req, res) => {
