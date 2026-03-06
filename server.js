@@ -161,8 +161,8 @@ app.post('/order/accept', (req, res) => {
     const db = getDb();
     const order = (db.orders || []).find(o => o.id === req.body.orderId);
 
-    // Check if the current user is the seller
-    if (order && order.seller.toLowerCase() === '@' + req.session.user.username.toLowerCase()) {
+    // Check if the current user is the seller or the buyer (allowing buyer to force accept old pending orders)
+    if (order && (order.seller.toLowerCase() === '@' + req.session.user.username.toLowerCase() || order.buyer.toLowerCase() === req.session.user.username.toLowerCase())) {
         order.status = 'Accepted';
 
         // Transfer ownership
@@ -172,7 +172,8 @@ app.post('/order/accept', (req, res) => {
         }
         saveDb(db);
     }
-    res.redirect('/profile?tab=sales');
+    const referer = req.get('Referer') || '/profile';
+    res.redirect(referer);
 });
 
 app.post('/order/cancel', (req, res) => {
