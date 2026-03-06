@@ -287,7 +287,7 @@
                                         </div>
                                         <div style="margin-top: 4px; font-size: 0.85rem;">
                                             Status: <span
-                                                style="color: <%= order.status === 'Accepted' ? '#00ff9d' : (order.status === 'Cancelled' ? '#ff4d4d' : '#ffb800') %>; font-weight: 600;">
+                                                style="color: <%= (order.status === 'Accepted' || order.status === 'Confirmed') ? '#00ff9d' : (order.status === 'Cancelled' ? '#ff4d4d' : '#ffb800') %>; font-weight: 600;">
                                                 <%= order.status %>
                                             </span>
                                         </div>
@@ -339,7 +339,7 @@
                                         </div>
                                         <div style="margin-top: 4px; font-size: 0.85rem;">
                                             Status: <span
-                                                style="color: <%= order.status === 'Accepted' ? '#00ff9d' : (order.status === 'Cancelled' ? '#ff4d4d' : '#ffb800') %>; font-weight: 600;">
+                                                style="color: <%= (order.status === 'Accepted' || order.status === 'Confirmed') ? '#00ff9d' : (order.status === 'Cancelled' ? '#ff4d4d' : '#ffb800') %>; font-weight: 600;">
                                                 <%= order.status %>
                                             </span>
                                         </div>

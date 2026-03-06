@@ -144,9 +144,12 @@ app.post('/payment/confirm', (req, res) => {
             price: nft.price,
             buyer: req.session.user.username,
             seller: nft.artist,
-            status: 'Pending',
+            status: 'Confirmed',
             date: new Date().toISOString()
         });
+
+        // Auto-transfer ownership instanly
+        nft.owner = req.session.user.username;
         saveDb(db);
     }
     res.redirect('/profile?status=ordered');
