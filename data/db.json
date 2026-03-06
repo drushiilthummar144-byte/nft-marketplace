@@ -1,0 +1,879 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "CryptoKing",
+      "email": "king@crypto.com",
+      "role": "Creator",
+      "status": "Active",
+      "joined": "2024-01-12",
+      "balance": "4.2",
+      "password": "password"
+    },
+    {
+      "id": 2,
+      "username": "Alice Wonderland",
+      "email": "alice@web3.com",
+      "role": "Collector",
+      "status": "Active",
+      "joined": "2024-02-05",
+      "balance": "12.5",
+      "password": "password"
+    },
+    {
+      "id": 3,
+      "username": "ScamBot_99",
+      "email": "bot@spam.com",
+      "role": "User",
+      "status": "Banned",
+      "joined": "2024-03-10",
+      "balance": "0.0"
+    },
+    {
+      "id": 4,
+      "username": "XYZ",
+      "email": "admin@nft.com",
+      "role": "Admin",
+      "status": "Active",
+      "joined": "2024-01-01",
+      "balance": "999.9",
+      "password": "admin123",
+      "bio": "ABC",
+      "website": "",
+      "twitter": "ACU",
+      "instagram": "RR",
+      "avatar": "PQ",
+      "banner": "KK"
+    },
+    {
+      "id": 1772708396044,
+      "username": "7201866905",
+      "email": "drushilthummar123@gmail.com",
+      "password": "Drushil@123",
+      "role": "User",
+      "status": "Active",
+      "joined": "2026",
+      "balance": "0.0",
+      "bio": "",
+      "website": "",
+      "twitter": "",
+      "instagram": "",
+      "avatar": "",
+      "banner": ""
+    }
+  ],
+  "listings": [
+    {
+      "id": 101,
+      "title": "Neon Dreams #22",
+      "artist": "@neon_artist",
+      "price": "0.85",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft1/400/400",
+      "description": "A stunning visual representation of neon dreams blending with deep cyberpunk vibes.",
+      "traits": [
+        "Neon",
+        "Cyberpunk",
+        "2D"
+      ],
+      "owner": "XYZ"
+    },
+    {
+      "id": 102,
+      "title": "Abstract Cube",
+      "artist": "@cube_master",
+      "price": "1.20",
+      "status": "Active",
+      "category": "3D Art",
+      "image": "https://picsum.photos/seed/nft2/400/400",
+      "description": "An intricately designed 3D abstract cube, playing with light, reflections, and shadows.",
+      "traits": [
+        "3D",
+        "Geometric",
+        "Abstract"
+      ]
+    },
+    {
+      "id": 103,
+      "title": "Golden Ape",
+      "artist": "@ape_club",
+      "price": "50.0",
+      "status": "Active",
+      "category": "Collectibles",
+      "image": "https://picsum.photos/seed/nft3/400/400",
+      "description": "A rare golden iteration of the famous Ape club. Highly sought after by collectors.",
+      "traits": [
+        "Gold",
+        "Rare",
+        "Ape"
+      ],
+      "owner": "XYZ"
+    },
+    {
+      "id": 104,
+      "title": "Cosmic Voyager",
+      "artist": "@space_walker",
+      "price": "5.5",
+      "status": "Active",
+      "category": "Sci-Fi",
+      "image": "https://picsum.photos/seed/nft4/400/400",
+      "description": "A lone voyager traversing through the unknown galaxies of the boundless universe.",
+      "traits": [
+        "Space",
+        "Sci-Fi",
+        "Animated"
+      ]
+    },
+    {
+      "id": 105,
+      "title": "Glitch Skull #04",
+      "artist": "@glitch_god",
+      "price": "0.3",
+      "status": "Active",
+      "category": "Digital Art",
+      "image": "https://picsum.photos/seed/nft5/400/400",
+      "description": "A distorted skull created through complex algorithmic glitches. A true masterpiece of digital error.",
+      "traits": [
+        "Glitch",
+        "Skull",
+        "Dark"
+      ],
+      "owner": "XYZ"
+    },
+    {
+      "id": 107,
+      "title": "CryptoPunk Copy #2",
+      "artist": "@pixel_master",
+      "price": "45.0",
+      "status": "Active",
+      "category": "Collectibles",
+      "image": "https://picsum.photos/seed/nft7/400/400",
+      "description": "A pixel perfect homage to the original punks. Very rare find.",
+      "traits": [
+        "Pixel",
+        "Punk",
+        "Male"
+      ]
+    },
+    {
+      "id": 108,
+      "title": "Solar System X",
+      "artist": "@space_walker",
+      "price": "2.1",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft8/400/400",
+      "description": "Beautiful rendition of a newly discovered solar system deep in the galaxy.",
+      "traits": [
+        "Space",
+        "Planets",
+        "Sci-Fi"
+      ]
+    },
+    {
+      "id": 109,
+      "title": "Bored Ape Yacht Clone",
+      "artist": "@ape_club",
+      "price": "100.0",
+      "status": "Active",
+      "category": "Collectibles",
+      "image": "https://picsum.photos/seed/nft9/400/400",
+      "description": "Inspired by the most famous NFT collection. Features a smoking ape with laser eyes.",
+      "traits": [
+        "Ape",
+        "Laser Eyes",
+        "Smoking"
+      ]
+    },
+    {
+      "id": 110,
+      "title": "Virtual Land: MetaCity",
+      "artist": "@meta_builder",
+      "price": "5.5",
+      "status": "Active",
+      "category": "Virtual Worlds",
+      "image": "https://picsum.photos/seed/nft10/400/400",
+      "description": "A prime plot of land located in the downtown district of MetaCity. Build your dream virtual home here.",
+      "traits": [
+        "Land",
+        "City",
+        "Metaverse"
+      ]
+    },
+    {
+      "id": 111,
+      "title": "Lo-Fi Beats Vol. 1",
+      "artist": "@sound_ninja",
+      "price": "0.5",
+      "status": "Active",
+      "category": "Music",
+      "image": "https://picsum.photos/seed/nft11/400/400",
+      "description": "An exclusive NFT containing the unreleased master track of Lo-Fi Beats Vol. 1. Own the rights to the music.",
+      "traits": [
+        "Audio",
+        "Lo-Fi",
+        "Unreleased"
+      ]
+    },
+    {
+      "id": 112,
+      "title": "Synthwave Sunset",
+      "artist": "@neon_artist",
+      "price": "1.2",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft12/400/400",
+      "description": "A retro 80s inspired synthwave sunset. Perfect loop animation.",
+      "traits": [
+        "Synthwave",
+        "Retro",
+        "Animation"
+      ]
+    },
+    {
+      "id": 113,
+      "title": "Cyber Katana",
+      "artist": "@ninja_blade",
+      "price": "3.8",
+      "status": "Active",
+      "category": "Virtual Items",
+      "image": "https://picsum.photos/seed/nft13/400/400",
+      "description": "A legendary in-game item usable across multiple metaverse platforms.",
+      "traits": [
+        "Weapon",
+        "Cyberpunk",
+        "Legendary"
+      ]
+    },
+    {
+      "id": 114,
+      "title": "Mars Colony Ticket",
+      "artist": "@elon_fan",
+      "price": "10.0",
+      "status": "Active",
+      "category": "Virtual Worlds",
+      "image": "https://picsum.photos/seed/nft14/400/400",
+      "description": "Your ticket to claim a plot on the first virtual Mars colony.",
+      "traits": [
+        "Ticket",
+        "Mars",
+        "Utility"
+      ]
+    },
+    {
+      "id": 115,
+      "title": "Techno Vibes Demo",
+      "artist": "@dj_electro",
+      "price": "0.2",
+      "status": "Active",
+      "category": "Music",
+      "image": "https://picsum.photos/seed/nft15/400/400",
+      "description": "Underground techno demo track. Full commercial rights included.",
+      "traits": [
+        "Audio",
+        "Techno",
+        "Stem"
+      ]
+    },
+    {
+      "id": 116,
+      "title": "Mutant Doge",
+      "artist": "@meme_lord",
+      "price": "5.0",
+      "status": "Active",
+      "category": "Collectibles",
+      "image": "https://picsum.photos/seed/nft16/400/400",
+      "description": "Wow. Much mutant. Very rare. The ultimate meme collectible.",
+      "traits": [
+        "Doge",
+        "Mutant",
+        "Meme"
+      ]
+    },
+    {
+      "id": 117,
+      "title": "Abstract Ocean",
+      "artist": "@water_color",
+      "price": "0.7",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft17/400/400",
+      "description": "Flowing abstract interpretation of ocean waves.",
+      "traits": [
+        "Abstract",
+        "Blue",
+        "Fluid"
+      ]
+    },
+    {
+      "id": 118,
+      "title": "Metaverse Yacht",
+      "artist": "@luxury_meta",
+      "price": "25.0",
+      "status": "Active",
+      "category": "Virtual Worlds",
+      "image": "https://picsum.photos/seed/nft18/400/400",
+      "description": "A luxurious superyacht you can host virtual parties on in Decentraland.",
+      "traits": [
+        "Yacht",
+        "Luxury",
+        "Vehicle"
+      ]
+    },
+    {
+      "id": 119,
+      "title": "Bitcoin Gold Token",
+      "artist": "@crypto_king",
+      "price": "1.5",
+      "status": "Active",
+      "category": "Virtual Items",
+      "image": "https://picsum.photos/seed/nft19/400/400",
+      "description": "3D rendered golden bitcoin token. A symbol of OG status.",
+      "traits": [
+        "Bitcoin",
+        "Gold",
+        "3D"
+      ]
+    },
+    {
+      "id": 120,
+      "title": "Jazz Club Genesis Track",
+      "artist": "@jazz_cats",
+      "price": "1.0",
+      "status": "Active",
+      "category": "Music",
+      "image": "https://picsum.photos/seed/nft20/400/400",
+      "description": "The first ever track recorded for the Web3 Jazz Club.",
+      "traits": [
+        "Audio",
+        "Jazz",
+        "Genesis"
+      ]
+    },
+    {
+      "id": 121,
+      "title": "Glitch Portrait #9",
+      "artist": "@glitch_god",
+      "price": "0.4",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft21/400/400",
+      "description": "Corrupted digital portrait artwork.",
+      "traits": [
+        "Glitch",
+        "Portrait",
+        "Distorted"
+      ]
+    },
+    {
+      "id": 122,
+      "title": "Neon City Plot A1",
+      "artist": "@neon_lab",
+      "price": "8.0",
+      "status": "Active",
+      "category": "Virtual Worlds",
+      "image": "https://picsum.photos/seed/nft22/400/400",
+      "description": "Premium corner plot in the highly anticipated Neon City metaverse.",
+      "traits": [
+        "Land",
+        "Cyberpunk",
+        "Premium"
+      ]
+    },
+    {
+      "id": 123,
+      "title": "Pixel Penguin #402",
+      "artist": "@ice_squad",
+      "price": "3.5",
+      "status": "Active",
+      "category": "Collectibles",
+      "image": "https://picsum.photos/seed/nft23/400/400",
+      "description": "Cute pixel penguin wearing a beanie.",
+      "traits": [
+        "Pixel",
+        "Penguin",
+        "Beanie"
+      ]
+    },
+    {
+      "id": 124,
+      "title": "Electric Guitar Solo",
+      "artist": "@rockstar_web3",
+      "price": "2.0",
+      "status": "Active",
+      "category": "Music",
+      "image": "https://picsum.photos/seed/nft24/400/400",
+      "description": "A face-melting 30 second electric guitar solo.",
+      "traits": [
+        "Audio",
+        "Rock",
+        "Guitar"
+      ]
+    },
+    {
+      "id": 125,
+      "title": "Cyber Armor Set",
+      "artist": "@meta_smith",
+      "price": "4.5",
+      "status": "Active",
+      "category": "Virtual Items",
+      "image": "https://picsum.photos/seed/nft25/400/400",
+      "description": "Full set of cybernetic armor for your metaverse avatar.",
+      "traits": [
+        "Wearable",
+        "Armor",
+        "Sci-Fi"
+      ]
+    },
+    {
+      "id": 126,
+      "title": "Vaporwave Statue",
+      "artist": "@retro_wave",
+      "price": "0.9",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft26/400/400",
+      "description": "Classic Roman bust with vaporwave aesthetics.",
+      "traits": [
+        "Vaporwave",
+        "Statue",
+        "Pink"
+      ]
+    },
+    {
+      "id": 127,
+      "title": "Meta Casino VIP Pass",
+      "artist": "@casino_royale",
+      "price": "15.0",
+      "status": "Active",
+      "category": "Virtual Worlds",
+      "image": "https://picsum.photos/seed/nft27/400/400",
+      "description": "Grants lifetime VIP access to the grand Meta Casino.",
+      "traits": [
+        "Pass",
+        "VIP",
+        "Utility"
+      ]
+    },
+    {
+      "id": 128,
+      "title": "Acoustic Morning",
+      "artist": "@indie_dev",
+      "price": "0.6",
+      "status": "Active",
+      "category": "Music",
+      "image": "https://picsum.photos/seed/nft28/400/400",
+      "description": "A relaxing acoustic guitar melody.",
+      "traits": [
+        "Audio",
+        "Acoustic",
+        "Chill"
+      ]
+    },
+    {
+      "id": 129,
+      "title": "Zombie Punk #88",
+      "artist": "@undead_art",
+      "price": "85.0",
+      "status": "Active",
+      "category": "Collectibles",
+      "image": "https://picsum.photos/seed/nft29/400/400",
+      "description": "Extremely rare zombie attribute punks.",
+      "traits": [
+        "Zombie",
+        "Pixel",
+        "Rare"
+      ]
+    },
+    {
+      "id": 130,
+      "title": "Holographic Katana",
+      "artist": "@ninja_blade",
+      "price": "6.0",
+      "status": "Active",
+      "category": "Virtual Items",
+      "image": "https://picsum.photos/seed/nft30/400/400",
+      "description": "Upgraded version of the Cyber Katana with holo-emitter.",
+      "traits": [
+        "Weapon",
+        "Hologram",
+        "Legendary"
+      ]
+    },
+    {
+      "id": 131,
+      "title": "Dark Matter Nebula",
+      "artist": "@space_walker",
+      "price": "3.2",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft31/400/400",
+      "description": "Deep space photography of a hypothetical dark matter nebula.",
+      "traits": [
+        "Space",
+        "Dark",
+        "Cosmic"
+      ]
+    },
+    {
+      "id": 132,
+      "title": "Metaverse Forest",
+      "artist": "@nature_vr",
+      "price": "4.0",
+      "status": "Active",
+      "category": "Virtual Worlds",
+      "image": "https://picsum.photos/seed/nft32/400/400",
+      "description": "A serene virtual forest meant for meditation in VR.",
+      "traits": [
+        "Nature",
+        "VR",
+        "Environment"
+      ]
+    },
+    {
+      "id": 133,
+      "title": "8-Bit Chiptune Track",
+      "artist": "@retro_gamer",
+      "price": "0.3",
+      "status": "Active",
+      "category": "Music",
+      "image": "https://picsum.photos/seed/nft33/400/400",
+      "description": "Authentic gameboy era chiptune music.",
+      "traits": [
+        "Audio",
+        "8-Bit",
+        "Chiptune"
+      ]
+    },
+    {
+      "id": 134,
+      "title": "Golden Crown Wearable",
+      "artist": "@royal_mint",
+      "price": "12.0",
+      "status": "Active",
+      "category": "Virtual Items",
+      "image": "https://picsum.photos/seed/nft34/400/400",
+      "description": "Show off your wealth with this metaverse crown.",
+      "traits": [
+        "Wearable",
+        "Gold",
+        "Crown"
+      ]
+    },
+    {
+      "id": 135,
+      "title": "Surreal Desert",
+      "artist": "@dali_fan",
+      "price": "1.8",
+      "status": "Active",
+      "category": "Art",
+      "image": "https://picsum.photos/seed/nft35/400/400",
+      "description": "A surrealistic landscape featuring melting clocks.",
+      "traits": [
+        "Surreal",
+        "Desert",
+        "Classic"
+      ]
+    },
+    {
+      "id": 136,
+      "title": "Neon Tokyo Streets",
+      "artist": "@city_snaps",
+      "price": "2.2",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft36/400/400",
+      "description": "A rain-slicked street in cyberpunk Tokyo.",
+      "traits": [
+        "Street",
+        "Night",
+        "Neon"
+      ]
+    },
+    {
+      "id": 137,
+      "title": "Minimalist Architecture #5",
+      "artist": "@lens_culture",
+      "price": "1.1",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft37/400/400",
+      "description": "Stunning brutalist concrete forms.",
+      "traits": [
+        "Architecture",
+        "B&W",
+        "Minimal"
+      ]
+    },
+    {
+      "id": 138,
+      "title": "Northern Lights Glow",
+      "artist": "@nature_frames",
+      "price": "3.5",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft38/400/400",
+      "description": "Breathtaking aurora borealis captured in Iceland.",
+      "traits": [
+        "Nature",
+        "Aurora",
+        "Landscape"
+      ]
+    },
+    {
+      "id": 139,
+      "title": "Urban Decay",
+      "artist": "@abandoned_art",
+      "price": "0.8",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft39/400/400",
+      "description": "Exploration of an abandoned 1920s theater.",
+      "traits": [
+        "Urbex",
+        "Decay",
+        "Interior"
+      ]
+    },
+    {
+      "id": 140,
+      "title": "Macro Dewdrop",
+      "artist": "@micro_world",
+      "price": "1.5",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft40/400/400",
+      "description": "Incredible macro shot of a spiderweb dewdrop reflecting a flower.",
+      "traits": [
+        "Macro",
+        "Nature",
+        "Water"
+      ]
+    },
+    {
+      "id": 141,
+      "title": "Desert Dune Shadows",
+      "artist": "@sand_snaps",
+      "price": "2.0",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft41/400/400",
+      "description": "Minimalist shot of desert dunes at sunrise.",
+      "traits": [
+        "Desert",
+        "Minimal",
+        "Nature"
+      ]
+    },
+    {
+      "id": 142,
+      "title": "Cyberpunk Portraits",
+      "artist": "@future_face",
+      "price": "4.2",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft42/400/400",
+      "description": "Portrait photography lit exclusively by neon signs.",
+      "traits": [
+        "Portrait",
+        "Neon",
+        "Cyberpunk"
+      ]
+    },
+    {
+      "id": 143,
+      "title": "Aerial City Grid",
+      "artist": "@drone_master",
+      "price": "3.8",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft43/400/400",
+      "description": "Looking straight down at the dense grid of New York.",
+      "traits": [
+        "Aerial",
+        "Drone",
+        "Cityscape"
+      ]
+    },
+    {
+      "id": 144,
+      "title": "Deep Sea Bio-luminescence",
+      "artist": "@ocean_eyes",
+      "price": "5.5",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft44/400/400",
+      "description": "Rare photograph of deep sea glowing jellyfish.",
+      "traits": [
+        "Underwater",
+        "Nature",
+        "Bio"
+      ]
+    },
+    {
+      "id": 145,
+      "title": "Vintage Auto Chrome",
+      "artist": "@classic_cars",
+      "price": "1.2",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft45/400/400",
+      "description": "Close up shots of 1950s classic car chrome details.",
+      "traits": [
+        "Auto",
+        "Vintage",
+        "Detail"
+      ]
+    },
+    {
+      "id": 146,
+      "title": "Lightning Strike Long Exposure",
+      "artist": "@storm_chaser",
+      "price": "7.0",
+      "status": "Active",
+      "category": "Photography",
+      "image": "https://picsum.photos/seed/nft46/400/400",
+      "description": "A perfect fork lightning strike over a dark city.",
+      "traits": [
+        "Weather",
+        "Long Expo",
+        "City"
+      ]
+    }
+  ],
+  "transactions": [
+    {
+      "hash": "0x4a...9f2",
+      "item": "Cosmic Cube #48",
+      "type": "Sale",
+      "from": "@creator_x",
+      "to": "@buyer_y",
+      "amount": "+ 4.2 ETH",
+      "date": "2 mins ago"
+    },
+    {
+      "hash": "0x8b...1a0",
+      "item": "None",
+      "type": "Withdrawal",
+      "from": "@creator_x",
+      "to": "Wallet (0x23..)",
+      "amount": "- 1200 USDT",
+      "date": "15 mins ago"
+    }
+  ],
+  "settings": {
+    "siteName": "NovaMint",
+    "supportEmail": "support@novamint.com",
+    "maintenanceMode": false,
+    "platformFee": 2.5
+  },
+  "gateways": {
+    "moonpay": {
+      "enabled": true,
+      "apiKey": "",
+      "environment": "test"
+    },
+    "simplex": {
+      "enabled": false,
+      "apiKey": "",
+      "environment": "sandbox"
+    },
+    "paypal": {
+      "enabled": true,
+      "clientId": "",
+      "clientSecret": "",
+      "environment": "sandbox"
+    }
+  },
+  "content": {
+    "hero": {
+      "title": "Digital Art Revolution",
+      "subtitle": "Discover, collect, and sell extraordinary NFTs on the world's first and largest digital marketplace.",
+      "ctaPrimary": "Explore Now",
+      "ctaSecondary": "Create NFT"
+    },
+    "stats": {
+      "artworks": "400k+",
+      "artists": "20k+"
+    }
+  },
+  "support": [
+    {
+      "id": 101,
+      "subject": "Missing Payment",
+      "message": "I sold an NFT but haven't received the ETH yet.",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "status": "Open",
+      "date": "2024-03-15"
+    },
+    {
+      "id": 1772101633945,
+      "name": "derusgiujj",
+      "email": "admin@nft.com",
+      "message": "gg",
+      "subject": "New Contact Message",
+      "status": "Open",
+      "date": "2026-02-26"
+    }
+  ],
+  "collections": [
+    {
+      "id": "c1",
+      "name": "Cyber Punks",
+      "items": "10 items",
+      "artist": "@x_master",
+      "image": "https://picsum.photos/seed/c1/500/500"
+    },
+    {
+      "id": "c2",
+      "name": "Neon Genesis",
+      "items": "24 items",
+      "artist": "@neon_lab",
+      "image": "https://picsum.photos/seed/c2/500/500"
+    },
+    {
+      "id": "c3",
+      "name": "Space Walkers",
+      "items": "8 items",
+      "artist": "@astro_art",
+      "image": "https://picsum.photos/seed/c3/500/500"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1772520645907",
+      "nftId": 137,
+      "title": "Minimalist Architecture #5",
+      "image": "https://picsum.photos/seed/nft37/400/400",
+      "price": "1.1",
+      "buyer": "XYZ",
+      "seller": "@lens_culture",
+      "status": "Cancelled",
+      "date": "2026-03-03T06:50:45.907Z"
+    },
+    {
+      "id": "1772692885918",
+      "nftId": 116,
+      "title": "Mutant Doge",
+      "image": "https://picsum.photos/seed/nft16/400/400",
+      "price": "5.0",
+      "buyer": "XYZ",
+      "seller": "@meme_lord",
+      "status": "Pending",
+      "date": "2026-03-05T06:41:25.918Z"
+    },
+    {
+      "id": "1772705552147",
+      "nftId": 120,
+      "title": "Jazz Club Genesis Track",
+      "image": "https://picsum.photos/seed/nft20/400/400",
+      "price": "1.0",
+      "buyer": "XYZ",
+      "seller": "@jazz_cats",
+      "status": "Pending",
+      "date": "2026-03-05T10:12:32.147Z"
+    }
+  ]
+}
