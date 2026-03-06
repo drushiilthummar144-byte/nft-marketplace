@@ -226,7 +226,8 @@
                     </div>
 
                     <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px;">
-                        <div class="price-text">₹<%= (parseFloat(nft.price) * 4000).toLocaleString('en-IN') %>
+                        <div class="price-text">₹<%= ((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price)
+                                * 7391) % 9000) + 1000) : parseFloat(nft.price))).toLocaleString('en-IN') %>
                         </div>
                     </div>
 

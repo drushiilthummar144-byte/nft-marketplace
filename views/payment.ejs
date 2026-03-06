@@ -211,9 +211,8 @@
             </div>
 
             <div style="text-align: center; margin-top: 32px; font-size: 1.5rem; font-weight: 800; color: white;">
-                Total Due: <span style="color: #00ff9d;">
-                    ₹<%= (parseFloat(nft.price) * 1.025 * 4000).toLocaleString('en-IN') %>
-                </span>
+                ₹<%= (((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) + 1000) :
+                    parseFloat(nft.price))) * 1.025).toLocaleString('en-IN') %>
             </div>
 
             <form action="/payment/confirm" method="POST" id="paymentForm">

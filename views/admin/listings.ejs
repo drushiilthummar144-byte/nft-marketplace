@@ -54,7 +54,8 @@
                                     <%= item.artist %>
                                 </td>
                                 <td>
-                                    ₹<%= (parseFloat(item.price) * 4000).toLocaleString('en-IN') %>
+                                    ₹<%= ((parseFloat(item.price) < 1000 ? Math.floor(((parseFloat(item.price) * 7391) %
+                                        9000) + 1000) : parseFloat(item.price))).toLocaleString('en-IN') %>
                                 </td>
                                 <td>
                                     <div

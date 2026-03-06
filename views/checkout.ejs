@@ -163,24 +163,23 @@
                 style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
                 <div class="cost-row">
                     <span style="color: rgba(255,255,255,0.7);">Item Price</span>
-                    <span style="font-weight: 600;">
-                        ₹<%= (parseFloat(nft.price) * 4000).toLocaleString('en-IN') %>
-                    </span>
+                    ₹<%= ((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) + 1000) :
+                        parseFloat(nft.price))).toLocaleString('en-IN') %>
                 </div>
                 <div class="cost-row">
                     <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">NovaMint
                         Fee (2.5%) <i class="ph ph-info" style="cursor: pointer;"
                             title="Covers platform maintenance and network gas fees."></i></span>
-                    <span style="font-weight: 600;">
-                        ₹<%= (parseFloat(nft.price) * 0.025 * 4000).toLocaleString('en-IN') %>
-                    </span>
+                    ₹<%= (((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) + 1000) :
+                        parseFloat(nft.price))) * 0.025).toLocaleString('en-IN') %>
                 </div>
 
                 <div class="total-row">
                     <span>Total Cost</span>
                     <div style="text-align: right;">
                         <span style="color: var(--primary);">
-                            ₹<%= (parseFloat(nft.price) * 1.025 * 4000).toLocaleString('en-IN') %>
+                            ₹<%= (((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) +
+                                1000) : parseFloat(nft.price))) * 1.025).toLocaleString('en-IN') %>
                         </span>
                     </div>
                 </div>
