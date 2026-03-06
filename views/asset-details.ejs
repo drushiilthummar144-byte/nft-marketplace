@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaMint | <%= nft.title %></title>
+    <title>NovaMint | <%= nft.title %>
+    </title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -12,7 +13,7 @@
         body {
             background-color: #0b0515;
             background-image: radial-gradient(circle at top right, rgba(127, 48, 255, 0.1) 0%, transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(48, 133, 255, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at bottom left, rgba(48, 133, 255, 0.1) 0%, transparent 40%);
             color: white;
             padding-top: 100px;
             min-height: 100vh;
@@ -40,7 +41,7 @@
             position: absolute;
             inset: -1px;
             border-radius: 25px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
             z-index: -1;
         }
 
@@ -48,7 +49,7 @@
             width: 100%;
             height: auto;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
         }
 
@@ -70,7 +71,7 @@
             border-radius: 20px;
             padding: 32px;
             margin-bottom: 40px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -78,20 +79,26 @@
         .buy-card::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; height: 4px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
             background: linear-gradient(90deg, #7828C8, #FF3085);
         }
 
         .price-text {
             font-size: 3rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #fff, rgba(255,255,255,0.7));
+            background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.7));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         @media (max-width: 992px) {
-            .asset-grid { grid-template-columns: 1fr; gap: 40px; }
+            .asset-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
         }
     </style>
 </head>
@@ -102,118 +109,150 @@
         style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85);">
         <div class="container flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <a href="/explore" style="color: rgba(255,255,255,0.6); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; transition: 0.2s;"><i class="ph ph-arrow-left hover:text-white"></i></a>
+                <a href="/explore"
+                    style="color: rgba(255,255,255,0.6); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; transition: 0.2s;"><i
+                        class="ph ph-arrow-left hover:text-white"></i></a>
                 <div style="width: 1px; height: 24px; background: rgba(255,255,255,0.1);"></div>
                 <div style="display: flex; align-items: center; gap: 8px;">
                     <% if (content && content.visuals && content.visuals.logoImage) { %>
-                        <img src="<%= content.visuals.logoImage %>" alt="Site Logo" style="height: 36px; width: auto; object-fit: contain;">
-                    <% } else { %>
-                        <div style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; box-shadow: 0 0 15px rgba(127, 48, 255, 0.5);">N</div>
-                        <a href="/" style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
-                            <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText : 'NovaMint' %>
-                        </a>
-                    <% } %>
+                        <img src="<%= content.visuals.logoImage %>" alt="Site Logo"
+                            style="height: 36px; width: auto; object-fit: contain;">
+                        <% } else { %>
+                            <div
+                                style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; box-shadow: 0 0 15px rgba(127, 48, 255, 0.5);">
+                                N</div>
+                            <a href="/"
+                                style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
+                                <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                    : 'NovaMint' %>
+                            </a>
+                            <% } %>
                 </div>
             </div>
-            
+
             <div class="flex items-center gap-4">
                 <% if (user) { %>
-                    <a href="/profile" class="btn btn-secondary" style="border-radius: 12px; padding: 8px 16px;"><i class="ph ph-user"></i> My Profile</a>
-                <% } else { %>
-                    <a href="/login" class="btn btn-primary" style="border-radius: 12px;">Login</a>
-                <% } %>
+                    <a href="/profile" class="btn btn-secondary" style="border-radius: 12px; padding: 8px 16px;"><i
+                            class="ph ph-user"></i> My Profile</a>
+                    <% } else { %>
+                        <a href="/login" class="btn btn-primary" style="border-radius: 12px;">Login</a>
+                        <% } %>
             </div>
         </div>
     </nav>
 
     <div class="container" style="padding-bottom: 100px;">
         <div class="asset-grid">
-            
+
             <!-- Left: Image & Details -->
             <div>
                 <div class="img-container" style="margin-bottom: 32px;">
-                    <div style="position: absolute; top: 32px; left: 32px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.1); z-index: 10; display: flex; align-items: center; gap: 6px;">
+                    <div
+                        style="position: absolute; top: 32px; left: 32px; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); color: white; padding: 6px 16px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.1); z-index: 10; display: flex; align-items: center; gap: 6px;">
                         <i class="ph-fill ph-check-circle" style="color: #00ff9d;"></i> Authentic
                     </div>
-                    <img src="<%= nft.image || 'https://picsum.photos/seed/nft1/600/600' %>" class="main-img" alt="<%= nft.title %>">
+                    <img src="<%= nft.image || 'https://picsum.photos/seed/nft1/600/600' %>" class="main-img"
+                        alt="<%= nft.title %>">
                 </div>
-                
+
                 <h3 style="font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
                     <i class="ph ph-list"></i> Attributes
                 </h3>
-                <% if(nft.traits && nft.traits.length > 0) { %>
+                <% if(nft.traits && nft.traits.length> 0) { %>
                     <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
-                        <% nft.traits.forEach(trait => { %>
+                        <% nft.traits.forEach(trait=> { %>
                             <div class="trait-box">
-                                <div style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">Property</div>
-                                <div style="font-size: 1rem; font-weight: 600;"><%= trait %></div>
+                                <div
+                                    style="color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px;">
+                                    Property</div>
+                                <div style="font-size: 1rem; font-weight: 600;">
+                                    <%= trait %>
+                                </div>
                             </div>
-                        <% }) %>
+                            <% }) %>
                     </div>
-                <% } else { %>
-                    <div style="color: var(--text-muted); font-style: italic;">No specific traits listed.</div>
-                <% } %>
+                    <% } else { %>
+                        <div style="color: var(--text-muted); font-style: italic;">No specific traits listed.</div>
+                        <% } %>
             </div>
 
             <!-- Right: Info & Checkout -->
             <div>
-                <div style="color: var(--primary); font-weight: 700; margin-bottom: 8px; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase;">
+                <div
+                    style="color: var(--primary); font-weight: 700; margin-bottom: 8px; font-size: 1.1rem; letter-spacing: 1px; text-transform: uppercase;">
                     <%= nft.category || 'Collection' %>
                 </div>
-                
-                <h1 style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px;">
+
+                <h1
+                    style="font-size: 3.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px;">
                     <%= nft.title %>
                 </h1>
-                
-                <div style="display: flex; gap: 24px; margin-bottom: 40px; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
+
+                <div
+                    style="display: flex; gap: 24px; margin-bottom: 40px; padding: 16px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=<%= nft.artist %>" style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1);">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=<%= nft.artist %>"
+                            style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.1);">
                         <div>
                             <div class="text-sm text-muted">Creator</div>
-                            <div style="font-weight: 700; font-size: 1.1rem;"><%= nft.artist %> <i class="ph-fill ph-seal-check" style="color: #00ff9d;"></i></div>
+                            <div style="font-weight: 700; font-size: 1.1rem;">
+                                <%= nft.artist %> <i class="ph-fill ph-seal-check" style="color: #00ff9d;"></i>
+                            </div>
                         </div>
                     </div>
-                    
+
                     <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(127,48,255,0.2); display: flex; align-items: center; justify-content: center;">
+                        <div
+                            style="width: 48px; height: 48px; border-radius: 50%; background: rgba(127,48,255,0.2); display: flex; align-items: center; justify-content: center;">
                             <i class="ph-fill ph-eye" style="font-size: 1.5rem; color: var(--primary);"></i>
                         </div>
                         <div>
                             <div class="text-sm text-muted">Views</div>
-                            <div style="font-weight: 700; font-size: 1.1rem;"><%= Math.floor(Math.random() * 5000) + 120 %></div>
+                            <div style="font-weight: 700; font-size: 1.1rem;">
+                                <%= Math.floor(Math.random() * 5000) + 120 %>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="buy-card">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <div
+                        style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
                         <div class="text-muted" style="font-weight: 500;">Current Price</div>
-                        <div style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;">Active Listing</div>
+                        <div
+                            style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;">
+                            Active Listing</div>
                     </div>
-                    
+
                     <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px;">
-                        <div class="price-text"><%= nft.price %> ETH</div>
-                        <div style="font-size: 1.25rem; color: rgba(255,255,255,0.5);">≈ ₹<%= (parseFloat(nft.price) * 260000).toLocaleString('en-IN') %></div>
+                        <div class="price-text">₹<%= (parseFloat(nft.price) * 260000).toLocaleString('en-IN') %>
+                        </div>
                     </div>
 
                     <div style="display: flex; gap: 16px; flex-direction: column;">
                         <% if (user) { %>
-                            <a href="/checkout?id=<%= nft.id %>" class="btn" style="background: linear-gradient(135deg, #7828C8, #FF3085); height: 64px; border-radius: 16px; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 12px; border: none; text-decoration: none; color: white; box-shadow: 0 10px 20px rgba(127,48,255,0.4); text-transform: uppercase; letter-spacing: 1px;">
+                            <a href="/checkout?id=<%= nft.id %>" class="btn"
+                                style="background: linear-gradient(135deg, #7828C8, #FF3085); height: 64px; border-radius: 16px; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 12px; border: none; text-decoration: none; color: white; box-shadow: 0 10px 20px rgba(127,48,255,0.4); text-transform: uppercase; letter-spacing: 1px;">
                                 <i class="ph-bold ph-lightning"></i> Buy Now
                             </a>
-                        <% } else { %>
-                            <a href="/login" class="btn" style="background: rgba(255,255,255,0.1); height: 64px; border-radius: 16px; font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; border: 1px solid rgba(255,255,255,0.2);">
-                                Login to Purchase
-                            </a>
-                        <% } %>
-                        <button class="btn" style="background: transparent; border: 1px solid rgba(255,255,255,0.2); height: 64px; border-radius: 16px; font-size: 1.1rem; font-weight: 600; color: white; display: flex; align-items: center; justify-content: center; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='transparent'">
-                            Make an Offer
-                        </button>
+                            <% } else { %>
+                                <a href="/login" class="btn"
+                                    style="background: rgba(255,255,255,0.1); height: 64px; border-radius: 16px; font-size: 1.25rem; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                    Login to Purchase
+                                </a>
+                                <% } %>
+                                    <button class="btn"
+                                        style="background: transparent; border: 1px solid rgba(255,255,255,0.2); height: 64px; border-radius: 16px; font-size: 1.1rem; font-weight: 600; color: white; display: flex; align-items: center; justify-content: center; transition: background 0.2s;"
+                                        onmouseover="this.style.background='rgba(255,255,255,0.05)'"
+                                        onmouseout="this.style.background='transparent'">
+                                        Make an Offer
+                                    </button>
                     </div>
                 </div>
 
-                <div style="padding: 32px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;">
+                <div
+                    style="padding: 32px; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;">
                     <h3 style="font-size: 1.25rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
                         <i class="ph ph-text-align-left text-primary"></i> Description
                     </h3>
@@ -225,17 +264,22 @@
                         <i class="ph ph-info text-primary"></i> Details
                     </h3>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <div
+                            style="display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <span style="color: rgba(255,255,255,0.5);">Contract Address</span>
-                            <span style="color: var(--primary); font-family: monospace;">0x<%= Math.random().toString(16).substring(2, 10) %>...<%= Math.random().toString(16).substring(2, 6) %></span>
+                            <span style="color: var(--primary); font-family: monospace;">0x<%=
+                                    Math.random().toString(16).substring(2, 10) %>...<%=
+                                        Math.random().toString(16).substring(2, 6) %></span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                        <div
+                            style="display: flex; justify-content: space-between; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.05);">
                             <span style="color: rgba(255,255,255,0.5);">Token ID</span>
                             <span style="font-weight: 600;">#<%= nft.id %></span>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
                             <span style="color: rgba(255,255,255,0.5);">Blockchain</span>
-                            <span style="font-weight: 600; display: flex; align-items: center; gap: 6px;"><i class="ph-fill ph-currency-eth"></i> Ethereum</span>
+                            <span style="font-weight: 600; display: flex; align-items: center; gap: 6px;"><i
+                                    class="ph-fill ph-currency-eth"></i> Ethereum</span>
                         </div>
                     </div>
                 </div>

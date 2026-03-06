@@ -74,7 +74,7 @@
                                     <%= user.joined %>
                                 </td>
                                 <td style="font-family: monospace;">
-                                    <%= user.balance %> ETH
+                                    ₹<%= (parseFloat(user.balance) * 260000).toLocaleString('en-IN') %>
                                 </td>
                                 <td>
                                     <div class="flex gap-2">

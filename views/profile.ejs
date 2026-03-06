@@ -72,7 +72,7 @@
                 </div>
                 <div
                     style="padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    <i class="ph-bold ph-currency-eth" style="color: var(--primary);"></i> 12.5 ETH
+                    ₹ 32,50,000
                 </div>
                 <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #FF3085); border: 2px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;"
                     onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
@@ -189,7 +189,8 @@
                             <div style="font-weight: 700; font-size: 1.2rem; margin-bottom: 4px;">
                                 <%= item.title %>
                             </div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Price: <%= item.price %> ETH
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Price: ₹<%=
+                                    (parseFloat(item.price) * 260000).toLocaleString('en-IN') %>
                             </div>
                         </div>
                         <% }) %>
@@ -247,7 +248,8 @@
                             <div style="font-weight: 700; font-size: 1.2rem;">
                                 <%= item.title %>
                             </div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Price: <%= item.price %> ETH
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Price: ₹<%=
+                                    (parseFloat(item.price) * 260000).toLocaleString('en-IN') %>
                             </div>
                         </div>
                         <% }) %>
@@ -277,7 +279,9 @@
                                             <%= order.title %>
                                         </div>
                                         <div style="color: var(--text-muted); font-size: 0.9rem;">From: <%= order.seller
-                                                %> | Price: <%= order.price %> ETH</div>
+                                                %> | Price: ₹<%= (parseFloat(order.price) *
+                                                    260000).toLocaleString('en-IN') %>
+                                        </div>
                                         <div style="margin-top: 4px; font-size: 0.85rem;">
                                             Status: <span
                                                 style="color: <%= order.status === 'Accepted' ? '#00ff9d' : (order.status === 'Cancelled' ? '#ff4d4d' : '#ffb800') %>; font-weight: 600;">
@@ -326,7 +330,9 @@
                                             <%= order.title %>
                                         </div>
                                         <div style="color: var(--text-muted); font-size: 0.9rem;">Buyer: <%= order.buyer
-                                                %> | Amount: <%= order.price %> ETH</div>
+                                                %> | Amount: ₹<%= (parseFloat(order.price) *
+                                                    260000).toLocaleString('en-IN') %>
+                                        </div>
                                         <div style="margin-top: 4px; font-size: 0.85rem;">
                                             Status: <span
                                                 style="color: <%= order.status === 'Accepted' ? '#00ff9d' : (order.status === 'Cancelled' ? '#ff4d4d' : '#ffb800') %>; font-weight: 600;">
