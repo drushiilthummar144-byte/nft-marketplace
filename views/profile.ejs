@@ -72,7 +72,7 @@
                 </div>
                 <div
                     style="padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-                    ₹ 32,50,000
+                    ₹ 50,000
                 </div>
                 <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #FF3085); border: 2px solid white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;"
                     onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
@@ -190,7 +190,7 @@
                                 <%= item.title %>
                             </div>
                             <div style="font-size: 0.9rem; color: var(--text-muted);">Price: ₹<%=
-                                    (parseFloat(item.price) * 260000).toLocaleString('en-IN') %>
+                                    (parseFloat(item.price) * 4000).toLocaleString('en-IN') %>
                             </div>
                         </div>
                         <% }) %>
@@ -249,7 +249,7 @@
                                 <%= item.title %>
                             </div>
                             <div style="font-size: 0.9rem; color: var(--text-muted);">Price: ₹<%=
-                                    (parseFloat(item.price) * 260000).toLocaleString('en-IN') %>
+                                    (parseFloat(item.price) * 4000).toLocaleString('en-IN') %>
                             </div>
                         </div>
                         <% }) %>
@@ -280,7 +280,7 @@
                                         </div>
                                         <div style="color: var(--text-muted); font-size: 0.9rem;">From: <%= order.seller
                                                 %> | Price: ₹<%= (parseFloat(order.price) *
-                                                    260000).toLocaleString('en-IN') %>
+                                                    4000).toLocaleString('en-IN') %>
                                         </div>
                                         <div style="margin-top: 4px; font-size: 0.85rem;">
                                             Status: <span
@@ -331,7 +331,7 @@
                                         </div>
                                         <div style="color: var(--text-muted); font-size: 0.9rem;">Buyer: <%= order.buyer
                                                 %> | Amount: ₹<%= (parseFloat(order.price) *
-                                                    260000).toLocaleString('en-IN') %>
+                                                    4000).toLocaleString('en-IN') %>
                                         </div>
                                         <div style="margin-top: 4px; font-size: 0.85rem;">
                                             Status: <span
