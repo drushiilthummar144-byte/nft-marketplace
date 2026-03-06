@@ -30,6 +30,7 @@
             display: flex;
             overflow: hidden;
             min-height: 500px;
+            box-sizing: border-box;
         }
 
         .auth-image-side {
@@ -44,6 +45,14 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+        .auth-form-side form {
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
         }
 
         @media (max-width: 768px) {
@@ -91,19 +100,21 @@
         <!-- Right: Form -->
         <div class="auth-form-side">
             <div
-                style="font-weight: 800; font-size: 1.5rem; margin-bottom: 32px; display: flex; align-items: center; gap: 8px;">
+                style="font-weight: 800; font-size: 1.5rem; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 8px;">
                 <div
                     style="width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
                     N</div>
                 NovaMint
             </div>
 
-            <h2 style="margin-bottom: 8px;">Join Us</h2>
-            <p style="color: var(--text-muted); margin-bottom: 32px;">Create an account to start collecting.</p>
+            <div style="text-align: center; margin-bottom: 32px;">
+                <h2 style="margin-bottom: 8px; font-size: 2rem;">Join Us</h2>
+                <p style="color: var(--text-muted); margin-bottom: 0;">Create an account to start collecting.</p>
+            </div>
 
             <% if (typeof error !=='undefined' && error) { %>
                 <div
-                    style="background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.2); color: #ff453a; padding: 12px; border-radius: 8px; margin-bottom: 24px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                    style="background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.2); color: #ff453a; padding: 12px; border-radius: 8px; margin-bottom: 24px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; box-sizing: border-box; width: 100%; max-width: 400px;">
                     <i class="ph ph-warning-circle" style="font-size: 1.2rem;"></i>
                     <%= error %>
                 </div>
@@ -111,14 +122,15 @@
 
                     <form action="/register" method="POST">
                         <input type="text" name="username" class="glass-input" placeholder="Username"
-                            style="margin-bottom: 12px;" required>
+                            style="margin-bottom: 12px; box-sizing: border-box; width: 100%;" required>
                         <input type="email" name="email" class="glass-input" placeholder="name@example.com"
-                            style="margin-bottom: 12px;" required>
+                            style="margin-bottom: 12px; box-sizing: border-box; width: 100%;" required>
                         <input type="password" name="password" class="glass-input" placeholder="Password"
-                            style="margin-bottom: 24px;" required>
+                            style="margin-bottom: 24px; box-sizing: border-box; width: 100%;" required>
 
                         <button type="submit" class="btn btn-primary"
-                            style="width: 100%; justify-content: center; height: 50px;">Create Account</button>
+                            style="width: 100%; justify-content: center; height: 50px; box-sizing: border-box;">Create
+                            Account</button>
 
                         <div style="text-align: center; margin-top: 16px; color: var(--text-muted);">
                             Already have an account? <a href="/login"
