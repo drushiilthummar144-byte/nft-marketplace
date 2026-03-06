@@ -13,8 +13,7 @@ const User = require('./models/User');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB
-connectDB();
+// We will connect inside initDb function below
 
 // Security Middleware (Helmet configurations for Web3 aesthetics compatibility)
 app.use(helmet({
@@ -44,10 +43,22 @@ app.use(session({
     saveUninitialized: false
 }));
 
-// Mock Database Helper
+// Fast In-Memory Database + MongoDB Sync
+const mongoose = require('mongoose');
+const DataStoreSchema = new mongoose.Schema({ data: Object }, { strict: false });
+// Check if model exists to avoid OverwriteModelError in repeated loads
+const DataStore = mongoose.models.DataStore || mongoose.model('DataStore', DataStoreSchema);
+
+let memoryDb = null;
 const dbPath = path.join(__dirname, 'data', 'db.json');
-const getDb = () => JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-const saveDb = (data) => fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+
+const getDb = () => memoryDb;
+const saveDb = (data) => {
+    memoryDb = data;
+    // Save to Mongo instantly without blocking
+    DataStore.updateOne({}, { data: data }, { upsert: true })
+        .catch(err => console.error("Mongo Save Error:", err));
+};
 
 // Content Injection Middleware
 app.use((req, res, next) => {
@@ -594,8 +605,27 @@ app.get('/admin/support', isAdmin, (req, res) => {
 
 
 
-// Start Server
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
-    console.log(`Admin Login: admin@nft.com / admin123`);
-});
+// Initialize Database & Start Server
+const initApp = async () => {
+    await connectDB();
+    try {
+        let doc = await DataStore.findOne({});
+        if (!doc) {
+            console.log("First time setup: Copying initial data to MongoDB...");
+            const initialData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+            doc = await DataStore.create({ data: initialData });
+        }
+        memoryDb = doc.data;
+        console.log("Memory Database synchronized with MongoDB Atlas successfully!");
+
+        // Start Server
+        app.listen(PORT, () => {
+            console.log(`Server running at http://localhost:${PORT}`);
+            console.log(`Admin Login: admin@nft.com / admin123`);
+        });
+    } catch (e) {
+        console.error("Critical DB Load Error:", e);
+    }
+};
+
+initApp();
