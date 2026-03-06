@@ -10,7 +10,8 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
         body {
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -18,17 +19,61 @@
             background-image:
                 radial-gradient(circle at 80% 20%, rgba(127, 48, 255, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 20% 80%, rgba(48, 133, 255, 0.1) 0%, transparent 40%);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 900px;
+            padding: 0;
+            display: flex;
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        .auth-image-side {
+            flex: 1;
+            background: url('/images/nft_login_bg.png') center/cover;
+            position: relative;
+        }
+
+        .auth-form-side {
+            flex: 1;
+            padding: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+                align-items: flex-start;
+            }
+
+            .auth-card {
+                flex-direction: column;
+                margin-top: 20px;
+            }
+
+            .auth-image-side {
+                display: none;
+            }
+
+            .auth-form-side {
+                padding: 32px 24px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="glass-card"
-        style="width: 100%; max-width: 900px; padding: 0; display: flex; overflow: hidden; min-height: 500px;">
+    <div class="glass-card auth-card">
 
         <!-- Left: Image -->
-        <div style="flex: 1; background: url('/images/nft_login_bg.png') center/cover; position: relative;">
+        <div class="auth-image-side">
             <div
                 style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,5,21,1) 0%, rgba(11,5,21,0.2) 50%, transparent 100%);">
                 <div style="position: absolute; bottom: 48px; left: 48px; right: 48px;">
@@ -44,7 +89,7 @@
         </div>
 
         <!-- Right: Form -->
-        <div style="flex: 1; padding: 48px; display: flex; flex-direction: column; justify-content: center;">
+        <div class="auth-form-side">
             <div
                 style="font-weight: 800; font-size: 1.5rem; margin-bottom: 32px; display: flex; align-items: center; gap: 8px;">
                 <div
