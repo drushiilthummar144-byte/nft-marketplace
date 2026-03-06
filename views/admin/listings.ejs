@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | Listings Management</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+
+<body>
+
+    <%- include('partials/sidebar') %>
+
+        <main class="main-content">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <div>
+                    <h2>Listings Management</h2>
+                    <p style="color: #a1a1aa; font-size: 0.9rem;">Review and manage user NFT listings.</p>
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary">Bulk Approve</button>
+                </div>
+            </header>
+
+            <div class="glass-card" style="padding: 0; overflow: hidden;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Artist</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% listings.forEach(function(item) { %>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-3"
+                                        style="display: flex; align-items: center; gap: 12px;">
+                                        <img src="<%= item.image %>" width="48" height="48"
+                                            style="border-radius: 8px; object-fit: cover;">
+                                        <div style="font-weight: 600;">
+                                            <%= item.title %>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <%= item.artist %>
+                                </td>
+                                <td>
+                                    <%= item.price %> ETH
+                                </td>
+                                <td>
+                                    <div
+                                        class="status-badge <%= item.status === 'Active' ? 'status-online' : 'status-offline' %>">
+                                        <%= item.status %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex gap-2">
+                                        <% if(item.status !=='Active' ) { %>
+                                            <form action="/admin/listings/<%= item.id %>/approve" method="POST"
+                                                style="display:inline;">
+                                                <button class="action-btn" title="Approve"
+                                                    style="color: #00C853; border-color: rgba(0, 200, 83, 0.2);"><i
+                                                        class="ph ph-check"></i></button>
+                                            </form>
+                                            <% } %>
+                                                <button class="action-btn" title="Delete"><i
+                                                        class="ph ph-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+</body>
+
+</html>

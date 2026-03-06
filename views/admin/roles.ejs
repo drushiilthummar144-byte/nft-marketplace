@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | Roles</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .role-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .perm-tag {
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #a1a1aa;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/sidebar') %>
+
+
+        <main class="main-content">
+            <header class="flex justify-between items-center" style="margin-bottom: 32px;">
+                <h2>Roles & Permissions</h2>
+                <button class="btn btn-primary" onclick="openAddUserModal()">
+                    <i class="ph ph-plus" style="margin-right: 8px;"></i> Add New User
+                </button>
+            </header>
+
+            <!-- Role Summary Cards -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px;">
+                <% const roles=['Admin', 'Creator' , 'Collector' , 'User' ]; const roleColors={ 'Admin' : '#FFD700'
+                    , 'Creator' : '#7F30FF' , 'Collector' : '#00F0FF' , 'User' : '#A1A1AA' }; roles.forEach(role=> {
+                    const count = users.filter(u => u.role === role).length;
+                    const color = roleColors[role];
+                    %>
+                    <div class="role-card"
+                        style="--role-color: <%= color %>; border-left: 4px solid var(--role-color);">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 style="margin: 0;">
+                                <%= role %>
+                            </h3>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--role-color);">
+                                <%= count %>
+                            </span>
+                        </div>
+                        <div class="text-muted text-sm">Active Accounts</div>
+                    </div>
+                    <% }); %>
+            </div>
+
+            <!-- User Role Management Table -->
+            <div class="glass-card">
+                <h3 style="margin-bottom: 24px;">Manage User Roles</h3>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Current Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user=> { %>
+                            <tr>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <div class="avatar-placeholder">
+                                            <%= user.username[0] %>
+                                        </div>
+                                        <span style="font-weight: 500;">
+                                            <%= user.username %>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="text-muted">
+                                    <%= user.email %>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-active"
+                                        style="background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1);">
+                                        <%= user.role %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <form action="/admin/users/<%= user.id %>/role" method="POST" class="flex gap-2">
+                                        <select name="role" class="glass-input" style="padding: 6px 12px; width: auto;"
+                                            onchange="this.form.submit()">
+                                            <option value="Admin" <%=user.role==='Admin' ? 'selected' : '' %>>Admin
+                                            </option>
+                                            <option value="Creator" <%=user.role==='Creator' ? 'selected' : '' %>
+                                                >Creator</option>
+                                            <option value="Collector" <%=user.role==='Collector' ? 'selected' : '' %>
+                                                >Collector</option>
+                                            <option value="User" <%=user.role==='User' ? 'selected' : '' %>>User
+                                            </option>
+                                        </select>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Add User Modal -->
+            <div id="addUserModal" class="modal-backdrop" style="display: none;">
+                <div class="modal-content glass-card">
+                    <h3 style="margin-bottom: 24px;">Add New User</h3>
+                    <form action="/admin/users/create" method="POST">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="glass-input" required placeholder="Display Name">
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" class="glass-input" required
+                                placeholder="user@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Assign Role</label>
+                            <select name="role" class="glass-input">
+                                <option value="User">User (Default)</option>
+                                <option value="Creator">Creator</option>
+                                <option value="Collector">Collector</option>
+                                <option value="Admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-4" style="margin-top: 32px; justify-content: flex-end;">
+                            <button type="button" class="btn btn-secondary"
+                                onclick="closeAddUserModal()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Create User</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                .avatar-placeholder {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    background: var(--gradient-1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 700;
+                    font-size: 0.8rem;
+                }
+
+                .modal-backdrop {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.8);
+                    backdrop-filter: blur(5px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1000;
+                    animation: fadeIn 0.3s forwards;
+                }
+
+                .modal-content {
+                    width: 450px;
+                    max-width: 90%;
+                    animation: scaleIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                }
+
+                .form-group {
+                    margin-bottom: 20px;
+                }
+
+                .form-group label {
+                    display: block;
+                    color: var(--text-secondary);
+                    margin-bottom: 8px;
+                    font-size: 0.9rem;
+                }
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                    }
+
+                    to {
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes scaleIn {
+                    from {
+                        transform: scale(0.95);
+                    }
+
+                    to {
+                        transform: scale(1);
+                    }
+                }
+            </style>
+
+            <script>
+                function openAddUserModal() {
+                    document.getElementById('addUserModal').style.display = 'flex';
+                }
+                function closeAddUserModal() {
+                    document.getElementById('addUserModal').style.display = 'none';
+                }
+                document.getElementById('addUserModal').addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) closeAddUserModal();
+                });
+            </script>
+
+        </main>
+</body>
+
+</html>

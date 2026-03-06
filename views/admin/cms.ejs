@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | CMS</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .cms-section {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .preview-box {
+            background: #2A1A40;
+            height: 200px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            color: #a1a1aa;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/sidebar') %>
+
+
+        <main class="main-content">
+            <header style="margin-bottom: 32px;">
+                <h2>Content Management</h2>
+            </header>
+            <form action="/admin/cms" method="POST">
+
+                <!-- Hero Section Editor -->
+                <div class="cms-section">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 style="margin: 0;">Hero Section</h3>
+                        <span class="status-badge status-active">Homepage</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 32px;">
+                        <div>
+                            <div class="form-group">
+                                <label class="block mb-2 text-muted text-sm">Main Headline (Use &lt;br&gt; for line
+                                    breaks)</label>
+                                <textarea name="heroTitle" class="glass-input" rows="2"
+                                    style="font-size: 1.2rem; font-weight: bold;"><%= content && content.hero ? content.hero.title : '' %></textarea>
+                            </div>
+                            <div class="form-group" style="margin-top: 16px;">
+                                <label class="block mb-2 text-muted text-sm">Subtitle</label>
+                                <textarea name="heroSubtitle" class="glass-input"
+                                    rows="3"><%= content && content.hero ? content.hero.subtitle : '' %></textarea>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-muted text-sm">Call to Action Buttons</label>
+                            <div class="form-group mb-4">
+                                <input type="text" name="ctaPrimary" class="glass-input"
+                                    value="<%= content && content.hero ? content.hero.ctaPrimary : '' %>"
+                                    placeholder="Primary Button">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="ctaSecondary" class="glass-input"
+                                    value="<%= content && content.hero ? content.hero.ctaSecondary : '' %>"
+                                    placeholder="Secondary Button">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual Assets -->
+                <div class="cms-section">
+                    <h3 style="margin-bottom: 16px;">Visual Assets & Theme</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <div class="form-group">
+                            <label class="block mb-2 text-muted text-sm">Hero Background Image URL</label>
+                            <input type="text" name="heroImage" class="glass-input"
+                                value="<%= content && content.visuals ? content.visuals.heroImage : '' %>"
+                                placeholder="https://example.com/image.jpg (optional)">
+                            <p class="text-xs text-muted mt-2">Leave empty to use default gradient.</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="block mb-2 text-muted text-sm">Site Logo Text</label>
+                            <input type="text" name="logoText" class="glass-input"
+                                value="<%= content && content.visuals ? content.visuals.logoText : 'NFT Nexus' %>">
+                        </div>
+                        <div class="form-group" style="grid-column: span 2;">
+                            <label class="block mb-2 text-muted text-sm">Logo Image URL</label>
+                            <input type="text" name="logoImage" class="glass-input"
+                                value="<%= content && content.visuals ? content.visuals.logoImage : '' %>"
+                                placeholder="https://example.com/logo.png (Overrides text if set)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Announcement Bar -->
+                <div class="cms-section">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 style="margin: 0;">Announcement Bar</h3>
+                        <label class="switch">
+                            <input type="checkbox" name="showAnnouncement" value="true" <%=(content &&
+                                content.announcement && content.announcement.enabled) ? 'checked' : '' %>>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="block mb-2 text-muted text-sm">Announcement Text</label>
+                        <input type="text" name="announcementText" class="glass-input"
+                            value="<%= content && content.announcement ? content.announcement.text : '' %>"
+                            placeholder="e.g. 🎉 New Collection Dropping this Friday!">
+                    </div>
+                </div>
+
+                <!-- Stats Editor -->
+                <div class="cms-section">
+                    <h3 style="margin-bottom: 16px;">Platform Statistics</h3>
+                    <div class="grid grid-cols-2 gap-6"
+                        style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <div class="form-group">
+                            <label class="block mb-2 text-muted text-sm">Total Artworks</label>
+                            <input type="text" name="statsArtworks" class="glass-input"
+                                value="<%= content && content.stats ? content.stats.artworks : '' %>">
+                        </div>
+                        <div class="form-group">
+                            <label class="block mb-2 text-muted text-sm">Total Artists</label>
+                            <input type="text" name="statsArtists" class="glass-input"
+                                value="<%= content && content.stats ? content.stats.artists : '' %>">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="cms-section">
+                    <h3 style="margin-bottom: 16px;">Footer Settings</h3>
+                    <div class="form-group">
+                        <label class="block mb-2 text-muted text-sm">Copyright Text</label>
+                        <input type="text" name="footerText" class="glass-input"
+                            value="<%= content && content.footer ? content.footer.text : '© 2024 NFT Nexus. All rights reserved.' %>">
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4" style="margin-top: 32px;">
+                    <button type="reset" class="btn btn-secondary">Discard Changes</button>
+                    <button type="submit" class="btn btn-primary" style="padding: 12px 32px;">Save Content</button>
+                </div>
+            </form>
+        </main>
+</body>
+
+</html>

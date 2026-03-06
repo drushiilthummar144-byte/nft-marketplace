@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | Login</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0b0515;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(127, 48, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(48, 133, 255, 0.15) 0%, transparent 40%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glass-card" style="width: 100%; max-width: 400px; padding: 40px;">
+        <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 32px;">
+            <% if (content && content.visuals && content.visuals.logoImage) { %>
+                <img src="<%= content.visuals.logoImage %>" alt="Logo"
+                    style="height: 60px; width: auto; margin-bottom: 16px; object-fit: contain;">
+                <% } else { %>
+                    <div
+                        style="width: 48px; height: 48px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 16px;">
+                        N</div>
+                    <% } %>
+                        <h2>
+                            <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                : 'Admin Portal' %>
+                        </h2>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to manage the marketplace</p>
+        </div>
+
+        <% if (typeof error !=='undefined' && error) { %>
+            <div
+                style="background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.2); color: #ff453a; padding: 12px; border-radius: 8px; margin-bottom: 24px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;">
+                <i class="ph ph-warning-circle" style="font-size: 1.1rem;"></i>
+                <%= error %>
+            </div>
+            <% } %>
+
+                <form action="/admin/login" method="POST">
+                    <div style="margin-bottom: 20px;">
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">Email
+                            Address</label>
+                        <div style="position: relative;">
+                            <i class="ph ph-envelope"
+                                style="position: absolute; left: 16px; top: 14px; color: var(--text-muted);"></i>
+                            <input type="email" name="email" class="glass-input" placeholder="admin@nft.com"
+                                style="padding-left: 44px;" value="admin@nft.com">
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 32px;">
+                        <label
+                            style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;">Password</label>
+                        <div style="position: relative;">
+                            <i class="ph ph-lock"
+                                style="position: absolute; left: 16px; top: 14px; color: var(--text-muted);"></i>
+                            <input type="password" name="password" class="glass-input" placeholder="••••••••"
+                                style="padding-left: 44px;" value="admin123">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; justify-content: center; height: 48px;">
+                        Sign In <i class="ph ph-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div style="margin-top: 24px; text-align: center;">
+                    <a href="/" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none;">&larr; Back
+                        to
+                        Marketplace</a>
+                </div>
+    </div>
+
+</body>
+
+</html>

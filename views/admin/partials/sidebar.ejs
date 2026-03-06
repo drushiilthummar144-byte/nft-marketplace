@@ -1,0 +1,54 @@
+<aside class="sidebar">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 40px;">
+        <% if (content && content.visuals && content.visuals.logoImage) { %>
+            <img src="<%= content.visuals.logoImage %>" alt="Logo"
+                style="height: 36px; width: auto; object-fit: contain;">
+            <% } else { %>
+                <div
+                    style="width:36px; height:36px; background:#7F30FF; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1.2rem; color: white;">
+                    N</div>
+                <h3 style="color: white; margin: 0;">
+                    <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                        : 'NFT Admin' %>
+                </h3>
+                <% } %>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="/admin/dashboard" class="nav-item <%= page === 'dashboard' ? 'active' : '' %>"><i
+                class="ph ph-squares-four"></i> Overview</a>
+        <!-- Consolidated Users & Roles -->
+        <a href="/admin/roles" class="nav-item <%= page === 'roles' ? 'active' : '' %>"><i class="ph ph-users"></i>
+            User Management</a>
+        <a href="/admin/listings" class="nav-item <%= page === 'listings' ? 'active' : '' %>"><i
+                class="ph ph-image"></i> Listings
+            <!-- Optional: We could pass stats here if available, or fetch via AJAX. For now, static or hidden. -->
+        </a>
+        <a href="/admin/transactions" class="nav-item <%= page === 'transactions' ? 'active' : '' %>"><i
+                class="ph ph-receipt"></i> Transactions</a>
+        <a href="/admin/gateways" class="nav-item <%= page === 'gateways' ? 'active' : '' %>"><i
+                class="ph ph-arrows-left-right"></i> Gateways</a>
+    </div>
+
+    <div class="system-header">SYSTEM</div>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="/admin/settings" class="nav-item <%= page === 'settings' ? 'active' : '' %>"><i class="ph ph-gear"></i>
+            Settings</a>
+        <a href="/admin/cms" class="nav-item <%= page === 'cms' ? 'active' : '' %>"><i class="ph ph-pencil-line"></i>
+            Content</a>
+        <a href="/admin/support" class="nav-item <%= page === 'support' ? 'active' : '' %>"><i
+                class="ph ph-lifebuoy"></i> Support</a>
+    </div>
+
+    <div
+        style="margin-top: auto; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 12px; display: flex; align-items: center; gap: 12px;">
+        <div
+            style="width: 40px; height: 40px; border-radius: 50%; background: #FFCE56; display: flex; align-items: center; justify-content: center; font-weight: bold; color: black;">
+            AM</div>
+        <div style="flex: 1;">
+            <div style="font-weight: 600; font-size: 0.9rem; color: white;">Alex Morgan</div>
+            <div style="font-size: 0.75rem; color: #a1a1aa;">Super Admin</div>
+        </div>
+        <a href="/" style="color: #a1a1aa; padding: 4px;"><i class="ph ph-sign-out"></i></a>
+    </div>
+</aside>

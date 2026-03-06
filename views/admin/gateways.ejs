@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | Gateways</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .gateway-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .gateway-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 16px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #7F30FF;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/sidebar') %>
+
+
+        <main class="main-content">
+            <h2 style="margin-bottom: 32px;">Payment Gateways</h2>
+
+            <!-- PayPal -->
+            <div class="gateway-card">
+                <div class="flex items-center">
+                    <div class="gateway-icon" style="background: rgba(0, 48, 135, 0.2); color: #003087;"><i
+                            class="ph ph-paypal-logo"></i></div>
+                    <div>
+                        <h3 style="margin-bottom: 4px;">PayPal Business</h3>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">Accept credit cards and PayPal
+                            payments.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-2">
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Status:</span>
+                        <label class="switch"><input type="checkbox" <%=gateways.paypal.enabled ? 'checked' : ''
+                                %>><span class="slider"></span></label>
+                    </div>
+                    <button class="btn btn-secondary" onclick="openModal('paypal')">Configure</button>
+                </div>
+            </div>
+
+            <!-- MoonPay -->
+            <div class="gateway-card">
+                <div class="flex items-center">
+                    <div class="gateway-icon" style="background: rgba(127, 48, 255, 0.2); color: #7F30FF;"><i
+                            class="ph ph-currency-eth"></i></div>
+                    <div>
+                        <h3 style="margin-bottom: 4px;">MoonPay Integration</h3>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Fiat-to-Crypto on-ramp service.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-2">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Status:</span>
+                        <label class="switch"><input type="checkbox" <%=gateways.moonpay.enabled ? 'checked' : ''
+                                %>><span class="slider"></span></label>
+                    </div>
+                    <button class="btn btn-secondary" onclick="openModal('moonpay')">Configure</button>
+                </div>
+            </div>
+
+            <!-- Simplex -->
+            <div class="gateway-card">
+                <div class="flex items-center">
+                    <div class="gateway-icon" style="background: rgba(255, 127, 80, 0.2); color: #FF7F50;"><i
+                            class="ph ph-credit-card"></i></div>
+                    <div>
+                        <h3 style="margin-bottom: 4px;">Simplex Gateway</h3>
+                        <div style="color: var(--text-secondary); font-size: 0.9rem;">Fraud-free payment processing.
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-2">
+                        <span style="font-size: 0.8rem; color: var(--text-secondary);">Status:</span>
+                        <label class="switch"><input type="checkbox" <%=gateways.simplex.enabled ? 'checked' : ''
+                                %>><span class="slider"></span></label>
+                    </div>
+                    <button class="btn btn-secondary" onclick="openModal('simplex')">Configure</button>
+                </div>
+            </div>
+
+            <!-- Configuration Modal -->
+            <div id="configModal" class="modal-backdrop" style="display: none;">
+                <div class="modal-content glass-card">
+                    <h3 id="modalTitle" style="margin-bottom: 24px;">Configure Gateway</h3>
+                    <form id="configForm" action="/admin/gateways/configure" method="POST">
+                        <input type="hidden" name="gatewayId" id="gatewayId">
+
+                        <div id="paypalFields" class="config-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Environment</label>
+                                <select name="environment" class="glass-input">
+                                    <option value="sandbox">Sandbox (Test)</option>
+                                    <option value="production">Production</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Client ID</label>
+                                <input type="text" name="clientId" class="glass-input"
+                                    placeholder="Enter your PayPal Client ID">
+                            </div>
+                            <div class="form-group">
+                                <label>Client Secret</label>
+                                <input type="password" name="clientSecret" class="glass-input"
+                                    placeholder="Enter your PayPal Client Secret">
+                            </div>
+                        </div>
+
+                        <div id="moonpayFields" class="config-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Environment</label>
+                                <select name="environment" class="glass-input">
+                                    <option value="test">Test Mode</option>
+                                    <option value="live">Live Mode</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>API Key</label>
+                                <input type="text" name="apiKey" class="glass-input" placeholder="pk_test_...">
+                            </div>
+                            <div class="form-group">
+                                <label>Secret Key</label>
+                                <input type="password" name="secretKey" class="glass-input" placeholder="sk_test_...">
+                            </div>
+                        </div>
+
+                        <div id="simplexFields" class="config-fields" style="display: none;">
+                            <div class="form-group">
+                                <label>Environment</label>
+                                <select name="environment" class="glass-input">
+                                    <option value="sandbox">Sandbox</option>
+                                    <option value="production">Production</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Partner ID</label>
+                                <input type="text" name="partnerId" class="glass-input" placeholder="Enter Partner ID">
+                            </div>
+                            <div class="form-group">
+                                <label>API Key</label>
+                                <input type="password" name="apiKey" class="glass-input" placeholder="Enter API Key">
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4" style="margin-top: 32px; justify-content: flex-end;">
+                            <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                .modal-backdrop {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0, 0, 0, 0.8);
+                    backdrop-filter: blur(5px);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1000;
+                    opacity: 0;
+                    animation: fadeIn 0.3s forwards;
+                }
+
+                .modal-content {
+                    width: 500px;
+                    max-width: 90%;
+                    transform: scale(0.95);
+                    animation: scaleIn 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                }
+
+                .form-group {
+                    margin-bottom: 20px;
+                }
+
+                .form-group label {
+                    display: block;
+                    color: var(--text-secondary);
+                    margin-bottom: 8px;
+                    font-size: 0.9rem;
+                }
+
+                @keyframes fadeIn {
+                    to {
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes scaleIn {
+                    to {
+                        transform: scale(1);
+                    }
+                }
+            </style>
+
+            <script>
+                function openModal(gateway) {
+                    const modal = document.getElementById('configModal');
+                    const title = document.getElementById('modalTitle');
+                    const idInput = document.getElementById('gatewayId');
+
+                    // Reset fields
+                    document.querySelectorAll('.config-fields').forEach(el => el.style.display = 'none');
+
+                    if (gateway === 'paypal') {
+                        title.textContent = 'Configure PayPal';
+                        document.getElementById('paypalFields').style.display = 'block';
+                    } else if (gateway === 'moonpay') {
+                        title.textContent = 'Configure MoonPay';
+                        document.getElementById('moonpayFields').style.display = 'block';
+                    } else if (gateway === 'simplex') {
+                        title.textContent = 'Configure Simplex';
+                        document.getElementById('simplexFields').style.display = 'block';
+                    }
+
+                    idInput.value = gateway;
+                    modal.style.display = 'flex';
+                }
+
+                function closeModal() {
+                    const modal = document.getElementById('configModal');
+                    modal.style.display = 'none';
+                }
+
+                // Close on click outside
+                document.getElementById('configModal').addEventListener('click', (e) => {
+                    if (e.target === e.currentTarget) closeModal();
+                });
+            </script>
+
+        </main>
+</body>
+
+</html>

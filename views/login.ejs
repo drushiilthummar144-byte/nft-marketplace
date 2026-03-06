@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Marketplace | Login</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            background-color: #05020a;
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .split-layout {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .art-side {
+            flex: 1.3;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 80px;
+        }
+
+        .art-image {
+            position: absolute;
+            inset: -20px;
+            background: url('/images/nft_login_bg.png') center/cover;
+            animation: slowZoom 20s infinite alternate ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes slowZoom {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        .art-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5, 2, 10, 1) 0%, rgba(127, 48, 255, 0.2) 40%, rgba(5, 2, 10, 0.5) 100%);
+            z-index: 2;
+            backdrop-filter: blur(2px);
+        }
+
+        .art-content {
+            position: relative;
+            z-index: 3;
+            max-width: 700px;
+            transform: translateY(0);
+            animation: fadeUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-side {
+            flex: 1;
+            background: rgba(11, 5, 21, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+            box-shadow: -30px 0 60px rgba(0, 0, 0, 0.8);
+            border-left: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 460px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        /* Inner Glow for logic card */
+        .login-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .input-field {
+            width: 100%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: white;
+            padding: 0 24px;
+            font-size: 1.05rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(127, 48, 255, 0.3);
+            background: rgba(127, 48, 255, 0.05);
+        }
+
+        .submit-btn {
+            width: 100%;
+            height: 60px;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7828C8 0%, #FF3085 100%);
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 16px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(127, 48, 255, 0.5);
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .back-home {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-home:hover {
+            color: white;
+        }
+
+        @media (max-width: 1024px) {
+            .split-layout {
+                flex-direction: column;
+            }
+
+            .art-side {
+                flex: 0.4;
+                padding: 40px;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .form-side {
+                flex: 1;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .art-side {
+                display: none;
+            }
+
+            .form-side {
+                padding: 20px;
+            }
+
+            .login-card {
+                padding: 32px;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+            }
+
+            .login-card::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="split-layout">
+
+        <!-- Left Art Side -->
+        <div class="art-side">
+            <div class="art-image"></div>
+            <div class="art-overlay"></div>
+            <div class="art-content">
+                <div
+                    style="font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); letter-spacing: -1px;">
+                    Enter the Next <br><span
+                        style="background: linear-gradient(135deg, #FF3085, #7828C8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Evolution</span>
+                    of Art.
+                </div>
+                <p
+                    style="font-size: 1.25rem; color: rgba(255,255,255,0.8); max-width: 500px; line-height: 1.6; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                    Discover, collect, and trade extraordinary digital creations on the world's most immersive NFT
+                    marketplace.
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Form Side -->
+        <div class="form-side">
+            <a href="/" class="back-home"><i class="ph ph-arrow-left"></i> Back to Home</a>
+
+            <div class="login-card">
+
+                <div
+                    style="display: flex; align-items: center; gap: 12px; margin-bottom: 40px; justify-content: center;">
+                    <% if (content && content.visuals && content.visuals.logoImage) { %>
+                        <img src="<%= content.visuals.logoImage %>" alt="Site Logo"
+                            style="height: 40px; width: auto; object-fit: contain;">
+                        <% } else { %>
+                            <div
+                                style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; box-shadow: 0 0 20px rgba(127, 48, 255, 0.4);">
+                                N</div>
+                            <span style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">
+                                <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                    : 'NovaMint' %>
+                            </span>
+                            <% } %>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="font-size: 2rem; margin-bottom: 8px; font-weight: 700;">Welcome Back</h2>
+                    <p style="color: rgba(255,255,255,0.6); font-size: 1.05rem;">Access your dashboard and collections.
+                    </p>
+                </div>
+
+                <% if (typeof error !=='undefined' && error) { %>
+                    <div
+                        style="background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.3); color: #ff453a; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
+                        <i class="ph-fill ph-warning-circle" style="font-size: 1.4rem;"></i>
+                        <%= error %>
+                    </div>
+                    <% } %>
+
+                        <form action="/login" method="POST">
+                            <input type="email" name="email" class="input-field" placeholder="Email Address" required>
+                            <input type="password" name="password" class="input-field" placeholder="Password" required>
+
+                            <button type="submit" class="submit-btn"
+                                style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                Sign In <i class="ph-bold ph-arrow-right"></i>
+                            </button>
+
+                            <!-- Divider -->
+                            <div style="display: flex; align-items: center; margin: 32px 0 24px 0;">
+                                <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
+                                <div
+                                    style="color: rgba(255,255,255,0.4); padding: 0 16px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;">
+                                    OR CONTINUE WITH</div>
+                                <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
+                            </div>
+
+                            <!-- Social Logins -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                                <button type="button" class="social-btn" style="height: 52px;"
+                                    onclick="alert('Google login integration coming soon!')">
+                                    <i class="ph-fill ph-google-logo" style="font-size: 1.3rem;"></i> Google
+                                </button>
+                                <button type="button" class="social-btn" style="height: 52px;"
+                                    onclick="alert('Wallet connection coming soon!')">
+                                    <i class="ph-fill ph-wallet" style="font-size: 1.3rem;"></i> Wallet
+                                </button>
+                            </div>
+                            <button type="button" class="social-btn" style="width: 100%; height: 52px;"
+                                onclick="alert('Apple login integration coming soon!')">
+                                <i class="ph-fill ph-apple-logo" style="font-size: 1.4rem;"></i> Continue with Apple
+                            </button>
+
+                            <div
+                                style="text-align: center; margin-top: 32px; font-size: 1rem; color: rgba(255,255,255,0.5);">
+                                New to NovaMint? <a href="/register"
+                                    style="color: #FF3085; text-decoration: none; font-weight: 600; margin-left: 4px; transition: color 0.2s;">Create
+                                    account</a>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

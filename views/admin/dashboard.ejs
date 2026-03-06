@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | Dashboard</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .gateway-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/sidebar') %>
+
+        <main class="main-content">
+            <header class="header">
+                <h2>Dashboard Overview</h2>
+                <div style="display: flex; gap: 24px; align-items: center;">
+                    <i class="ph ph-bell" style="font-size: 1.5rem; color: #a1a1aa;"></i>
+                </div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <div style="color: #a1a1aa; font-size: 0.9rem;">Total Revenue</div>
+                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">342.5 ETH</div>
+                    <div class="trend-up"><i class="ph ph-trend-up"></i> +12.5%</div>
+                    <div class="stat-icon"><i class="ph ph-currency-btc" style="color: #9C27B0;"></i></div>
+                </div>
+
+                <div class="glass-card stat-card">
+                    <div style="color: #a1a1aa; font-size: 0.9rem;">Total Users</div>
+                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">
+                        <%= stats.totalUsers %>
+                    </div>
+                    <div class="trend-up" style="color: #00C853;"><i class="ph ph-users-three"></i></div>
+                    <div class="stat-icon"><i class="ph ph-users-three"></i></div>
+                </div>
+
+                <div class="glass-card stat-card">
+                    <div style="color: #a1a1aa; font-size: 0.9rem;">Active Listings</div>
+                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">
+                        <%= stats.activeListings %>
+                    </div>
+                    <div class="stat-icon"><i class="ph ph-squares-four"></i></div>
+                </div>
+
+                <div class="glass-card stat-card"
+                    style="background: rgba(255, 100, 100, 0.05); border-color: rgba(255, 100, 100, 0.1);">
+                    <div style="color: #a1a1aa; font-size: 0.9rem;">Pending Approvals</div>
+                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">14</div>
+                    <div class="stat-icon" style="background: rgba(255, 82, 82, 0.1); color: #FF5252;"><i
+                            class="ph ph-warning-circle"></i></div>
+                </div>
+            </div>
+
+            <!-- Gateways Status from DB -->
+            <div class="dashboard-grid">
+                <div class="glass-card" style="padding: 24px;">
+                    <h3>Revenue Trends</h3>
+                    <div
+                        style="height: 200px; display: flex; align-items: center; justify-content: center; color: #a1a1aa;">
+                        [Chart Placeholder]
+                    </div>
+                </div>
+
+                <div class="glass-card" style="padding: 24px;">
+                    <h3 style="margin-bottom: 24px;">Gateway Status</h3>
+                    <% if (gateways.paypal.enabled) { %>
+                        <div class="gateway-item">
+                            <div class="flex items-center gap-4">
+                                <i class="ph ph-paypal-logo" style="color: #003087; font-size: 1.5rem;"></i>
+                                <span>PayPal</span>
+                            </div>
+                            <div class="status-badge status-online">Online</div>
+                        </div>
+                        <% } %>
+
+                            <% if (gateways.moonpay.enabled) { %>
+                                <div class="gateway-item">
+                                    <div class="flex items-center gap-4">
+                                        <i class="ph ph-currency-eth" style="color: #7F30FF; font-size: 1.5rem;"></i>
+                                        <span>MoonPay</span>
+                                    </div>
+                                    <div class="status-badge status-online">Online</div>
+                                </div>
+                                <% } %>
+                </div>
+            </div>
+
+        </main>
+</body>
+
+</html>

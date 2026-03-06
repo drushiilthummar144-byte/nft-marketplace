@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Admin | Transactions</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .hash {
+            font-family: monospace;
+            color: #7F30FF;
+            background: rgba(127, 48, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('partials/sidebar') %>
+
+
+        <main class="main-content">
+            <header style="margin-bottom: 32px; display: flex; justify-content: space-between; align-items: center;">
+                <h2>Transaction Log</h2>
+            </header>
+
+            <div class="glass-card" style="padding: 0;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Tx Hash</th>
+                            <th>Item</th>
+                            <th>Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% transactions.forEach(function(tx) { %>
+                            <tr>
+                                <td><span class="hash">
+                                        <%= tx.hash %>
+                                    </span></td>
+                                <td>
+                                    <%= tx.item %>
+                                </td>
+                                <td>
+                                    <%= tx.type %>
+                                </td>
+                                <td>
+                                    <%= tx.from %>
+                                </td>
+                                <td>
+                                    <%= tx.to %>
+                                </td>
+                                <td style="font-weight: 600;">
+                                    <%= tx.amount %>
+                                </td>
+                                <td style="color: var(--text-muted);">
+                                    <%= tx.date %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+</body>
+
+</html>

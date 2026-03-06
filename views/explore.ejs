@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Marketplace | Explore</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            padding: 40px 0;
+        }
+
+        .nft-card {
+            transition: transform 0.2s;
+        }
+
+        .nft-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="glass-nav"
+        style="position: sticky; top: 0; z-index: 100; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.8);">
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <% if (content && content.visuals && content.visuals.logoImage) { %>
+                    <img src="<%= content.visuals.logoImage %>" alt="Site Logo"
+                        style="height: 48px; width: auto; max-width: 150px; object-fit: contain;">
+                    <% } else { %>
+                        <div
+                            style="width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
+                            N</div>
+                        <a href="/" style="font-size: 1.2rem; font-weight: 700; color: white; text-decoration: none;">
+                            <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                : 'NovaMint' %>
+                        </a>
+                        <% } %>
+            </div>
+            <div class="hidden md:flex gap-10">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/explore" class="nav-link active" style="color: white;">Explore</a>
+                <a href="/#creators" class="nav-link">Creators</a>
+                <a href="/#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="/login" class="btn btn-primary" style="padding: 10px 24px;">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 40px;">
+        <div class="flex justify-between items-end mb-10 wrap-mobile" style="gap: 24px; margin-bottom: 40px;">
+            <div>
+                <h1
+                    style="font-size: 2.5rem; margin-bottom: 12px; background: linear-gradient(to right, #fff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Explore Collections</h1>
+                <p class="text-muted">Browse the best exclusive NFTs from top artists.</p>
+            </div>
+
+            <div class="glass-card"
+                style="padding: 8px; display: flex; gap: 12px; align-items: center; border-radius: 50px;">
+                <div style="position: relative;">
+                    <i class="ph ph-magnifying-glass"
+                        style="position: absolute; left: 16px; top: 12px; color: var(--text-muted);"></i>
+                    <input type="text" id="searchInput" class="glass-input" placeholder="Search items..."
+                        style="padding-left: 44px; border: none; background: transparent; width: 200px; height: 40px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex gap-3 mb-8 overflow-x-auto" style="margin-bottom: 40px; padding-bottom: 8px;">
+            <button class="filter-pill active" data-category="all" onclick="filterItems('all')">All Items</button>
+            <button class="filter-pill" data-category="Art" onclick="filterItems('Art')">Art</button>
+            <button class="filter-pill" data-category="Music" onclick="filterItems('Music')">Music</button>
+            <button class="filter-pill" data-category="Collectibles"
+                onclick="filterItems('Collectibles')">Collectibles</button>
+            <button class="filter-pill" data-category="Photography"
+                onclick="filterItems('Photography')">Photography</button>
+        </div>
+
+        <div class="grid-layout" id="nftGrid">
+            <% if (user) { %>
+                <% listings.forEach(function(nft) { %>
+                    <div class="glass-card nft-card" style="padding: 12px;" data-title="<%= nft.title.toLowerCase() %>"
+                        data-artist="<%= nft.artist.toLowerCase() %>" data-category="<%= (nft.category || 'Art') %>">
+                        <div
+                            style="height: 240px; border-radius: 12px; background: center/cover url('<%= nft.image %>'); margin-bottom: 16px; position: relative;">
+                            <div
+                                style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; backdrop-filter: blur(4px);">
+                                <%= nft.category || 'Art' %>
+                            </div>
+                        </div>
+                        <div style="padding: 0 4px;">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3
+                                    style="font-size: 1.1rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
+                                    <%= nft.title %>
+                                </h3>
+                                <div class="status-dot <%= nft.status === 'Active' ? 'active' : '' %>"
+                                    title="<%= nft.status %>"></div>
+                            </div>
+                            <div class="text-muted text-sm mb-4">by <%= nft.artist %>
+                            </div>
+
+                            <div class="flex justify-between items-center border-t border-white-10 pt-4">
+                                <div>
+                                    <div class="text-xs text-muted">Price</div>
+                                    <div style="font-weight: 700; color: var(--primary);">
+                                        <%= nft.price %> ETH
+                                    </div>
+                                </div>
+                                <a href="/asset-details?id=<%= nft.id %>" class="btn btn-secondary"
+                                    style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+                        <% } else { %>
+                            <div
+                                style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; text-align: center;">
+                                <i class="ph-fill ph-lock-key"
+                                    style="font-size: 4rem; color: var(--primary); margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(127,48,255,0.5));"></i>
+                                <h2 style="font-size: 2rem; margin-bottom: 12px;">Unlock the Marketplace</h2>
+                                <p class="text-muted" style="max-width: 400px; margin-bottom: 32px; font-size: 1.1rem;">
+                                    You must be logged in to view and purchase exclusive NFTs in our database.</p>
+                                <a href="/login" class="btn btn-primary"
+                                    style="padding: 12px 32px; font-size: 1.1rem; border-radius: 12px;">Log In to
+                                    Explore</a>
+                            </div>
+                            <% } %>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" style="display: none; text-align: center; padding: 60px 0; color: var(--text-muted);">
+            <i class="ph ph-magnifying-glass" style="font-size: 3rem; opacity: 0.5; margin-bottom: 16px;"></i>
+            <p>No items found matching your criteria.</p>
+        </div>
+    </div>
+
+    <style>
+        .filter-pill {
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .filter-pill:hover {
+            border-color: var(--primary);
+            color: white;
+            background: rgba(127, 48, 255, 0.1);
+        }
+
+        .filter-pill.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #a1a1aa;
+        }
+
+        .status-dot.active {
+            background: #00ff9d;
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+        }
+
+        /* Mobile Wrap adjustment */
+        @media (max-width: 768px) {
+            .wrap-mobile {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .wrap-mobile>div:last-child {
+                width: 100%;
+            }
+
+            #searchInput {
+                width: 100% !important;
+            }
+        }
+    </style>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.nft-card');
+        const emptyState = document.getElementById('emptyState');
+        const pills = document.querySelectorAll('.filter-pill');
+
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        // Search Listener
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value.toLowerCase();
+            applyFilters();
+        });
+
+        // Filter Function
+        function filterItems(category) {
+            currentCategory = category;
+
+            // Update active state of pills
+            pills.forEach(pill => {
+                if (pill.dataset.category === category) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.dataset.title;
+                const artist = card.dataset.artist;
+                const cardCategory = card.dataset.category;
+
+                const matchesSearch = title.includes(currentSearch) || artist.includes(currentSearch);
+                const matchesCategory = currentCategory === 'all' || cardCategory === currentCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                    // Add subtle animation for appearance
+                    card.style.animation = 'fadeIn 0.3s ease forwards';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show/Hide Empty State
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    </script>
+
+</body>
+
+</html>

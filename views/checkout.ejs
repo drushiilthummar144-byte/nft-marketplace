@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaMint | Secure Checkout</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            background-color: #0b0515;
+            padding-top: 100px;
+            min-height: 100vh;
+            color: white;
+            background-image: radial-gradient(circle at top right, rgba(127, 48, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at bottom left, rgba(48, 133, 255, 0.1) 0%, transparent 40%);
+        }
+
+        .checkout-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            margin: 0 auto;
+            max-width: 650px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7828C8, #FF3085);
+        }
+
+        .nft-preview {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 32px;
+        }
+
+        .nft-preview img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            font-size: 1.1rem;
+        }
+
+        .cost-row:last-child {
+            border-bottom: none;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pay-btn {
+            background: linear-gradient(135deg, #7828C8, #FF3085);
+            height: 64px;
+            border-radius: 16px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: none;
+            color: white;
+            text-decoration: none;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(127, 48, 255, 0.4);
+            margin-top: 24px;
+        }
+
+        .pay-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(127, 48, 255, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="glass-nav"
+        style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85);">
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="/asset-details?id=<%= nft.id %>"
+                    style="color: rgba(255,255,255,0.6); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; transition: 0.2s;"><i
+                        class="ph ph-arrow-left hover:text-white"></i></a>
+                <div style="width: 1px; height: 24px; background: rgba(255,255,255,0.1);"></div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <% if (content && content.visuals && content.visuals.logoImage) { %>
+                        <img src="<%= content.visuals.logoImage %>" alt="Site Logo"
+                            style="height: 36px; width: auto; object-fit: contain;">
+                        <% } else { %>
+                            <div
+                                style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; box-shadow: 0 0 15px rgba(127, 48, 255, 0.5);">
+                                N</div>
+                            <a href="/"
+                                style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
+                                <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                    : 'NovaMint' %>
+                            </a>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 40px; padding-bottom: 80px;">
+        <div class="checkout-card">
+            <h1 style="font-size: 2.5rem; margin-bottom: 8px; text-align: center;">Order Summary</h1>
+            <p style="text-align: center; color: rgba(255,255,255,0.5); margin-bottom: 40px;">Review your transaction
+                details securely.</p>
+
+            <div class="nft-preview">
+                <img src="<%= nft.image || 'https://picsum.photos/seed/nft1/200/200' %>" alt="<%= nft.title %>">
+                <div>
+                    <div
+                        style="color: var(--primary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 1px;">
+                        <%= nft.category || 'Digital Asset' %>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">
+                        <%= nft.title %>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 6px;">
+                        By <%= nft.artist %> <i class="ph-fill ph-seal-check" style="color: #00ff9d;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
+                <div class="cost-row">
+                    <span style="color: rgba(255,255,255,0.7);">Item Price</span>
+                    <span style="font-weight: 600;">
+                        <%= nft.price %> ETH
+                    </span>
+                </div>
+                <div class="cost-row">
+                    <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">NovaMint
+                        Fee (2.5%) <i class="ph ph-info" style="cursor: pointer;"
+                            title="Covers platform maintenance and network gas fees."></i></span>
+                    <span style="font-weight: 600;">
+                        <%= (parseFloat(nft.price) * 0.025).toFixed(4) %> ETH
+                    </span>
+                </div>
+
+                <div class="total-row">
+                    <span>Total Cost</span>
+                    <div style="text-align: right;">
+                        <span style="color: var(--primary);">
+                            <%= (parseFloat(nft.price) * 1.025).toFixed(4) %> ETH
+                        </span>
+                        <div
+                            style="font-size: 0.9rem; color: rgba(255,255,255,0.5); font-weight: 500; margin-top: 4px;">
+                            ≈ $<%= (parseFloat(nft.price) * 1.025 * 3100).toLocaleString() %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="display: flex; align-items: center; gap: 12px; background: rgba(0,255,157,0.05); border: 1px solid rgba(0,255,157,0.2); padding: 16px; border-radius: 12px; margin-bottom: 24px;">
+                <i class="ph-fill ph-lock-key" style="color: #00ff9d; font-size: 1.5rem;"></i>
+                <div style="font-size: 0.9rem; color: rgba(255,255,255,0.8);"><strong>Secure Transaction.</strong> Your
+                    connection is encrypted and the smart contract is fully audited.</div>
+            </div>
+
+            <a href="/payment?id=<%= nft.id %>" class="pay-btn">
+                Proceed to Payment <i class="ph-bold ph-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFT Marketplace | Register</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0b0515;
+            background-image:
+                radial-gradient(circle at 80% 20%, rgba(127, 48, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(48, 133, 255, 0.1) 0%, transparent 40%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glass-card"
+        style="width: 100%; max-width: 900px; padding: 0; display: flex; overflow: hidden; min-height: 500px;">
+
+        <!-- Left: Image -->
+        <div style="flex: 1; background: url('/images/nft_login_bg.png') center/cover; position: relative;">
+            <div
+                style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,5,21,1) 0%, rgba(11,5,21,0.2) 50%, transparent 100%);">
+                <div style="position: absolute; bottom: 48px; left: 48px; right: 48px;">
+                    <div
+                        style="font-size: 2rem; font-weight: 800; margin-bottom: 12px; text-shadow: 0 4px 20px rgba(127, 48, 255, 0.5);">
+                        "Create Your Legacy"</div>
+                    <p
+                        style="color: rgba(255,255,255,0.85); font-size: 1.1rem; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
+                        Mint, discover, and trade the most exclusive digital
+                        assets.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div style="flex: 1; padding: 48px; display: flex; flex-direction: column; justify-content: center;">
+            <div
+                style="font-weight: 800; font-size: 1.5rem; margin-bottom: 32px; display: flex; align-items: center; gap: 8px;">
+                <div
+                    style="width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem;">
+                    N</div>
+                NovaMint
+            </div>
+
+            <h2 style="margin-bottom: 8px;">Join Us</h2>
+            <p style="color: var(--text-muted); margin-bottom: 32px;">Create an account to start collecting.</p>
+
+            <% if (typeof error !=='undefined' && error) { %>
+                <div
+                    style="background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.2); color: #ff453a; padding: 12px; border-radius: 8px; margin-bottom: 24px; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                    <i class="ph ph-warning-circle" style="font-size: 1.2rem;"></i>
+                    <%= error %>
+                </div>
+                <% } %>
+
+                    <form action="/register" method="POST">
+                        <input type="text" name="username" class="glass-input" placeholder="Username"
+                            style="margin-bottom: 12px;" required>
+                        <input type="email" name="email" class="glass-input" placeholder="name@example.com"
+                            style="margin-bottom: 12px;" required>
+                        <input type="password" name="password" class="glass-input" placeholder="Password"
+                            style="margin-bottom: 24px;" required>
+
+                        <button type="submit" class="btn btn-primary"
+                            style="width: 100%; justify-content: center; height: 50px;">Create Account</button>
+
+                        <div style="text-align: center; margin-top: 16px; color: var(--text-muted);">
+                            Already have an account? <a href="/login"
+                                style="color: var(--primary); text-decoration: none; font-weight: 600;">Sign In</a>
+                        </div>
+                    </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
