@@ -663,7 +663,30 @@ const initApp = async () => {
         console.log("Memory Database synchronized with MongoDB Atlas successfully!");
 
         // Start Server
+        // Temp Force Reset Route
+        app.get('/api/force-reset', async (req, res) => {
+            try {
+                const doc = await DataStore.findOne({});
+                const initialData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+                if (doc) {
+                    // Keep users if needed, or just completely overwrite
+                    if (doc.data && doc.data.users) {
+                        initialData.users = doc.data.users;
+                    }
+                    doc.data = fixData(initialData);
+                    await DataStore.updateOne({}, { data: doc.data });
+                } else {
+                    await DataStore.create({ data: fixData(initialData) });
+                }
+                res.send("Successfully synced MongoDB with db.json!");
+            } catch (e) {
+                res.status(500).send(e.message);
+            }
+        });
+
         app.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT}`);
             console.log(`Server running at http://localhost:${PORT}`);
             console.log(`Admin Login: admin@product.com / admin123`);
         });
