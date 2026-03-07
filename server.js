@@ -626,14 +626,33 @@ app.get('/admin/support', isAdmin, (req, res) => {
 // Initialize Database & Start Server
 const initApp = async () => {
     await connectDB();
+
+    // Legacy Data Migrator for Live MongoDB connection
+    const fixData = (db) => {
+        if (!db) return db;
+        if (db.listings) {
+            db.listings = db.listings.map(l => {
+                if (l.artist && !l.brand) l.brand = l.artist;
+                return l;
+            });
+        }
+        if (db.collections) {
+            db.collections = db.collections.map(c => {
+                if (c.artist && !c.brand) c.brand = c.artist;
+                return c;
+            });
+        }
+        return db;
+    };
+
     try {
         let doc = await DataStore.findOne({});
         if (!doc) {
             console.log("First time setup: Copying initial data to MongoDB...");
             const initialData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-            doc = await DataStore.create({ data: initialData });
+            doc = await DataStore.create({ data: fixData(initialData) });
         }
-        memoryDb = doc.data;
+        memoryDb = fixData(doc.data);
         console.log("Memory Database synchronized with MongoDB Atlas successfully!");
 
         // Start Server
@@ -644,7 +663,7 @@ const initApp = async () => {
     } catch (e) {
         console.error("Critical DB Load Error:", e);
         console.log("Falling back to local db.json");
-        memoryDb = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+        memoryDb = fixData(JSON.parse(fs.readFileSync(dbPath, 'utf8')));
 
         // Start Server anyway
         app.listen(PORT, () => {
