@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaMint | Secure Checkout</title>
+    <title>NovaStock | Secure Checkout</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -41,7 +41,7 @@
             background: linear-gradient(90deg, #7828C8, #FF3085);
         }
 
-        .nft-preview {
+        .product-preview {
             display: flex;
             gap: 24px;
             align-items: center;
@@ -52,7 +52,7 @@
             margin-bottom: 32px;
         }
 
-        .nft-preview img {
+        .product-preview img {
             width: 120px;
             height: 120px;
             object-fit: cover;
@@ -114,7 +114,7 @@
         style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85);">
         <div class="container flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <a href="/asset-details?id=<%= nft.id %>"
+                <a href="/asset-details?id=<%= product.id %>"
                     style="color: rgba(255,255,255,0.6); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; transition: 0.2s;"><i
                         class="ph ph-arrow-left hover:text-white"></i></a>
                 <div style="width: 1px; height: 24px; background: rgba(255,255,255,0.1);"></div>
@@ -129,7 +129,7 @@
                             <a href="/"
                                 style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
                                 <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
-                                    : 'NovaMint' %>
+                                    : 'NovaStock' %>
                             </a>
                             <% } %>
                 </div>
@@ -143,18 +143,18 @@
             <p style="text-align: center; color: rgba(255,255,255,0.5); margin-bottom: 40px;">Review your transaction
                 details securely.</p>
 
-            <div class="nft-preview">
-                <img src="<%= nft.image || 'https://picsum.photos/seed/nft1/200/200' %>" alt="<%= nft.title %>">
+            <div class="product-preview">
+                <img src="<%= product.image || 'https://picsum.photos/seed/product1/200/200' %>" alt="<%= product.title %>">
                 <div>
                     <div
                         style="color: var(--primary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 1px;">
-                        <%= nft.category || 'Digital Asset' %>
+                        <%= product.category || 'Digital Asset' %>
                     </div>
                     <div style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">
-                        <%= nft.title %>
+                        <%= product.title %>
                     </div>
                     <div style="color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 6px;">
-                        By <%= nft.artist %> <i class="ph-fill ph-seal-check" style="color: #00ff9d;"></i>
+                        By <%= product.brand %> <i class="ph-fill ph-seal-check" style="color: #00ff9d;"></i>
                     </div>
                 </div>
             </div>
@@ -163,23 +163,23 @@
                 style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
                 <div class="cost-row">
                     <span style="color: rgba(255,255,255,0.7);">Item Price</span>
-                    ₹<%= ((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) + 1000) :
-                        parseFloat(nft.price))).toLocaleString('en-IN') %>
+                    ₹<%= ((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
+                        parseFloat(product.price))).toLocaleString('en-IN') %>
                 </div>
                 <div class="cost-row">
-                    <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">NovaMint
+                    <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">NovaStock
                         Fee (2.5%) <i class="ph ph-info" style="cursor: pointer;"
                             title="Covers platform maintenance and network gas fees."></i></span>
-                    ₹<%= (((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) + 1000) :
-                        parseFloat(nft.price))) * 0.025).toLocaleString('en-IN') %>
+                    ₹<%= (((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
+                        parseFloat(product.price))) * 0.025).toLocaleString('en-IN') %>
                 </div>
 
                 <div class="total-row">
                     <span>Total Cost</span>
                     <div style="text-align: right;">
                         <span style="color: var(--primary);">
-                            ₹<%= (((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) +
-                                1000) : parseFloat(nft.price))) * 1.025).toLocaleString('en-IN') %>
+                            ₹<%= (((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) +
+                                1000) : parseFloat(product.price))) * 1.025).toLocaleString('en-IN') %>
                         </span>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
                     connection is encrypted and the smart contract is fully audited.</div>
             </div>
 
-            <a href="/payment?id=<%= nft.id %>" class="pay-btn">
+            <a href="/payment?id=<%= product.id %>" class="pay-btn">
                 Proceed to Payment <i class="ph-bold ph-arrow-right"></i>
             </a>
         </div>

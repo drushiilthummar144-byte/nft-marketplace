@@ -38,7 +38,7 @@ app.set('view engine', 'ejs');
 
 // Session Config
 app.use(session({
-    secret: 'nft-secret-key',
+    secret: 'product-secret-key',
     resave: false,
     saveUninitialized: false
 }));
@@ -121,41 +121,41 @@ app.get('/explore', (req, res) => {
 app.get('/login', (req, res) => res.render('login', { error: req.query.error }));
 app.get('/asset-details', (req, res) => {
     const db = getDb();
-    const nft = db.listings.find(l => l.id == req.query.id) || db.listings[0];
-    res.render('asset-details', { nft });
+    const product = db.listings.find(l => l.id == req.query.id) || db.listings[0];
+    res.render('asset-details', { product });
 });
 app.get('/checkout', (req, res) => {
     const db = getDb();
-    const nft = db.listings.find(l => l.id == req.query.id) || db.listings[0];
-    res.render('checkout', { nft });
+    const product = db.listings.find(l => l.id == req.query.id) || db.listings[0];
+    res.render('checkout', { product });
 });
 app.get('/payment', (req, res) => {
     const db = getDb();
-    const nft = db.listings.find(l => l.id == req.query.id) || db.listings[0];
-    res.render('payment', { nft });
+    const product = db.listings.find(l => l.id == req.query.id) || db.listings[0];
+    res.render('payment', { product });
 });
 
 // Real payment confirm logic
 app.post('/payment/confirm', (req, res) => {
     if (!req.session.user) return res.redirect('/login');
     const db = getDb();
-    const nft = db.listings.find(l => l.id == req.body.id);
-    if (nft) {
+    const product = db.listings.find(l => l.id == req.body.id);
+    if (product) {
         if (!db.orders) db.orders = [];
         db.orders.push({
             id: Date.now().toString(),
-            nftId: nft.id,
-            title: nft.title,
-            image: nft.image,
-            price: nft.price,
+            productId: product.id,
+            title: product.title,
+            image: product.image,
+            price: product.price,
             buyer: req.session.user.username,
-            seller: nft.artist,
+            seller: product.brand,
             status: 'Confirmed',
             date: new Date().toISOString()
         });
 
         // Auto-transfer ownership instanly
-        nft.owner = req.session.user.username;
+        product.owner = req.session.user.username;
         saveDb(db);
     }
     res.redirect('/profile?status=ordered');
@@ -172,9 +172,9 @@ app.post('/order/accept', (req, res) => {
         order.status = 'Accepted';
 
         // Transfer ownership
-        const nft = db.listings.find(l => l.id == order.nftId);
-        if (nft) {
-            nft.owner = order.buyer;
+        const product = db.listings.find(l => l.id == order.productId);
+        if (product) {
+            product.owner = order.buyer;
         }
         saveDb(db);
     }
@@ -192,9 +192,9 @@ app.post('/order/cancel', (req, res) => {
         order.status = 'Cancelled';
 
         // Revert ownership to seller if it was automatically confirmed before
-        const nft = db.listings.find(l => l.id == order.nftId);
-        if (nft) {
-            nft.owner = order.seller.replace('@', '');
+        const product = db.listings.find(l => l.id == order.productId);
+        if (product) {
+            product.owner = order.seller.replace('@', '');
         }
 
         saveDb(db);
@@ -287,8 +287,8 @@ app.get('/profile', async (req, res) => {
 
         if (!user) return res.redirect('/login');
 
-        // 1. Created: Items where artist matches current user
-        const createdItems = db.listings.filter(l => l.artist.toLowerCase() === '@' + user.username.toLowerCase());
+        // 1. Created: Items where brand matches current user
+        const createdItems = db.listings.filter(l => l.brand.toLowerCase() === '@' + user.username.toLowerCase());
 
         // 2. Collected: Items where owner matches current user
         const collectedItems = db.listings.filter(l => l.owner && l.owner.toLowerCase() === user.username.toLowerCase());
@@ -365,8 +365,8 @@ app.post('/profile/password', (req, res) => {
     res.redirect('/profile?error=Incorrect Password');
 });
 
-// Create NFT
-app.post('/nft/create', (req, res) => {
+// Create Product
+app.post('/product/create', (req, res) => {
     const db = getDb();
     const userId = req.session.user ? req.session.user.id : 1;
     const user = db.users.find(u => u.id === userId);
@@ -374,7 +374,7 @@ app.post('/nft/create', (req, res) => {
     const newListing = {
         id: Date.now(),
         title: req.body.title,
-        artist: '@' + user.username.toLowerCase(), // Link to user
+        brand: '@' + user.username.toLowerCase(), // Link to user
         price: req.body.price,
         status: 'Active',
         image: req.body.imageUrl || 'https://picsum.photos/seed/new/400/400'
@@ -572,12 +572,12 @@ app.get('/admin/cms', isAdmin, (req, res) => {
     if (!db.content) {
         db.content = {
             hero: {
-                title: "Digital Art Revolution",
-                subtitle: "Discover, collect, and sell extraordinary NFTs on the world's first and largest digital marketplace.",
+                title: "premium products Revolution",
+                subtitle: "Discover, collect, and sell extraordinary Products on the world's first and largest digital marketplace.",
                 ctaPrimary: "Explore Now",
-                ctaSecondary: "Create NFT"
+                ctaSecondary: "Create Product"
             },
-            stats: { artworks: "400k+", artists: "20k+" }
+            stats: { artworks: "400k+", brands: "20k+" }
         };
         saveDb(db);
     }
@@ -607,7 +607,7 @@ app.post('/admin/cms', isAdmin, (req, res) => {
         },
         stats: {
             artworks: req.body.statsArtworks,
-            artists: req.body.statsArtists
+            brands: req.body.statsBrands
         }
     };
     saveDb(db);
@@ -639,7 +639,7 @@ const initApp = async () => {
         // Start Server
         app.listen(PORT, () => {
             console.log(`Server running at http://localhost:${PORT}`);
-            console.log(`Admin Login: admin@nft.com / admin123`);
+            console.log(`Admin Login: admin@product.com / admin123`);
         });
     } catch (e) {
         console.error("Critical DB Load Error:", e);

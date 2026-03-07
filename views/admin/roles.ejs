@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Admin | Roles</title>
+    <title>Store Admin | Roles</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/admin.css">
     <link rel="stylesheet" href="/styles/glass.css">
@@ -42,8 +42,8 @@
 
             <!-- Role Summary Cards -->
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px;">
-                <% const roles=['Admin', 'Creator' , 'Collector' , 'User' ]; const roleColors={ 'Admin' : '#FFD700'
-                    , 'Creator' : '#7F30FF' , 'Collector' : '#00F0FF' , 'User' : '#A1A1AA' }; roles.forEach(role=> {
+                <% const roles=['Admin', 'Brand' , 'Collector' , 'User' ]; const roleColors={ 'Admin' : '#FFD700'
+                    , 'Brand' : '#7F30FF' , 'Collector' : '#00F0FF' , 'User' : '#A1A1AA' }; roles.forEach(role=> {
                     const count = users.filter(u => u.role === role).length;
                     const color = roleColors[role];
                     %>
@@ -102,8 +102,8 @@
                                             onchange="this.form.submit()">
                                             <option value="Admin" <%=user.role==='Admin' ? 'selected' : '' %>>Admin
                                             </option>
-                                            <option value="Creator" <%=user.role==='Creator' ? 'selected' : '' %>
-                                                >Creator</option>
+                                            <option value="Brand" <%=user.role==='Brand' ? 'selected' : '' %>
+                                                >Brand</option>
                                             <option value="Collector" <%=user.role==='Collector' ? 'selected' : '' %>
                                                 >Collector</option>
                                             <option value="User" <%=user.role==='User' ? 'selected' : '' %>>User
@@ -135,7 +135,7 @@
                             <label>Assign Role</label>
                             <select name="role" class="glass-input">
                                 <option value="User">User (Default)</option>
-                                <option value="Creator">Creator</option>
+                                <option value="Brand">Brand</option>
                                 <option value="Collector">Collector</option>
                                 <option value="Admin">Admin</option>
                             </select>

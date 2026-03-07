@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Marketplace | Explore</title>
+    <title>Premium Store | Explore</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -16,11 +16,11 @@
             padding: 40px 0;
         }
 
-        .nft-card {
+        .product-card {
             transition: transform 0.2s;
         }
 
-        .nft-card:hover {
+        .product-card:hover {
             transform: translateY(-5px);
         }
     </style>
@@ -42,14 +42,14 @@
                             N</div>
                         <a href="/" style="font-size: 1.2rem; font-weight: 700; color: white; text-decoration: none;">
                             <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
-                                : 'NovaMint' %>
+                                : 'NovaStock' %>
                         </a>
                         <% } %>
             </div>
             <div class="hidden md:flex gap-10">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/explore" class="nav-link active" style="color: white;">Explore</a>
-                <a href="/#creators" class="nav-link">Creators</a>
+                <a href="/#sellers" class="nav-link">Brands</a>
                 <a href="/#contact" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center gap-4">
@@ -64,7 +64,7 @@
                 <h1
                     style="font-size: 2.5rem; margin-bottom: 12px; background: linear-gradient(to right, #fff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     Explore Collections</h1>
-                <p class="text-muted">Browse the best exclusive NFTs from top artists.</p>
+                <p class="text-muted">Browse the best exclusive Products from top brands.</p>
             </div>
 
             <div class="glass-card"
@@ -85,41 +85,41 @@
             <button class="filter-pill" data-category="Music" onclick="filterItems('Music')">Music</button>
             <button class="filter-pill" data-category="Collectibles"
                 onclick="filterItems('Collectibles')">Collectibles</button>
-            <button class="filter-pill" data-category="Photography"
-                onclick="filterItems('Photography')">Photography</button>
+            <button class="filter-pill" data-category="Electronics"
+                onclick="filterItems('Electronics')">Electronics</button>
         </div>
 
-        <div class="grid-layout" id="nftGrid">
+        <div class="grid-layout" id="productGrid">
             <% if (user) { %>
-                <% listings.forEach(function(nft) { %>
-                    <div class="glass-card nft-card" style="padding: 12px;" data-title="<%= nft.title.toLowerCase() %>"
-                        data-artist="<%= nft.artist.toLowerCase() %>" data-category="<%= (nft.category || 'Art') %>">
+                <% listings.forEach(function(product) { %>
+                    <div class="glass-card product-card" style="padding: 12px;" data-title="<%= product.title.toLowerCase() %>"
+                        data-brand="<%= product.brand.toLowerCase() %>" data-category="<%= (product.category || 'Art') %>">
                         <div
-                            style="height: 240px; border-radius: 12px; background: center/cover url('<%= nft.image %>'); margin-bottom: 16px; position: relative;">
+                            style="height: 240px; border-radius: 12px; background: center/cover url('<%= product.image %>'); margin-bottom: 16px; position: relative;">
                             <div
                                 style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; backdrop-filter: blur(4px);">
-                                <%= nft.category || 'Art' %>
+                                <%= product.category || 'Art' %>
                             </div>
                         </div>
                         <div style="padding: 0 4px;">
                             <div class="flex justify-between items-start mb-2">
                                 <h3
                                     style="font-size: 1.1rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">
-                                    <%= nft.title %>
+                                    <%= product.title %>
                                 </h3>
-                                <div class="status-dot <%= nft.status === 'Active' ? 'active' : '' %>"
-                                    title="<%= nft.status %>"></div>
+                                <div class="status-dot <%= product.status === 'Active' ? 'active' : '' %>"
+                                    title="<%= product.status %>"></div>
                             </div>
-                            <div class="text-muted text-sm mb-4">by <%= nft.artist %>
+                            <div class="text-muted text-sm mb-4">by <%= product.brand %>
                             </div>
 
                             <div class="flex justify-between items-center border-t border-white-10 pt-4">
                                 <div>
                                     <div class="text-xs text-muted">Price</div>
-                                    ₹<%= ((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) %
-                                        9000) + 1000) : parseFloat(nft.price))).toLocaleString('en-IN') %>
+                                    ₹<%= ((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) %
+                                        9000) + 1000) : parseFloat(product.price))).toLocaleString('en-IN') %>
                                 </div>
-                                <a href="/asset-details?id=<%= nft.id %>" class="btn btn-secondary"
+                                <a href="/asset-details?id=<%= product.id %>" class="btn btn-secondary"
                                     style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">Buy Now</a>
                             </div>
                         </div>
@@ -132,7 +132,7 @@
                                     style="font-size: 4rem; color: var(--primary); margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(127,48,255,0.5));"></i>
                                 <h2 style="font-size: 2rem; margin-bottom: 12px;">Unlock the Marketplace</h2>
                                 <p class="text-muted" style="max-width: 400px; margin-bottom: 32px; font-size: 1.1rem;">
-                                    You must be logged in to view and purchase exclusive NFTs in our database.</p>
+                                    You must be logged in to view and purchase exclusive Products in our database.</p>
                                 <a href="/login" class="btn btn-primary"
                                     style="padding: 12px 32px; font-size: 1.1rem; border-radius: 12px;">Log In to
                                     Explore</a>
@@ -202,7 +202,7 @@
 
     <script>
         const searchInput = document.getElementById('searchInput');
-        const cards = document.querySelectorAll('.nft-card');
+        const cards = document.querySelectorAll('.product-card');
         const emptyState = document.getElementById('emptyState');
         const pills = document.querySelectorAll('.filter-pill');
 
@@ -236,10 +236,10 @@
 
             cards.forEach(card => {
                 const title = card.dataset.title;
-                const artist = card.dataset.artist;
+                const brand = card.dataset.brand;
                 const cardCategory = card.dataset.category;
 
-                const matchesSearch = title.includes(currentSearch) || artist.includes(currentSearch);
+                const matchesSearch = title.includes(currentSearch) || brand.includes(currentSearch);
                 const matchesCategory = currentCategory === 'all' || cardCategory === currentCategory;
 
                 if (matchesSearch && matchesCategory) {

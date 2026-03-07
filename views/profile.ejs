@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Marketplace | Profile</title>
+    <title>Premium Store | Profile</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -57,7 +57,7 @@
                 <div
                     style="width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
                     N</div>
-                <a href="/" style="font-size: 1.2rem; font-weight: 700; color: white; text-decoration: none;">NFT
+                <a href="/" style="font-size: 1.2rem; font-weight: 700; color: white; text-decoration: none;">Product
                     Nexus</a>
             </div>
             <div class="hidden md:flex gap-8">
@@ -68,7 +68,7 @@
                 <div
                     style="display: flex; align-items: center; gap: 8px; background: rgba(0, 255, 157, 0.1); border: 1px solid rgba(0, 255, 157, 0.3); padding: 8px 16px; border-radius: 20px;">
                     <i class="ph-fill ph-check-circle" style="color: #00ff9d;"></i>
-                    <span style="font-weight: 600; color: #00ff9d; font-size: 0.9rem;">Wallet Connected</span>
+                    <span style="font-weight: 600; color: #00ff9d; font-size: 0.9rem;">Logged In</span>
                 </div>
                 <div
                     style="padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; font-weight: 600; display: flex; align-items: center; gap: 6px;">
@@ -130,7 +130,7 @@
             <div class="flex gap-4">
                 <button onclick="openModal('createModal')" class="btn"
                     style="background: linear-gradient(135deg, #7828C8, #FF3085); color: white; border-radius: 12px; font-weight: 700; border: none; box-shadow: 0 5px 15px rgba(127,48,255,0.4); display: flex; align-items: center; gap: 8px;">
-                    <i class="ph-bold ph-plus"></i> Mint New NFT
+                    <i class="ph-bold ph-plus"></i> Stock New Product
                 </button>
                 <% if (locals.user && locals.user.id===user.id) { %>
                     <button onclick="openModal('editModal')" class="btn btn-secondary"
@@ -166,7 +166,7 @@
                     style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= typeof myOrders !=='undefined' ? myOrders.length : 0 %>
                 </span></div>
-            <div class="profile-nav-item" onclick="switchTab('sales', this)">My Sales (Incoming) <span
+            <div class="profile-nav-item" onclick="switchTab('sales', this)">Pending Shipments <span
                     style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= typeof mySales !=='undefined' ? mySales.length : 0 %>
                 </span></div>
@@ -200,7 +200,7 @@
                                     <i class="ph ph-pencil-simple-slash"
                                         style="font-size: 3rem; color: var(--text-muted); margin-bottom: 16px;"></i>
                                     <h3 style="color: var(--text-muted);">No items created yet</h3>
-                                    <p style="color: var(--text-muted); opacity: 0.7;">Create your first NFT to see
+                                    <p style="color: var(--text-muted); opacity: 0.7;">Create your first Product to see
                                         it
                                         here!</p>
                                 </div>
@@ -268,7 +268,7 @@
 
             <!-- MY ORDERS SECTION (What I Bought) -->
             <div id="tab-orders" class="tab-content" style="display: none; padding: 20px 0;">
-                <h3 style="margin-bottom: 24px;">Items I Ordered</h3>
+                <h3 style="margin-bottom: 24px;">My Orders</h3>
                 <% if(typeof myOrders !=='undefined' && myOrders.length> 0) { %>
                     <div style="display: flex; flex-direction: column; gap: 16px;">
                         <% myOrders.forEach(order=> { %>
@@ -302,19 +302,17 @@
                                                 style="background: rgba(0,255,157,0.1); border: 1px solid #00ff9d; color: #00ff9d;">Accept
                                                 Order</button>
                                         </form>
-                                        <form action="/order/cancel" method="POST" style="display: inline;">
-                                            <input type="hidden" name="orderId" value="<%= order.id %>">
-                                            <button type="submit" class="btn btn-secondary"
-                                                style="border-color: rgba(255,77,77,0.3); color: #ff4d4d;"
-                                                onclick="return confirm('Are you sure you want to cancel this order?')">Cancel
-                                                Order</button>
-                                        </form>
-                                        <% } else if (order.status==='Accepted' || order.status==='Confirmed' ) { %>
-                                            <div
-                                                style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 6px 16px; border-radius: 8px; font-size: 0.9rem;">
-                                                <i class="ph-bold ph-check"></i> Accepted
-                                            </div>
-                                            <% } %>
+                                        <% } %>
+                                            <% if(order.status==='Pending' || order.status==='Confirmed' ||
+                                                order.status==='Accepted' ) { %>
+                                                <form action="/order/cancel" method="POST" style="display: inline;">
+                                                    <input type="hidden" name="orderId" value="<%= order.id %>">
+                                                    <button type="submit" class="btn btn-secondary"
+                                                        style="border-color: rgba(255,77,77,0.3); color: #ff4d4d;"
+                                                        onclick="return confirm('Are you sure you want to cancel this order?')">Cancel
+                                                        Order</button>
+                                                </form>
+                                                <% } %>
                                 </div>
                             </div>
                             <% }) %>
@@ -365,18 +363,22 @@
                                                 style="background: rgba(0,255,157,0.1); border: 1px solid #00ff9d; color: #00ff9d;">Accept
                                                 Order</button>
                                         </form>
-                                        <form action="/order/cancel" method="POST" style="display: inline;">
-                                            <input type="hidden" name="orderId" value="<%= order.id %>">
-                                            <button type="submit" class="btn btn-secondary"
-                                                style="border-color: rgba(255,77,77,0.3); color: #ff4d4d;"
-                                                onclick="return confirm('Cancel this order?')">Cancel</button>
-                                        </form>
-                                        <% } else if(order.status==='Accepted' || order.status==='Confirmed' ) { %>
-                                            <div
-                                                style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 6px 16px; border-radius: 8px; font-size: 0.9rem;">
-                                                <i class="ph-bold ph-check"></i> Sold
-                                            </div>
-                                            <% } %>
+                                        <% } %>
+                                            <% if(order.status==='Pending' || order.status==='Confirmed' ||
+                                                order.status==='Accepted' ) { %>
+                                                <form action="/order/cancel" method="POST" style="display: inline;">
+                                                    <input type="hidden" name="orderId" value="<%= order.id %>">
+                                                    <button type="submit" class="btn btn-secondary"
+                                                        style="border-color: rgba(255,77,77,0.3); color: #ff4d4d;"
+                                                        onclick="return confirm('Cancel this order?')">Cancel</button>
+                                                </form>
+                                                <% } %>
+                                                    <% if(order.status==='Accepted' || order.status==='Confirmed' ) { %>
+                                                        <div
+                                                            style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 6px 16px; border-radius: 8px; font-size: 0.9rem;">
+                                                            <i class="ph-bold ph-check"></i> Sold
+                                                        </div>
+                                                        <% } %>
                                 </div>
                             </div>
                             <% }) %>
@@ -469,7 +471,7 @@
         </div>
     </div>
 
-    <!-- Create NFT Modal -->
+    <!-- Create Product Modal -->
     <div id="createModal" class="modal-overlay"
         style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 200; align-items: center; justify-content: center;">
         <div class="glass-card"
@@ -496,12 +498,12 @@
                 <div class="flex justify-between items-center mb-6">
                     <h3
                         style="font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                        Mint an NFT</h3>
+                        Stock a Product</h3>
                     <button onclick="closeModal('createModal')"
                         style="background: rgba(255,255,255,0.1); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;"><i
                             class="ph ph-x"></i></button>
                 </div>
-                <form action="/nft/create" method="POST">
+                <form action="/product/create" method="POST">
                     <div style="margin-bottom: 20px;">
                         <label
                             style="display: block; margin-bottom: 8px; color: var(--text-muted); font-weight: 600;">Artwork
@@ -529,7 +531,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary"
                         style="width: 100%; justify-content: center; height: 56px; font-size: 1.1rem; border-radius: 12px; box-shadow: 0 10px 20px rgba(127, 48, 255, 0.4);">
-                        Mint to Blockchain
+                        Stock to Shipping info
                     </button>
                 </form>
             </div>

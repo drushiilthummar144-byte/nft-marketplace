@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Admin | CMS</title>
+    <title>Store Admin | CMS</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/admin.css">
     <link rel="stylesheet" href="/styles/glass.css">
@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label class="block mb-2 text-muted text-sm">Site Logo Text</label>
                             <input type="text" name="logoText" class="glass-input"
-                                value="<%= content && content.visuals ? content.visuals.logoText : 'NFT Nexus' %>">
+                                value="<%= content && content.visuals ? content.visuals.logoText : 'Nexus Store' %>">
                         </div>
                         <div class="form-group" style="grid-column: span 2;">
                             <label class="block mb-2 text-muted text-sm">Logo Image URL</label>
@@ -134,9 +134,9 @@
                                 value="<%= content && content.stats ? content.stats.artworks : '' %>">
                         </div>
                         <div class="form-group">
-                            <label class="block mb-2 text-muted text-sm">Total Artists</label>
-                            <input type="text" name="statsArtists" class="glass-input"
-                                value="<%= content && content.stats ? content.stats.artists : '' %>">
+                            <label class="block mb-2 text-muted text-sm">Total Brands</label>
+                            <input type="text" name="statsBrands" class="glass-input"
+                                value="<%= content && content.stats ? content.stats.brands : '' %>">
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                     <div class="form-group">
                         <label class="block mb-2 text-muted text-sm">Copyright Text</label>
                         <input type="text" name="footerText" class="glass-input"
-                            value="<%= content && content.footer ? content.footer.text : '© 2024 NFT Nexus. All rights reserved.' %>">
+                            value="<%= content && content.footer ? content.footer.text : '© 2024 Nexus Store. All rights reserved.' %>">
                     </div>
                 </div>
 

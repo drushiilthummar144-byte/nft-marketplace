@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaMint | Complete Payment</title>
+    <title>NovaStock | Complete Payment</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -88,7 +88,7 @@
             font-size: 1.8rem;
         }
 
-        .crypto-icon {
+        .points-icon {
             background: rgba(127, 48, 255, 0.1);
             color: #7828C8;
         }
@@ -98,7 +98,7 @@
             color: white;
         }
 
-        .payment-method.active .crypto-icon {
+        .payment-method.active .points-icon {
             background: rgba(0, 255, 157, 0.1);
             color: #00ff9d;
         }
@@ -134,7 +134,7 @@
         style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85);">
         <div class="container flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <a href="/checkout?id=<%= nft.id %>"
+                <a href="/checkout?id=<%= product.id %>"
                     style="color: rgba(255,255,255,0.6); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; transition: 0.2s;"><i
                         class="ph ph-arrow-left hover:text-white"></i></a>
                 <div style="width: 1px; height: 24px; background: rgba(255,255,255,0.1);"></div>
@@ -149,7 +149,7 @@
                             <a href="/"
                                 style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
                                 <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
-                                    : 'NovaMint' %>
+                                    : 'NovaStock' %>
                             </a>
                             <% } %>
                 </div>
@@ -163,22 +163,22 @@
             <div style="text-align: center; margin-bottom: 40px;">
                 <div
                     style="width: 64px; height: 64px; background: rgba(0,255,157,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; border: 1px solid rgba(0,255,157,0.3);">
-                    <i class="ph-fill ph-wallet" style="font-size: 2rem; color: #00ff9d;"></i>
+                    <i class="ph-fill ph-cart" style="font-size: 2rem; color: #00ff9d;"></i>
                 </div>
                 <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Complete Payment</h1>
                 <p style="color: rgba(255,255,255,0.5); font-size: 1.1rem;">Choose how you want to pay for <strong>
-                        <%= nft.title %>
+                        <%= product.title %>
                     </strong>.</p>
             </div>
 
             <div class="payment-method active">
-                <div class="method-icon crypto-icon">
+                <div class="method-icon points-icon">
                     <i class="ph-fill ph-currency-eth"></i>
                 </div>
                 <div style="flex: 1;">
-                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Crypto Wallet</div>
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Points Cart</div>
                     <div style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">Pay via MetaMask, Phantom,
-                        ConnectWallet</div>
+                        ConnectCart</div>
                 </div>
                 <i class="ph-fill ph-check-circle" style="font-size: 1.5rem; color: #00ff9d;"></i>
             </div>
@@ -202,7 +202,7 @@
                 </div>
                 <div style="flex: 1;">
                     <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Cash on Delivery</div>
-                    <div style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">Pay with physical cash/crypto at
+                    <div style="color: rgba(255,255,255,0.5); font-size: 0.9rem;">Pay with physical cash/points at
                         doorstep</div>
                 </div>
                 <div
@@ -211,12 +211,12 @@
             </div>
 
             <div style="text-align: center; margin-top: 32px; font-size: 1.5rem; font-weight: 800; color: white;">
-                ₹<%= (((parseFloat(nft.price) < 1000 ? Math.floor(((parseFloat(nft.price) * 7391) % 9000) + 1000) :
-                    parseFloat(nft.price))) * 1.025).toLocaleString('en-IN') %>
+                ₹<%= (((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
+                    parseFloat(product.price))) * 1.025).toLocaleString('en-IN') %>
             </div>
 
             <form action="/payment/confirm" method="POST" id="paymentForm">
-                <input type="hidden" name="id" value="<%= nft.id %>">
+                <input type="hidden" name="id" value="<%= product.id %>">
                 <button type="submit" class="btn-confirm" onclick="return confirmPayment(event)">
                     Confirm & Complete <i class="ph-bold ph-check"></i>
                 </button>
@@ -224,7 +224,7 @@
 
             <div
                 style="text-align: center; margin-top: 24px; color: rgba(255,255,255,0.4); font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <i class="ph-fill ph-shield-check"></i> 100% Secured and Encrypted by Blockchain
+                <i class="ph-fill ph-shield-check"></i> 100% Secured and Encrypted by Shipping info
             </div>
         </div>
     </div>
@@ -260,12 +260,12 @@
                     m.classList.remove('active');
                     const check = m.querySelector('.ph-check-circle');
                     if (check) check.remove();
-                    m.querySelector('.method-icon').classList.remove('crypto-icon');
+                    m.querySelector('.method-icon').classList.remove('points-icon');
                     m.querySelector('.method-icon').classList.add('card-icon');
                 });
 
                 this.classList.add('active');
-                this.querySelector('.method-icon').classList.add('crypto-icon');
+                this.querySelector('.method-icon').classList.add('points-icon');
                 this.querySelector('.method-icon').classList.remove('card-icon');
 
                 if (!this.querySelector('.ph-check-circle')) {

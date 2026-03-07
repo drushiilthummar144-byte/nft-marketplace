@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Admin | Listings Management</title>
+    <title>Store Admin | Listings Management</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/admin.css">
     <link rel="stylesheet" href="/styles/glass.css">
@@ -19,7 +19,7 @@
             <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
                 <div>
                     <h2>Listings Management</h2>
-                    <p style="color: #a1a1aa; font-size: 0.9rem;">Review and manage user NFT listings.</p>
+                    <p style="color: #a1a1aa; font-size: 0.9rem;">Review and manage user Product listings.</p>
                 </div>
                 <div style="display: flex; gap: 12px;">
                     <button class="btn btn-primary">Bulk Approve</button>
@@ -31,7 +31,7 @@
                     <thead>
                         <tr>
                             <th>Item</th>
-                            <th>Artist</th>
+                            <th>Brand</th>
                             <th>Price</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -51,7 +51,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <%= item.artist %>
+                                    <%= item.brand %>
                                 </td>
                                 <td>
                                     ₹<%= ((parseFloat(item.price) < 1000 ? Math.floor(((parseFloat(item.price) * 7391) %
