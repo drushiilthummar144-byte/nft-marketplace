@@ -24,7 +24,7 @@ app.use(helmet({
 // Rate Limiting (Protects from brute-force & spam requests)
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5000, // Limit each IP to 100 requests per windowMs -> increased to 5000
+    max: 100, // Limit each IP to 100 requests per windowMs
     message: "Too many requests from this IP, please try again after 15 minutes."
 });
 app.use(limiter);
@@ -56,8 +56,14 @@ const getDb = () => memoryDb;
 const saveDb = (data) => {
     memoryDb = data;
     // Save to Mongo instantly without blocking
-    DataStore.updateOne({}, { data: data }, { upsert: true })
-        .catch(err => console.error("Mongo Save Error:", err));
+    if (mongoose.connection.readyState === 1) {
+        DataStore.updateOne({}, { data: data }, { upsert: true })
+            .catch(err => console.error("Mongo Save Error:", err));
+    }
+    // Fallback save to db.json
+    fs.writeFile(dbPath, JSON.stringify(data, null, 2), (err) => {
+        if (err) console.error("Local save error:", err);
+    });
 };
 
 // Content Injection Middleware
@@ -637,6 +643,13 @@ const initApp = async () => {
         });
     } catch (e) {
         console.error("Critical DB Load Error:", e);
+        console.log("Falling back to local db.json");
+        memoryDb = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+        // Start Server anyway
+        app.listen(PORT, () => {
+            console.log(`Server running (Offline mode) at http://localhost:${PORT}`);
+        });
     }
 };
 
