@@ -1,4 +1,26 @@
-<aside class="sidebar">
+<div class="mobile-header">
+    <div style="display: flex; align-items: center; gap: 12px;">
+        <% if (content && content.visuals && content.visuals.logoImage) { %>
+            <img src="<%= content.visuals.logoImage %>" alt="Logo"
+                style="height: 32px; width: auto; object-fit: contain;">
+            <% } else { %>
+                <div
+                    style="width:32px; height:32px; background:#7F30FF; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:1rem; color: white;">
+                    N</div>
+                <h3 style="color: white; margin: 0; font-size: 1.2rem;">
+                    <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                        : 'NFT Admin' %>
+                </h3>
+                <% } %>
+    </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="ph ph-list"></i>
+    </button>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="adminSidebar">
     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 40px;">
         <% if (content && content.visuals && content.visuals.logoImage) { %>
             <img src="<%= content.visuals.logoImage %>" alt="Logo"
@@ -51,4 +73,23 @@
         </div>
         <a href="/" style="color: #a1a1aa; padding: 4px;"><i class="ph ph-sign-out"></i></a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('adminSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            if (mobileMenuBtn && sidebar && overlay) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                    overlay.classList.toggle('active');
+                });
+                overlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                    overlay.classList.remove('active');
+                });
+            }
+        });
+    </script>
 </aside>
