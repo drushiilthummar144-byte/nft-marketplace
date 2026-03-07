@@ -648,9 +648,15 @@ const initApp = async () => {
 
     try {
         let doc = await DataStore.findOne({});
-        if (!doc) {
+        const initialData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+        // Force E-commerce migration
+        if (doc && doc.data && doc.data.listings && !doc.data.listings.find(l => l.id == 101)) {
+            console.log("Upgrading live MongoDB to Ecommerce Data...");
+            doc.data = fixData(initialData);
+            await DataStore.updateOne({}, { data: doc.data });
+        } else if (!doc) {
             console.log("First time setup: Copying initial data to MongoDB...");
-            const initialData = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
             doc = await DataStore.create({ data: fixData(initialData) });
         }
         memoryDb = fixData(doc.data);
