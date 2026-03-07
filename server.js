@@ -87,7 +87,8 @@ app.get('/', (req, res) => {
     const db = getDb();
     res.render('index', {
         content: db.content || {},
-        collections: db.collections || []
+        collections: db.collections || [],
+        listings: db.listings || []
     });
 });
 
