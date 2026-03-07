@@ -108,7 +108,7 @@
         </div>
 
         <div class="grid-layout" id="productGrid">
-            <% if (user) { %>
+            <% if (listings && listings.length> 0) { %>
                 <% listings.forEach(function(product) { %>
                     <div class="glass-card product-card" style="padding: 12px;"
                         data-title="<%= (product.title || '').toLowerCase() %>"
@@ -139,25 +139,24 @@
                                     ₹<%= ((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) *
                                         7391) % 9000) + 1000) : parseFloat(product.price))).toLocaleString('en-IN') %>
                                 </div>
-                                <a href="/asset-details?id=<%= product.id %>" class="btn btn-secondary"
-                                    style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">Buy Now</a>
+                                <a href="<%= user ? '/asset-details?id=' + product.id : '/login' %>"
+                                    class="btn btn-secondary"
+                                    style="font-size: 0.85rem; padding: 6px 12px; text-decoration: none;">
+                                    <%= user ? 'Buy Now' : 'Login to Buy' %>
+                                </a>
                             </div>
                         </div>
                     </div>
                     <% }); %>
-                        <% } else { %>
-                            <div
-                                style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; text-align: center;">
-                                <i class="ph-fill ph-lock-key"
-                                    style="font-size: 4rem; color: var(--primary); margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(127,48,255,0.5));"></i>
-                                <h2 style="font-size: 2rem; margin-bottom: 12px;">Unlock the Marketplace</h2>
-                                <p class="text-muted" style="max-width: 400px; margin-bottom: 32px; font-size: 1.1rem;">
-                                    You must be logged in to view and purchase exclusive Products in our database.</p>
-                                <a href="/login" class="btn btn-primary"
-                                    style="padding: 12px 32px; font-size: 1.1rem; border-radius: 12px;">Log In to
-                                    Explore</a>
-                            </div>
-                            <% } %>
+                        <div
+                            style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 20px; background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1); border-radius: 20px; text-align: center;">
+                            <i class="ph-fill ph-package"
+                                style="font-size: 4rem; color: var(--primary); margin-bottom: 24px; filter: drop-shadow(0 0 20px rgba(127,48,255,0.5));"></i>
+                            <h2 style="font-size: 2rem; margin-bottom: 12px;">No Products Found</h2>
+                            <p class="text-muted" style="max-width: 400px; margin-bottom: 32px; font-size: 1.1rem;">
+                                There are currently no products available in the marketplace.</p>
+                        </div>
+                        <% } %>
         </div>
 
         <!-- Empty State -->
