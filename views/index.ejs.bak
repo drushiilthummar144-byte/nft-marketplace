@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Store | Discover Premium Products & Electronics</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        /* Collection Card */
+        .collection-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .collection-img {
+            height: 260px;
+            background: #2A1A40;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .collection-info {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: none;
+            border-radius: 0 0 16px 16px;
+        }
+
+        /* Brand Card */
+        .brand-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.2s;
+        }
+
+        .brand-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .brand-rank {
+            font-weight: 800;
+            color: var(--text-muted);
+            width: 24px;
+        }
+
+        .brand-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #333;
+        }
+
+        /* Step Card */
+        .step-card {
+            text-align: center;
+            padding: 40px 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(127, 48, 255, 0.2), rgba(48, 133, 255, 0.2));
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-grid-responsive {
+                grid-template-columns: 1fr !important;
+                gap: 32px !important;
+                text-align: center;
+            }
+
+            .hero-product-card {
+                margin: 0 auto;
+            }
+
+            .hero-title {
+                font-size: 3.5rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.8rem !important;
+            }
+
+            .hero-buttons-mobile {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-buttons-mobile a {
+                width: 100%;
+            }
+
+            .stats-mobile-center {
+                justify-content: center;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotateY(-10deg) rotateX(5deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotateY(-5deg) rotateX(5deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotateY(-10deg) rotateX(5deg);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 5px rgba(127, 48, 255, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(127, 48, 255, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 5px rgba(127, 48, 255, 0.2);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-fade-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .seller-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .verified-badge {
+            color: #3085FF;
+            margin-left: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Web3 Global Particles Background -->
+    <canvas id="global-particles"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.6;"></canvas>
+
+    <!-- Announcement Bar -->
+    <% if (content && content.announcement && content.announcement.enabled) { %>
+        <div
+            style="background: var(--primary); color: white; text-align: center; padding: 10px; font-weight: 500; font-size: 0.9rem;">
+            <%= content.announcement.text %>
+        </div>
+        <% } %>
+
+            <!-- NAVBAR -->
+            <nav class="glass-nav"
+                style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85);">
+                <div class="container flex justify-between items-center">
+                    <!-- Brand -->
+                    <div class="flex items-center gap-4">
+                        <div
+                            style="width: 48px; height: 48px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.4rem; box-shadow: 0 0 20px rgba(127, 48, 255, 0.4);">
+                            N</div>
+                        <span style="font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; white-space: nowrap;">
+                            <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                : 'NovaStock' %>
+                        </span>
+                    </div>
+
+                    <div class="hidden md:flex gap-10">
+                        <a href="/" class="nav-link" style="color: white; font-weight: 600;">Home</a>
+                        <a href="/explore" class="nav-link">Explore</a>
+                        <a href="/#sellers" class="nav-link">Brands</a>
+                        <a href="/#contact" class="nav-link">Contact</a>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="relative hidden sm:block">
+                            <i class="ph ph-magnifying-glass absolute text-muted" style="left: 12px; top: 12px;"></i>
+                            <input type="text" class="glass-input" placeholder="Search items..."
+                                style="padding-left: 36px; width: 220px; height: 44px; border-radius: 12px;">
+                        </div>
+                        <% if (user) { %>
+                            <div class="flex items-center gap-3">
+                                <a href="/profile" class="btn btn-secondary"
+                                    style="padding: 10px 16px; border-radius: 12px;">
+                                    <i class="ph ph-user"></i>
+                                </a>
+                                <a href="/cart" class="btn btn-secondary" style="padding: 10px 16px; border-radius: 12px; position: relative;">
+                                    <i class="ph ph-shopping-cart"></i>
+                                    <span style="position: absolute; top: -5px; right: -5px; background: #FF3085; color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: bold;">2</span>
+                                </a>
+                                <a href="/logout" class="btn btn-primary"
+                                    style="padding: 10px 24px; border-radius: 12px;">Logout</a>
+                            </div>
+                            <% } else { %>
+                                <a href="/login" class="btn btn-primary"
+                                    style="padding: 10px 24px; border-radius: 12px;">Login</a>
+                                <% } %>
+                                    <!-- Admin Link REMOVED -->
+                    </div>
+                </div>
+            </nav>
+
+            <!-- HERO -->
+            <style>
+                .hero-section {
+                    min-height: 95vh;
+                    display: flex;
+                    align-items: center;
+                    padding-top: 120px;
+                    position: relative;
+                    overflow: hidden;
+                    background-size: cover;
+                    background-position: center;
+                }
+            </style>
+            <section class="hero-section"
+                style="<%= (content && content.visuals && content.visuals.heroImage) ? 'background-image: url(' + content.visuals.heroImage + ');' : '' %>">
+                <!-- Background Glows -->
+                <div
+                    style="position: absolute; top: 20%; left: -10%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(127,48,255,0.15) 0%, transparent 60%); filter: blur(80px); z-index: -1;">
+                </div>
+                <div
+                    style="position: absolute; bottom: 10%; right: -10%; width: 50%; height: 50%; background: radial-gradient(circle, rgba(48,133,255,0.15) 0%, transparent 60%); filter: blur(80px); z-index: -1;">
+                </div>
+
+                <!-- Web3 Particles Container Moved -->
+
+                <div class="container hero-grid-responsive items-center"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px;">
+                    <div style="z-index: 1;">
+                        <div class="animate-fade-up"
+                            style="display: inline-block; padding: 8px 16px; background: rgba(255,255,255,0.05); border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 24px;">
+                            <span style="color: var(--primary); font-weight: 600;">🔥 New Collection Drop</span>
+                        </div>
+                        <h1 class="animate-fade-up delay-100 hero-title"
+                            style="font-size: 5.5rem; line-height: 1.05; font-weight: 800; margin-bottom: 32px; letter-spacing: -2px; white-space: pre-line;">
+                            <%= (content && content.hero && content.hero.title) ? content.hero.title
+                                : 'Products\nRevolution' %>
+                        </h1>
+
+
+                        <p class="text-xl text-muted mb-8 animate-fade-up delay-200"
+                            style="max-width: 540px; font-size: 1.3rem; margin-bottom: 40px; line-height: 1.6;">
+                            <%= (content && content.hero) ? content.hero.subtitle
+                                : "Discover, collect, and sell extraordinary Products on the world's first and largest digital marketplace."
+                                %>
+                        </p>
+                        <div class="flex gap-4 animate-fade-up delay-300 hero-buttons-mobile">
+                            <a href="/explore" class="btn btn-primary"
+                                style="height: 60px; padding: 0 48px; font-size: 1.1rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(127, 48, 255, 0.3); transition: transform 0.2s;">
+                                <%= (content && content.hero) ? content.hero.ctaPrimary : "Explore Now" %>
+                            </a>
+                            <a href="/profile" class="btn btn-secondary"
+                                style="height: 60px; padding: 0 48px; font-size: 1.1rem; border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; text-decoration: none;">
+                                <%= (content && content.hero) ? content.hero.ctaSecondary : "Create Product" %>
+                            </a>
+                        </div>
+
+
+                        <div class="flex gap-16 mt-16 stats-mobile-center">
+                            <div>
+                                <div class="text-3xl font-bold" style="font-size: 2.5rem; margin-bottom: 4px;">
+                                    <%= (content && content.stats) ? content.stats.artworks : "400k+" %>
+                                </div>
+                                <div class="text-muted">Artworks</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-bold" style="font-size: 2.5rem; margin-bottom: 4px;">
+                                    <%= (content && content.stats) ? content.stats.brands : "20k+" %>
+                                </div>
+                                <div class="text-muted">Brands</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative" style="display: flex; justify-content: flex-end; perspective: 1000px;">
+                        <div class="glass-card hero-product-card"
+                            style="padding: 24px; max-width: 520px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); transition: transform 0.1s ease-out; transform-style: preserve-3d;">
+                            <img src="/images/nft_login_bg.png" alt="Product"
+                                style="width: 100%; height: 380px; object-fit: cover; border-radius: 16px; margin-bottom: 24px; display: block; box-shadow: 0 10px 40px rgba(127,48,255,0.3); transform: translateZ(30px);">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center gap-3">
+                                    <div style="width: 40px; height: 40px; background: #333; border-radius: 50%;">
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-lg">Cyber Girl #042</div>
+                                        <div class="text-sm text-muted">@future_art</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm text-muted">Price</div>
+                                    <div class="font-bold text-lg" style="color: var(--primary);">₹17,000</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCRIPTS FOR NEW FEATURES -->
+            <script>
+                // --- Web3 Particle Network Background ---
+                const canvas = document.getElementById('global-particles');
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                const particleCount = 70; // Slightly increased for full screen
+
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * canvas.width;
+                        this.y = Math.random() * canvas.height;
+                        this.vx = (Math.random() - 0.5) * 0.5;
+                        this.vy = (Math.random() - 0.5) * 0.5;
+                        this.radius = Math.random() * 2 + 1;
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+                    }
+                    draw() {
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(127, 48, 255, 0.5)';
+                        ctx.fill();
+                    }
+                }
+
+                function initParticles() {
+                    resizeCanvas();
+                    particles = [];
+                    for (let i = 0; i < particleCount; i++) {
+                        particles.push(new Particle());
+                    }
+                }
+
+                function animateParticles() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (let i = 0; i < particles.length; i++) {
+                        particles[i].update();
+                        particles[i].draw();
+                        for (let j = i + 1; j < particles.length; j++) {
+                            let dx = particles[i].x - particles[j].x;
+                            let dy = particles[i].y - particles[j].y;
+                            let distance = Math.sqrt(dx * dx + dy * dy);
+                            if (distance < 150) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(127, 48, 255, ${0.2 - distance / 750})`;
+                                ctx.lineWidth = 1;
+                                ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(animateParticles);
+                }
+
+                window.addEventListener('resize', initParticles);
+                initParticles();
+                animateParticles();
+
+
+                // --- 3D Interactive Hover Effect for Hero Card ---
+                const heroSection = document.querySelector('.hero-section');
+                const heroCard = document.querySelector('.hero-product-card');
+
+                heroSection.addEventListener('mousemove', (e) => {
+                    let xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+                    let yAxis = (window.innerHeight / 2 - e.pageY) / 40;
+                    heroCard.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                });
+
+                heroSection.addEventListener('mouseleave', () => {
+                    heroCard.style.transition = "all 0.5s ease";
+                    heroCard.style.transform = `rotateY(0deg) rotateX(0deg)`;
+                });
+                heroSection.addEventListener('mouseenter', () => {
+                    heroCard.style.transition = "none";
+                });
+            </script>
+
+            <!-- LIVE ACTIVITY TICKER -->
+            <style>
+                .ticker-wrap {
+                    width: 100%;
+                    overflow: hidden;
+                    background: linear-gradient(90deg, rgba(11, 5, 21, 1) 0%, rgba(127, 48, 255, 0.1) 50%, rgba(11, 5, 21, 1) 100%);
+                    border-top: 1px solid rgba(255, 255, 255, 0.05);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    padding: 12px 0;
+                }
+
+                .ticker-move {
+                    display: flex;
+                    white-space: nowrap;
+                    animation: ticker 25s linear infinite;
+                }
+
+                .ticker-item {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 0 40px;
+                    font-size: 0.9rem;
+                    color: rgba(255, 255, 255, 0.8);
+                }
+
+                @keyframes ticker {
+                    0% {
+                        transform: translate3d(0, 0, 0);
+                    }
+
+                    100% {
+                        transform: translate3d(-50%, 0, 0);
+                    }
+                }
+            </style>
+            <div class="ticker-wrap">
+                <div class="ticker-move">
+                    <div class="ticker-item"><i class="ph-fill ph-check-circle" style="color:#00ff88;"></i> PointsKing
+                        minted Neon Dreams #22</div>
+                    <div class="ticker-item"><i class="ph-fill ph-lightning" style="color:var(--primary);"></i>
+                        MoonWalker bought Golden Ape for ₹2,00,000</div>
+                    <div class="ticker-item"><i class="ph-fill ph-fire" style="color:#ff3050;"></i> Cosmic Voyager price
+                        up by +12.5%</div>
+                    <div class="ticker-item"><i class="ph-fill ph-tag" style="color:#ffd700;"></i> PixelGod listed
+                        Glitch Skull for ₹1,200</div>
+                    <!-- Duplicate for infinite loop illusion -->
+                    <div class="ticker-item"><i class="ph-fill ph-check-circle" style="color:#00ff88;"></i> PointsKing
+                        minted Neon Dreams #22</div>
+                    <div class="ticker-item"><i class="ph-fill ph-lightning" style="color:var(--primary);"></i>
+                        MoonWalker bought Golden Ape for ₹2,00,000</div>
+                    <div class="ticker-item"><i class="ph-fill ph-fire" style="color:#ff3050;"></i> Cosmic Voyager price
+                        up by +12.5%</div>
+                    <div class="ticker-item"><i class="ph-fill ph-tag" style="color:#ffd700;"></i> PixelGod listed
+                        Glitch Skull for ₹1,200</div>
+                </div>
+            </div>
+
+            <!-- TRENDING -->
+            <section>
+                <div class="container">
+                    <div class="flex justify-between items-end mb-12" style="margin-bottom: 48px;">
+                        <h2 style="font-size: 2.5rem;">Trending Categories</h2>
+                        <a href="/explore" style="color: var(--primary); font-weight: 600;">View All <i
+                                class="ph ph-arrow-right"></i></a>
+                    </div>
+
+                    <div class="grid-3">
+                        <% if(collections && collections.length> 0) { %>
+                            <% collections.forEach(collection=> { %>
+                                <div class="collection-card">
+                                    <div class="collection-img"
+                                        style="background-image: url('<%= collection.image %>');">
+                                    </div>
+                                    <div class="collection-info">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 style="font-size: 1.2rem;">
+                                                <%= collection.name %>
+                                            </h3>
+                                            <span
+                                                style="background: rgba(48,133,255,0.1); color: #3085FF; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
+                                                <%= collection.items %>
+                                            </span>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <div
+                                                style="width: 24px; height: 24px; background: #555; border-radius: 50%;">
+                                            </div>
+                                            <div class="text-sm text-muted">by <%= collection.brand %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }); %>
+                                    <% } else { %>
+                                        <p class="text-muted">No trending collections found.</p>
+                                        <% } %>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TOP SELLERS -->
+            <section id="sellers" style="background: #0D061F;">
+                <div class="container">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 48px;">Top Brands</h2>
+                    <div class="grid-4">
+                        <div class="brand-card seller-card">
+                            <div class="brand-rank">1</div>
+                            <img class="brand-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=PointsKing"
+                                alt="Avatar">
+                            <div>
+                                <div class="flex items-center gap-1" style="font-weight: 600;">PointsKing <i
+                                        class="ph-fill ph-seal-check verified-badge"></i></div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);"><span
+                                        style="color:var(--text-dim)">Total:</span> ₹9,60,000</div>
+                            </div>
+                        </div>
+                        <div class="brand-card seller-card">
+                            <div class="brand-rank">2</div>
+                            <img class="brand-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=ArtVandelay"
+                                alt="Avatar">
+                            <div>
+                                <div class="flex items-center gap-1" style="font-weight: 600;">Art_Van <i
+                                        class="ph-fill ph-seal-check verified-badge"></i></div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);"><span
+                                        style="color:var(--text-dim)">Total:</span> ₹7,20,000</div>
+                            </div>
+                        </div>
+                        <div class="brand-card seller-card">
+                            <div class="brand-rank">3</div>
+                            <img class="brand-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=PixelGod"
+                                alt="Avatar">
+                            <div>
+                                <div class="flex items-center gap-1" style="font-weight: 600;">PixelGod <i
+                                        class="ph-fill ph-seal-check verified-badge"></i></div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);"><span
+                                        style="color:var(--text-dim)">Total:</span> ₹4,80,000</div>
+                            </div>
+                        </div>
+                        <div class="brand-card seller-card">
+                            <div class="brand-rank">4</div>
+                            <img class="brand-avatar" src="https://api.dicebear.com/7.x/avataaars/svg?seed=MoonWalker"
+                                alt="Avatar">
+                            <div>
+                                <div class="flex items-center gap-1" style="font-weight: 600;">MoonWalker <i
+                                        class="ph-fill ph-seal-check verified-badge"></i></div>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);"><span
+                                        style="color:var(--text-dim)">Total:</span> ₹3,80,000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS -->
+            <section>
+                <div class="container">
+                    <h2 style="font-size: 2.5rem; margin-bottom: 48px; text-align: center;">How It Works</h2>
+                    <div class="grid-3">
+                        <div class="step-card">
+                            <div class="step-icon"><i class="ph ph-cart"></i></div>
+                            <h3 style="margin-bottom: 16px;">Create an Account</h3>
+                            <p class="text-muted">Once you’ve set up your cart of choice, connect it to NovaStock
+                                by
+                                clicking
+                                the cart icon.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-icon"><i class="ph ph-squares-four"></i></div>
+                            <h3 style="margin-bottom: 16px;">Create collection</h3>
+                            <p class="text-muted">Click My Collections and set up your collection. Add social links,
+                                a
+                                description, and profile images.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-icon"><i class="ph ph-tag"></i></div>
+                            <h3 style="margin-bottom: 16px;">Start Earning</h3>
+                            <p class="text-muted">Choose between sales, fixed-price listings, and declining-price
+                                listings.
+                                You choose how you want to sell.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact" style="background: linear-gradient(180deg, #0b0515 0%, #160a2b 100%);">
+                <div class="container grid md:grid-cols-2 gap-12 items-center"
+                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px;">
+                    <div>
+                        <h2 style="font-size: 2.5rem; margin-bottom: 24px;">Get in Touch</h2>
+                        <p class="text-muted" style="margin-bottom: 32px; font-size: 1.1rem; line-height: 1.6;">
+                            Have questions? We'd love to hear from you. customized solutions regarding buying or
+                            selling
+                            Products.
+                        </p>
+                        <div class="flex flex-col gap-6">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    style="width: 48px; height: 48px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem;">
+                                    <i class="ph-fill ph-envelope"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600;">Email Us</div>
+                                    <div class="text-muted">contact@novamint.com</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div
+                                    style="width: 48px; height: 48px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem;">
+                                    <i class="ph-fill ph-phone"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600;">Call Us</div>
+                                    <div class="text-muted">+91 7201866905</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card" style="padding: 40px;">
+                        <form action="/contact" method="POST">
+                            <div style="margin-bottom: 20px;">
+                                <label
+                                    style="display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem;">Your
+                                    Name</label>
+                                <input type="text" name="name" class="glass-input" placeholder="John Doe" required>
+                            </div>
+                            <div style="margin-bottom: 20px;">
+                                <label
+                                    style="display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem;">Email
+                                    Address</label>
+                                <input type="email" name="email" class="glass-input" placeholder="john@example.com"
+                                    required>
+                            </div>
+                            <div style="margin-bottom: 24px;">
+                                <label
+                                    style="display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.9rem;">Message</label>
+                                <textarea name="message" class="glass-input" rows="4" placeholder="How can we help you?"
+                                    style="height: auto; padding-top: 12px;" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary"
+                                style="width: 100%; justify-content: center; height: 50px;">Send
+                                Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer style="border-top: 1px solid var(--border-light); padding: 80px 0; background: #080310;">
+                <div class="container grid-4" style="margin-bottom: 60px;">
+                    <div>
+                        <div class="flex items-center gap-2 mb-6">
+                            <div
+                                style="width: 32px; height: 32px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800;">
+                                N</div>
+                            <span style="font-weight: 700;">NovaStock</span>
+                        </div>
+                        <p class="text-muted text-sm" style="line-height: 1.6;">The best way to trade Products
+                            confidently.
+                            Join our
+                            community today and start your journey.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 24px;">Marketplace</h4>
+                        <div class="flex flex-col gap-3 text-sm text-muted">
+                            <a href="/explore" class="nav-link">All Products</a>
+                            <a href="/explore?category=Art" class="nav-link">Art</a>
+                            <a href="/explore?category=Music" class="nav-link">Music</a>
+                            <a href="/explore?category=Virtual+Worlds" class="nav-link">Virtual Worlds</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 24px;">My Account</h4>
+                        <div class="flex flex-col gap-3 text-sm text-muted">
+                            <a href="/profile" class="nav-link">Profile</a>
+                            <a href="/profile#favorites" class="nav-link">Favorites</a>
+                            <a href="/profile#collections" class="nav-link">My Collections</a>
+                            <a href="/profile#settings" class="nav-link">Settings</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 24px;">Newsletter</h4>
+                        <p class="text-muted text-sm mb-4">Subscribe for the latest updates.</p>
+                        <div class="flex gap-2">
+                            <input type="email" class="glass-input" placeholder="Your email" style="height: 48px;">
+                            <button class="btn btn-primary" style="height: 48px;"><i
+                                    class="ph ph-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="text-center text-muted text-sm"
+                        style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 32px;">
+                        <%= (content && content.footer && content.footer.text) ? content.footer.text
+                            : '© 2026 NovaStock. All rights reserved.' %>
+                    </div>
+                </div>
+            </footer>
+            </footer>
+
+</body>
+
+</html>

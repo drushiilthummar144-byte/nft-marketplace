@@ -1,0 +1,21 @@
+{
+    "name": "NovaStock Premium Store",
+    "short_name": "NovaStock",
+    "description": "Premium E-commerce and Products App",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0B0515",
+    "theme_color": "#7F30FF",
+    "icons": [
+        {
+            "src": "https://ui-avatars.com/api/?name=NovaStock&background=7F30FF&color=fff&size=192",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://ui-avatars.com/api/?name=NovaStock&background=7F30FF&color=fff&size=512",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
