@@ -184,26 +184,7 @@
       ]
     }
   ],
-  "transactions": [
-    {
-      "hash": "0x4a...9f2",
-      "item": "Cosmic Cube #48",
-      "type": "Sale",
-      "from": "@seller_x",
-      "to": "@buyer_y",
-      "amount": "+ 4.2 ETH",
-      "date": "2 mins ago"
-    },
-    {
-      "hash": "0x8b...1a0",
-      "item": "None",
-      "type": "Withdrawal",
-      "from": "@seller_x",
-      "to": "Cart (0x23..)",
-      "amount": "- 1200 USDT",
-      "date": "15 mins ago"
-    }
-  ],
+  "transactions": [],
   "settings": {
     "siteName": "NovaMint",
     "supportEmail": "support@novamint.com",
@@ -316,41 +297,7 @@
       "description": "Trending clothes and fashion"
     }
   ],
-  "orders": [
-    {
-      "id": "1772520645907",
-      "productId": 137,
-      "title": "Minimalist Architecture #5",
-      "image": "https://picsum.photos/seed/product37/400/400",
-      "price": "1.1",
-      "buyer": "XYZ",
-      "seller": "@lens_culture",
-      "status": "Cancelled",
-      "date": "2026-03-03T06:50:45.907Z"
-    },
-    {
-      "id": "1772692885918",
-      "productId": 116,
-      "title": "Mutant Doge",
-      "image": "https://picsum.photos/seed/product16/400/400",
-      "price": "5.0",
-      "buyer": "XYZ",
-      "seller": "@meme_lord",
-      "status": "Pending",
-      "date": "2026-03-05T06:41:25.918Z"
-    },
-    {
-      "id": "1772705552147",
-      "productId": 120,
-      "title": "Jazz Club Genesis Track",
-      "image": "https://picsum.photos/seed/product20/400/400",
-      "price": "1.0",
-      "buyer": "XYZ",
-      "seller": "@jazz_cats",
-      "status": "Pending",
-      "date": "2026-03-05T10:12:32.147Z"
-    }
-  ],
+  "orders": [],
   "brands": [
     {
       "rank": 1,
