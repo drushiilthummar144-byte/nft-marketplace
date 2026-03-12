@@ -71,6 +71,8 @@ app.use((req, res, next) => {
     const db = getDb();
     res.locals.content = db.content || {}; // Available in ALL views
     res.locals.user = req.session.user || null;
+    if (!req.session.cart) req.session.cart = [];
+    res.locals.cart = req.session.cart;
     next();
 });
 
@@ -127,13 +129,39 @@ app.get('/asset-details', (req, res) => {
 });
 app.get('/checkout', (req, res) => {
     const db = getDb();
-    const product = db.listings.find(l => l.id == req.query.id) || db.listings[0];
-    res.render('checkout', { product });
+    const product = db.listings.find(l => l.id == req.query.id);
+    res.render('checkout', { product, cart: req.session.cart || [] });
 });
 app.get('/payment', (req, res) => {
     const db = getDb();
-    const product = db.listings.find(l => l.id == req.query.id) || db.listings[0];
+    const product = db.listings.find(l => l.id == req.query.id);
     res.render('payment', { product });
+});
+
+// Cart Routes
+app.get('/cart', (req, res) => {
+    res.render('cart', { cart: req.session.cart || [] });
+});
+
+app.post('/cart/add', (req, res) => {
+    if (!req.session.cart) req.session.cart = [];
+    const db = getDb();
+    const product = db.listings.find(l => l.id == req.body.productId);
+    if (product) {
+        // Prevent dupes or add quantity
+        const existing = req.session.cart.find(item => item.id == product.id);
+        if (!existing) {
+            req.session.cart.push(product);
+        }
+    }
+    res.redirect(req.get('Referer') || '/cart');
+});
+
+app.post('/cart/remove', (req, res) => {
+    if (req.session.cart) {
+        req.session.cart = req.session.cart.filter(item => item.id != req.body.productId);
+    }
+    res.redirect('/cart');
 });
 
 // Real payment confirm logic

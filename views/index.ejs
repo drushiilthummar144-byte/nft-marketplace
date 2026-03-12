@@ -130,7 +130,9 @@
             color: #fff;
             display: -webkit-box;
             -webkit-line-clamp: 2;
+            line-clamp: 2;
             -webkit-box-orient: vertical;
+            box-orient: vertical;
             overflow: hidden;
             height: 2.8em;
         }
@@ -225,7 +227,7 @@
         </div>
 
         <div style="flex: 1; max-width: 600px; position: relative;" class="hidden sm:block">
-            <input type="text" placeholder="Search for products, brands and more..."
+            <input type="text" placeholder="પ્રોડક્ટ્સ, બ્રાન્ડ્સ અને વધુ શોધો..."
                 style="width: 100%; padding: 12px 16px 12px 48px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; outline: none; box-sizing: border-box;">
             <i class="ph ph-magnifying-glass"
                 style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #888; font-size: 1.2rem;"></i>
@@ -235,20 +237,17 @@
             <% if (user) { %>
                 <a href="/profile"
                     style="color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem;">
-                    <i class="ph ph-user" style="font-size: 1.4rem; margin-bottom: 2px;"></i> Profile
-                </a>
+                    <i class="ph ph-user" style="font-size: 1.4rem; margin-bottom: 2px;"></i> પ્રોફાઇલ </a>
                 <a href="/cart"
                     style="color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem; position: relative;">
-                    <i class="ph ph-shopping-cart" style="font-size: 1.4rem; margin-bottom: 2px;"></i> Cart
-                    <span
-                        style="position: absolute; top: -5px; right: -5px; background: #FF3085; color: white; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">0</span>
+                    <i class="ph ph-shopping-cart" style="font-size: 1.4rem; margin-bottom: 2px;"></i> કાર્ટ <span
+                        style="position: absolute; top: -5px; right: -5px; background: #FF3085; color: white; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;"><%= cart ? cart.length : 0 %></span>
                 </a>
                 <a href="/logout"
                     style="color: #ff4d4d; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem;">
-                    <i class="ph ph-sign-out" style="font-size: 1.4rem; margin-bottom: 2px;"></i> Exit
-                </a>
+                    <i class="ph ph-sign-out" style="font-size: 1.4rem; margin-bottom: 2px;"></i> બહાર નીકળો </a>
                 <% } else { %>
-                    <a href="/login" class="btn btn-primary" style="padding: 10px 24px; border-radius: 8px;">Login</a>
+                    <a href="/login" class="btn btn-primary" style="padding: 10px 24px; border-radius: 8px;">લૉગિન</a>
                     <% } %>
         </div>
     </nav>
@@ -256,13 +255,13 @@
     <!-- Sub Navbar (Categories) -->
     <div class="cat-bar">
         <a href="/explore" class="cat-item"><i class="ph ph-list"></i> All Categories</a>
-        <a href="/explore?cat=Mobiles" class="cat-item">Mobiles</a>
-        <a href="/explore?cat=Electronics" class="cat-item">Electronics</a>
-        <a href="/explore?cat=Fashion" class="cat-item">Fashion</a>
-        <a href="/explore?cat=Appliances" class="cat-item">Home Appliances</a>
-        <a href="/explore?cat=Toys" class="cat-item">Toys & Games</a>
-        <a href="/explore?cat=Beauty" class="cat-item">Beauty</a>
-        <a href="/explore?cat=Grocery" class="cat-item">Grocery</a>
+        <a href="/explore?cat=Mobiles" class="cat-item">મોબાઇલ્સ</a>
+        <a href="/explore?cat=Electronics" class="cat-item">ઇલેક્ટ્રોનિક્સ</a>
+        <a href="/explore?cat=Fashion" class="cat-item">ફેશન</a>
+        <a href="/explore?cat=Appliances" class="cat-item">ઘરગથ્થુ ઉપકરણો</a>
+        <a href="/explore?cat=Toys" class="cat-item">રમકડાં અને રમતો</a>
+        <a href="/explore?cat=Beauty" class="cat-item">સૌંદર્ય</a>
+        <a href="/explore?cat=Grocery" class="cat-item">કરિયાણું</a>
     </div>
 
     <!-- Promo Banner -->
@@ -276,20 +275,17 @@
             <p style="color: #ccc; margin-bottom: 24px; font-size: 1.1rem;">Upgrade your lifestyle with our premium
                 selection of electronics, fashion, and smart home devices. Limited time offer.</p>
             <a href="/explore" class="btn btn-primary"
-                style="padding: 12px 32px; font-size: 1.1rem; border-radius: 8px; text-decoration: none; display: inline-block;">Shop
-                Deals Now</a>
+                style="padding: 12px 32px; font-size: 1.1rem; border-radius: 8px; text-decoration: none; display: inline-block;">હવે ડીલ્સ ખરીદો</a>
         </div>
     </div>
 
     <!-- Deal of the Day -->
     <div style="padding: 16px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
-            <h2 style="font-size: 1.8rem; margin: 0; display: flex; align-items: center; gap: 8px;">
-                Deal of the Day <i class="ph-fill ph-lightning" style="color: #FFB800;"></i>
+            <h2 style="font-size: 1.8rem; margin: 0; display: flex; align-items: center; gap: 8px;"> આજના ડીલ્સ <i class="ph-fill ph-lightning" style="color: #FFB800;"></i>
             </h2>
             <a href="/explore"
-                style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">View All
-                Deals &rarr;</a>
+                style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">બધા ડીલ્સ જુઓ &rarr;</a>
         </div>
 
         <div class="product-grid">
@@ -323,9 +319,11 @@
                             </div>
                         </div>
 
-                        <a href="<%= user ? '/asset-details?id=' + product.id : '/login' %>" class="btn-cart">
-                            <i class="ph ph-shopping-cart"></i> Add to Cart
-                        </a>
+                        <form action="/cart/add" method="POST" style="margin: 0;">
+                            <input type="hidden" name="productId" value="<%= product.id %>">
+                            <button type="submit" class="btn-cart">
+                                <i class="ph ph-shopping-cart"></i> કાર્ટમાં ઉમેરો </button>
+                        </form>
                     </div>
                     <% }); %>
                         <% } else { %>
@@ -341,37 +339,37 @@
 
     <!-- Popular Categories -->
     <div style="padding: 40px 24px; margin-top: 20px; background: rgba(0,0,0,0.3);">
-        <h2 style="font-size: 1.8rem; margin: 0 0 24px 0;">Shop by Category</h2>
+        <h2 style="font-size: 1.8rem; margin: 0 0 24px 0;">શ્રેણી મુજબ ખરીદી કરો</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
 
             <a href="/explore?cat=Mobiles"
                 style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
                 <i class="ph ph-device-mobile" style="font-size: 2.5rem; color: #4facfe; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Mobiles</div>
+                <div style="font-weight: 600;">મોબાઇલ્સ</div>
             </a>
 
             <a href="/explore?cat=Electronics"
                 style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
                 <i class="ph ph-laptop" style="font-size: 2.5rem; color: #a18cd1; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Electronics</div>
+                <div style="font-weight: 600;">ઇલેક્ટ્રોનિક્સ</div>
             </a>
 
             <a href="/explore?cat=Fashion"
                 style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
                 <i class="ph ph-t-shirt" style="font-size: 2.5rem; color: #ff0844; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Fashion</div>
+                <div style="font-weight: 600;">ફેશન</div>
             </a>
 
             <a href="/explore?cat=Home"
                 style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
                 <i class="ph ph-armchair" style="font-size: 2.5rem; color: #f6d365; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Home & Decor</div>
+                <div style="font-weight: 600;">ઘર અને સજાવટ</div>
             </a>
 
             <a href="/explore?cat=Sports"
                 style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
                 <i class="ph ph-sneaker" style="font-size: 2.5rem; color: #0ba360; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Sports</div>
+                <div style="font-weight: 600;">રમતગમત</div>
             </a>
 
         </div>
@@ -382,28 +380,27 @@
         <div
             style="max-width: 800px; margin: 0 auto; background: linear-gradient(135deg, rgba(127,48,255,0.1), transparent); border: 1px solid rgba(127,48,255,0.3); border-radius: 16px; padding: 40px; box-shadow: 0 0 30px rgba(127,48,255,0.1);">
             <i class="ph ph-headset" style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;"></i>
-            <h2 style="margin: 0 0 16px 0;">24/7 Customer Support</h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Need help with your order? Find answers in our
-                Help Center or contact our dedicated support team directly.</p>
+            <h2 style="margin: 0 0 16px 0;">24/7 ગ્રાહક સપોર્ટ</h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px;">તમારા ઓર્ડર માટે મદદ જોઈએ છે? અમારા હેલ્પ સેન્ટરમાં જવાબો શોધો અથવા સીધો અમારી સપોર્ટ ટીમનો સંપર્ક કરો.</p>
             <button onclick="document.getElementById('contact').scrollIntoView()" class="btn btn-secondary"
-                style="padding: 10px 24px; background: rgba(255,255,255,0.05);">Contact Support</button>
+                style="padding: 10px 24px; background: rgba(255,255,255,0.05);">સપોર્ટનો સંપર્ક કરો</button>
         </div>
 
         <!-- Contact Form -->
         <section id="contact" style="padding-top: 40px; margin-top: 20px;">
-            <h2>Send a Message</h2>
+            <h2>સંદેશ મોકલો</h2>
             <form action="/contact" method="POST" class="glass-card"
                 style="max-width: 600px; margin: 0 auto; padding: 32px; text-align: left;">
                 <div class="form-group mb-6">
-                    <label>Your Name</label>
+                    <label>તમારું નામ</label>
                     <input type="text" name="name" class="glass-input w-full" required>
                 </div>
                 <div class="form-group mb-6">
-                    <label>Email Address</label>
+                    <label>ઇમેઇલ સરનામું</label>
                     <input type="email" name="email" class="glass-input w-full" required>
                 </div>
                 <div class="form-group mb-6">
-                    <label>Message</label>
+                    <label>સંદેશ</label>
                     <textarea name="message" class="glass-input w-full" rows="4" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary w-full">Send Message</button>
@@ -418,10 +415,10 @@
             <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaStock' %>
         </div>
         <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 24px;">
-            <a href="#" style="color: inherit; text-decoration: none;">About</a>
-            <a href="#" style="color: inherit; text-decoration: none;">Returns</a>
-            <a href="#" style="color: inherit; text-decoration: none;">Privacy Policy</a>
-            <a href="#" style="color: inherit; text-decoration: none;">Terms of Service</a>
+            <a href="#" style="color: inherit; text-decoration: none;">અમારા વિશે</a>
+            <a href="#" style="color: inherit; text-decoration: none;">રીટર્ન</a>
+            <a href="#" style="color: inherit; text-decoration: none;">ગોપનીયતા નીતિ</a>
+            <a href="#" style="color: inherit; text-decoration: none;">સેવાની શરતો</a>
         </div>
         <p>Copyright &copy; <%= new Date().getFullYear() %> NovaStock. All rights reserved.</p>
     </footer>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | NovaStock</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/glass.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .cart-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .cart-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn-remove {
+            background: rgba(255, 77, 77, 0.1);
+            color: #ff4d4d;
+            border: 1px solid rgba(255, 77, 77, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-remove:hover {
+            background: rgba(255, 77, 77, 0.2);
+        }
+
+        .summary-card {
+            background: rgba(11, 5, 21, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            position: sticky;
+            top: 100px;
+            height: max-content;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main EC Navbar -->
+    <nav
+        style="position: sticky; top: 0; z-index: 100; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+        <div class="flex items-center gap-2" style="min-width: fit-content;">
+            <% if (content && content.visuals && content.visuals.logoImage) { %>
+                <img src="<%= content.visuals.logoImage %>" alt="Logo" style="height: 36px;">
+            <% } else { %>
+                <div style="width: 36px; height: 36px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
+                    N</div>
+                <span style="font-size: 1.4rem; font-weight: 800; color: white; text-decoration: none;">
+                    <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaStock' %>
+                </span>
+            <% } %>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <a href="/" class="btn btn-secondary" style="padding: 10px 24px; border-radius: 8px; text-decoration: none;">હોમ પર પાછા ફરો</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 style="margin-top: 40px; font-size: 2.5rem; display: flex; align-items: center; gap: 12px;">
+            <i class="ph ph-shopping-cart"></i> Your Cart
+        </h1>
+
+        <% if (cart && cart.length > 0) { 
+            let total = 0;
+        %>
+            <div class="cart-container">
+                <div class="cart-items">
+                    <% cart.forEach(item => { 
+                        const price = parseFloat(item.price) < 1000 ? Math.floor(((parseFloat(item.price) * 7391) % 9000) + 1000) : parseFloat(item.price);
+                        total += price;
+                    %>
+                        <div class="cart-item">
+                            <img src="<%= item.image %>" class="cart-img" alt="<%= item.title %>">
+                            <div class="cart-item-details">
+                                <div class="text-xs text-muted" style="text-transform: uppercase;"><%= item.brand %></div>
+                                <div class="cart-item-title"><%= item.title %></div>
+                                <div class="cart-item-price">₹<%= price.toLocaleString('en-IN') %></div>
+                            </div>
+                            <form action="/cart/remove" method="POST" style="margin: 0;">
+                                <input type="hidden" name="productId" value="<%= item.id %>">
+                                <button type="submit" class="btn-remove">
+                                    <i class="ph ph-trash"></i> Remove
+                                </button>
+                            </form>
+                        </div>
+                    <% }); %>
+                </div>
+
+                <div class="summary-card">
+                    <h3 style="margin: 0 0 24px 0; font-size: 1.5rem;">ઓર્ડર સારાંશ</h3>
+                    
+                    <div class="summary-row">
+                        <span>આઇટમ્સ (<%= cart.length %>)</span>
+                        <span>₹<%= total.toLocaleString('en-IN') %></span>
+                    </div>
+                    <div class="summary-row">
+                        <span>શિપિંગ</span>
+                        <span style="color: #00ff9d;">મફત</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>અંદાજિત કર</span>
+                        <span>₹<%= Math.floor(total * 0.18).toLocaleString('en-IN') %></span>
+                    </div>
+
+                    <div class="summary-total">
+                        <span>કુલ</span>
+                        <span>₹<%= (total + Math.floor(total * 0.18)).toLocaleString('en-IN') %></span>
+                    </div>
+
+                    <a href="<%= user ? '/checkout?id=' + cart[0].id : '/login' %>" class="btn btn-primary" style="width: 100%; text-decoration: none; padding: 16px; margin-top: 24px; text-align: center; font-size: 1.1rem; border-radius: 8px;">
+                        Proceed to Checkout
+                    </a>
+                    
+                    <a href="/explore" style="display: block; text-align: center; margin-top: 16px; color: var(--text-muted); text-decoration: none;">
+                        &larr; Continue Shopping
+                    </a>
+                </div>
+            </div>
+        <% } else { %>
+            <div style="text-align: center; padding: 100px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; margin: 40px 0;">
+                <i class="ph ph-shopping-cart" style="font-size: 5rem; color: var(--text-muted); margin-bottom: 24px;"></i>
+                <h2 style="margin-bottom: 12px;">તમારું કાર્ટ ખાલી છે</h2>
+                <p style="color: var(--text-muted); margin-bottom: 32px;">એવું લાગે છે કે તમે હજી સુધી તમારા કાર્ટમાં કંઈપણ ઉમેર્યું નથી.</p>
+                <a href="/explore" class="btn btn-primary" style="padding: 12px 32px; text-decoration: none;">ખરીદી શરૂ કરો</a>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

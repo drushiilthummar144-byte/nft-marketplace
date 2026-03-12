@@ -71,7 +71,7 @@
                 <a href="/#contact" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center gap-4">
-                <a href="/login" class="btn btn-primary" style="padding: 10px 24px;">Login</a>
+                <a href="/login" class="btn btn-primary" style="padding: 10px 24px;">લૉગિન</a>
             </div>
         </div>
     </nav>
@@ -80,9 +80,9 @@
         <div class="flex justify-between items-end mb-10 wrap-mobile" style="gap: 24px; margin-bottom: 40px;">
             <div>
                 <h1
-                    style="font-size: 2.5rem; margin-bottom: 12px; background: linear-gradient(to right, #fff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    style="font-size: 2.5rem; margin-bottom: 12px; background: linear-gradient(to right, #fff, #a1a1aa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
                     Explore Collections</h1>
-                <p class="text-muted">Browse the best exclusive Products from top brands.</p>
+                <p class="text-muted">ટોચની બ્રાન્ડ્સના શ્રેષ્ઠ વિશિષ્ટ ઉત્પાદનો બ્રાઉઝ કરો.</p>
             </div>
 
             <div class="glass-card"
@@ -90,38 +90,51 @@
                 <div style="position: relative;">
                     <i class="ph ph-magnifying-glass"
                         style="position: absolute; left: 16px; top: 12px; color: var(--text-muted);"></i>
-                    <input type="text" id="searchInput" class="glass-input" placeholder="Search items..."
+                    <input type="text" id="searchInput" class="glass-input" placeholder="આઇટમ્સ શોધો..."
                         style="padding-left: 44px; border: none; background: transparent; width: 200px; height: 40px;">
                 </div>
             </div>
         </div>
 
-        <!-- Filter Pills -->
-        <div class="flex gap-3 mb-8 overflow-x-auto" style="margin-bottom: 40px; padding-bottom: 8px;">
-            <button class="filter-pill active" data-category="all" onclick="filterItems('all')">All Items</button>
-            <button class="filter-pill" data-category="Mobiles" onclick="filterItems('Mobiles')">Mobiles</button>
-            <button class="filter-pill" data-category="Electronics"
-                onclick="filterItems('Electronics')">Electronics</button>
-            <button class="filter-pill" data-category="Fashion" onclick="filterItems('Fashion')">Fashion</button>
-            <button class="filter-pill" data-category="Appliances" onclick="filterItems('Appliances')">Home
-                Appliances</button>
-            <button class="filter-pill" data-category="Toys" onclick="filterItems('Toys')">Toys & Games</button>
-            <button class="filter-pill" data-category="Beauty" onclick="filterItems('Beauty')">Beauty</button>
-            <button class="filter-pill" data-category="Grocery" onclick="filterItems('Grocery')">Grocery</button>
+        <!-- Sorting & Filtering -->
+        <div class="flex justify-between items-center mb-8 wrap-mobile" style="gap: 16px;">
+            <!-- Filter Pills -->
+            <div class="flex gap-3 overflow-x-auto" style="padding-bottom: 8px; flex: 1; -webkit-overflow-scrolling: touch;">
+                <button class="filter-pill active" data-category="all" onclick="filterItems('all')">તમામ આઇટમ્સ</button>
+                <button class="filter-pill" data-category="Mobiles" onclick="filterItems('Mobiles')">મોબાઇલ્સ</button>
+                <button class="filter-pill" data-category="Electronics" onclick="filterItems('Electronics')">ઇલેક્ટ્રોનિક્સ</button>
+                <button class="filter-pill" data-category="Fashion" onclick="filterItems('Fashion')">ફેશન</button>
+                <button class="filter-pill" data-category="Home" onclick="filterItems('Home')">ઘર અને સજાવટ</button>
+                <button class="filter-pill" data-category="Sports" onclick="filterItems('Sports')">રમતગમત</button>
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="glass-card" style="padding: 4px 12px; border-radius: 50px; display: flex; align-items: center; gap: 8px; min-width: max-content;">
+                <span class="text-sm text-muted">આનાથી સૉર્ટ કરો:</span>
+                <select id="sortSelect" class="glass-input text-sm" style="border: none; background: transparent; color: white; outline: none; padding: 4px 0;">
+                    <option value="featured" style="background: #0b0515; color: white;">વિશેષ</option>
+                    <option value="price-low" style="background: #0b0515; color: white;">કિંમત: ઓછી થી વધુ</option>
+                    <option value="price-high" style="background: #0b0515; color: white;">કિંમત: વધુ થી ઓછી</option>
+                </select>
+            </div>
         </div>
 
         <div class="grid-layout" id="productGrid">
             <% if (listings && listings.length> 0) { %>
-                <% listings.forEach(function(product) { %>
+                <% listings.forEach(function(product) { 
+                    // Calculate consistent display price
+                    const displayPrice = parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) : parseFloat(product.price);
+                %>
                     <div class="glass-card product-card" style="padding: 12px;"
                         data-title="<%= (product.title || '').toLowerCase() %>"
                         data-brand="<%= (product.brand || '').toLowerCase() %>"
-                        data-category="<%= (product.category || 'Art') %>">
+                        data-category="<%= (product.category || 'Electronics') %>"
+                        data-price="<%= displayPrice %>">
                         <div
                             style="height: 240px; border-radius: 12px; background: center/cover url('<%= product.image %>'); margin-bottom: 16px; position: relative;">
                             <div
                                 style="position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; backdrop-filter: blur(4px);">
-                                <%= product.category || 'Art' %>
+                                <%= product.category || 'Mobiles' %>
                             </div>
                         </div>
                         <div style="padding: 0 4px;">
@@ -138,9 +151,8 @@
 
                             <div class="flex justify-between items-center border-t border-white-10 pt-4">
                                 <div>
-                                    <div class="text-xs text-muted">Price</div>
-                                    ₹<%= ((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) *
-                                        7391) % 9000) + 1000) : parseFloat(product.price))).toLocaleString('en-IN') %>
+                                    <div class="text-xs text-muted">કિંમત</div>
+                                    ₹<%= displayPrice.toLocaleString('en-IN') %>%>
                                 </div>
                                 <a href="<%= user ? '/asset-details?id=' + product.id : '/login' %>"
                                     class="btn btn-secondary"
@@ -227,9 +239,27 @@
         const cards = document.querySelectorAll('.product-card');
         const emptyState = document.getElementById('emptyState');
         const pills = document.querySelectorAll('.filter-pill');
+        const sortSelect = document.getElementById('sortSelect');
+        const productGrid = document.getElementById('productGrid');
 
         let currentCategory = 'all';
         let currentSearch = '';
+        let currentSort = 'featured';
+
+        // Check for category in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('cat');
+        if (catParam) {
+            currentCategory = catParam;
+            // Update pills
+            pills.forEach(pill => {
+                if (pill.dataset.category === catParam) {
+                    pill.classList.add('active');
+                } else {
+                    pill.classList.remove('active');
+                }
+            });
+        }
 
         // Search Listener
         searchInput.addEventListener('input', (e) => {
@@ -253,8 +283,15 @@
             applyFilters();
         }
 
+        // Sort Listener
+        sortSelect.addEventListener('change', (e) => {
+            currentSort = e.target.value;
+            applyFilters();
+        });
+
         function applyFilters() {
             let visibleCount = 0;
+            const visibleCards = [];
 
             cards.forEach(card => {
                 const title = card.dataset.title;
@@ -269,14 +306,34 @@
                     visibleCount++;
                     // Add subtle animation for appearance
                     card.style.animation = 'fadeIn 0.3s ease forwards';
+                    visibleCards.push(card);
                 } else {
                     card.style.display = 'none';
                 }
             });
 
+            // Apply sort logic
+            if (currentSort !== 'featured') {
+                visibleCards.sort((a, b) => {
+                    const priceA = parseFloat(a.dataset.price);
+                    const priceB = parseFloat(b.dataset.price);
+                    if (currentSort === 'price-low') return priceA - priceB;
+                    if (currentSort === 'price-high') return priceB - priceA;
+                    return 0;
+                });
+
+                // Re-append to grid logic here
+                // Note: to prevent removing standard layout items (like empty state or other grid contents),
+                // we only append the visible items in sorted order
+                visibleCards.forEach(card => productGrid.appendChild(card));
+            }
+
             // Show/Hide Empty State
             emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
         }
+
+        // Initial Filter Apply
+        applyFilters();
     </script>
 
 </body>
