@@ -71,7 +71,7 @@
                 <a href="/#contact" class="nav-link">Contact</a>
             </div>
             <div class="flex items-center gap-4">
-                <a href="/login" class="btn btn-primary" style="padding: 10px 24px;">લૉગિન</a>
+                <a href="/login" class="btn btn-primary" style="padding: 10px 24px;">Login</a>
             </div>
         </div>
     </nav>
@@ -82,7 +82,7 @@
                 <h1
                     style="font-size: 2.5rem; margin-bottom: 12px; background: linear-gradient(to right, #fff, #a1a1aa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
                     Explore Collections</h1>
-                <p class="text-muted">ટોચની બ્રાન્ડ્સના શ્રેષ્ઠ વિશિષ્ટ ઉત્પાદનો બ્રાઉઝ કરો.</p>
+                <p class="text-muted">Browse the best exclusive Products from top brands.</p>
             </div>
 
             <div class="glass-card"
@@ -90,7 +90,7 @@
                 <div style="position: relative;">
                     <i class="ph ph-magnifying-glass"
                         style="position: absolute; left: 16px; top: 12px; color: var(--text-muted);"></i>
-                    <input type="text" id="searchInput" class="glass-input" placeholder="આઇટમ્સ શોધો..."
+                    <input type="text" id="searchInput" class="glass-input" placeholder="Search items..."
                         style="padding-left: 44px; border: none; background: transparent; width: 200px; height: 40px;">
                 </div>
             </div>
@@ -100,21 +100,21 @@
         <div class="flex justify-between items-center mb-8 wrap-mobile" style="gap: 16px;">
             <!-- Filter Pills -->
             <div class="flex gap-3 overflow-x-auto" style="padding-bottom: 8px; flex: 1; -webkit-overflow-scrolling: touch;">
-                <button class="filter-pill active" data-category="all" onclick="filterItems('all')">તમામ આઇટમ્સ</button>
-                <button class="filter-pill" data-category="Mobiles" onclick="filterItems('Mobiles')">મોબાઇલ્સ</button>
-                <button class="filter-pill" data-category="Electronics" onclick="filterItems('Electronics')">ઇલેક્ટ્રોનિક્સ</button>
-                <button class="filter-pill" data-category="Fashion" onclick="filterItems('Fashion')">ફેશન</button>
-                <button class="filter-pill" data-category="Home" onclick="filterItems('Home')">ઘર અને સજાવટ</button>
-                <button class="filter-pill" data-category="Sports" onclick="filterItems('Sports')">રમતગમત</button>
+                <button class="filter-pill active" data-category="all" onclick="filterItems('all')">All Items</button>
+                <button class="filter-pill" data-category="Mobiles" onclick="filterItems('Mobiles')">Mobiles</button>
+                <button class="filter-pill" data-category="Electronics" onclick="filterItems('Electronics')">Electronics</button>
+                <button class="filter-pill" data-category="Fashion" onclick="filterItems('Fashion')">Fashion</button>
+                <button class="filter-pill" data-category="Home" onclick="filterItems('Home')">Home &amp; Decor</button>
+                <button class="filter-pill" data-category="Sports" onclick="filterItems('Sports')">Sports</button>
             </div>
 
             <!-- Sort Dropdown -->
             <div class="glass-card" style="padding: 4px 12px; border-radius: 50px; display: flex; align-items: center; gap: 8px; min-width: max-content;">
-                <span class="text-sm text-muted">આનાથી સૉર્ટ કરો:</span>
+                <span class="text-sm text-muted">Sort by:</span>
                 <select id="sortSelect" class="glass-input text-sm" style="border: none; background: transparent; color: white; outline: none; padding: 4px 0;">
-                    <option value="featured" style="background: #0b0515; color: white;">વિશેષ</option>
-                    <option value="price-low" style="background: #0b0515; color: white;">કિંમત: ઓછી થી વધુ</option>
-                    <option value="price-high" style="background: #0b0515; color: white;">કિંમત: વધુ થી ઓછી</option>
+                    <option value="featured" style="background: #0b0515; color: white;">Featured</option>
+                    <option value="price-low" style="background: #0b0515; color: white;">Price: Low to High</option>
+                    <option value="price-high" style="background: #0b0515; color: white;">Price: High to Low</option>
                 </select>
             </div>
         </div>
@@ -151,7 +151,7 @@
 
                             <div class="flex justify-between items-center border-t border-white-10 pt-4">
                                 <div>
-                                    <div class="text-xs text-muted">કિંમત</div>
+                                    <div class="text-xs text-muted">Price</div>
                                     ₹<%= displayPrice.toLocaleString('en-IN') %>%>
                                 </div>
                                 <a href="<%= user ? '/asset-details?id=' + product.id : '/login' %>"

@@ -121,7 +121,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <a href="/" class="btn btn-secondary" style="padding: 10px 24px; border-radius: 8px; text-decoration: none;">હોમ પર પાછા ફરો</a>
+            <a href="/" class="btn btn-secondary" style="padding: 10px 24px; border-radius: 8px; text-decoration: none;">Back Home</a>
         </div>
     </nav>
 
@@ -157,23 +157,23 @@
                 </div>
 
                 <div class="summary-card">
-                    <h3 style="margin: 0 0 24px 0; font-size: 1.5rem;">ઓર્ડર સારાંશ</h3>
+                    <h3 style="margin: 0 0 24px 0; font-size: 1.5rem;">Order Summary</h3>
                     
                     <div class="summary-row">
-                        <span>આઇટમ્સ (<%= cart.length %>)</span>
+                        <span>Items (<%= cart.length %>)</span>
                         <span>₹<%= total.toLocaleString('en-IN') %></span>
                     </div>
                     <div class="summary-row">
-                        <span>શિપિંગ</span>
-                        <span style="color: #00ff9d;">મફત</span>
+                        <span>Shipping</span>
+                        <span style="color: #00ff9d;">Free</span>
                     </div>
                     <div class="summary-row">
-                        <span>અંદાજિત કર</span>
+                        <span>Estimated Tax</span>
                         <span>₹<%= Math.floor(total * 0.18).toLocaleString('en-IN') %></span>
                     </div>
 
                     <div class="summary-total">
-                        <span>કુલ</span>
+                        <span>Total</span>
                         <span>₹<%= (total + Math.floor(total * 0.18)).toLocaleString('en-IN') %></span>
                     </div>
 
@@ -189,9 +189,9 @@
         <% } else { %>
             <div style="text-align: center; padding: 100px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; margin: 40px 0;">
                 <i class="ph ph-shopping-cart" style="font-size: 5rem; color: var(--text-muted); margin-bottom: 24px;"></i>
-                <h2 style="margin-bottom: 12px;">તમારું કાર્ટ ખાલી છે</h2>
-                <p style="color: var(--text-muted); margin-bottom: 32px;">એવું લાગે છે કે તમે હજી સુધી તમારા કાર્ટમાં કંઈપણ ઉમેર્યું નથી.</p>
-                <a href="/explore" class="btn btn-primary" style="padding: 12px 32px; text-decoration: none;">ખરીદી શરૂ કરો</a>
+                <h2 style="margin-bottom: 12px;">Your cart is empty</h2>
+                <p style="color: var(--text-muted); margin-bottom: 32px;">Looks like you haven't added anything to your cart yet.</p>
+                <a href="/explore" class="btn btn-primary" style="padding: 12px 32px; text-decoration: none;">Start Shopping</a>
             </div>
         <% } %>
     </div>
