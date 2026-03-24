@@ -60,6 +60,22 @@
       "instagram": "",
       "avatar": "",
       "banner": ""
+    },
+    {
+      "id": 1774335697448,
+      "username": "admin@nft.com",
+      "email": "admin@nft.com",
+      "password": "admin123",
+      "role": "User",
+      "status": "Active",
+      "joined": "2026",
+      "balance": "0.0",
+      "bio": "",
+      "website": "",
+      "twitter": "",
+      "instagram": "",
+      "avatar": "",
+      "banner": ""
     }
   ],
   "listings": [

@@ -4,18 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart | NovaStock</title>
+    <title>Amazon.in Shopping Cart</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
+        body {
+            background-color: #eaeded; /* Amazon light gray */
+            color: #0f1111;
+        }
+
+        .main-header {
+            background: #232f3e;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-logo {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
         .cart-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            align-items: start;
         }
 
         @media (max-width: 768px) {
@@ -24,24 +47,33 @@
             }
         }
 
+        .cart-main {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .cart-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            border-bottom: 1px solid #d5d9d9;
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
         .cart-item {
             display: flex;
-            align-items: center;
             gap: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            margin-bottom: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid #d5d9d9;
         }
 
         .cart-img {
-            width: 100px;
-            height: 100px;
+            width: 160px;
+            height: 160px;
             object-fit: contain;
-            background: white;
-            border-radius: 8px;
-            padding: 10px;
+            mix-blend-mode: multiply;
         }
 
         .cart-item-details {
@@ -50,90 +82,121 @@
 
         .cart-item-title {
             font-size: 1.1rem;
-            font-weight: 600;
+            color: #007185;
+            line-height: 1.4;
             margin-bottom: 4px;
+            font-weight: 500;
         }
 
         .cart-item-price {
             font-size: 1.2rem;
             font-weight: 700;
-            color: var(--primary);
+            color: #0f1111;
+            margin-bottom: 8px;
+        }
+
+        .stock-status {
+            color: #007600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
         }
 
         .btn-remove {
-            background: rgba(255, 77, 77, 0.1);
-            color: #ff4d4d;
-            border: 1px solid rgba(255, 77, 77, 0.2);
-            padding: 8px 16px;
-            border-radius: 6px;
+            background: transparent;
+            color: #007185;
+            border: none;
             cursor: pointer;
-            transition: 0.2s;
+            padding: 0;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
         }
 
         .btn-remove:hover {
-            background: rgba(255, 77, 77, 0.2);
+            color: #c40000;
+            text-decoration: underline;
         }
 
         .summary-card {
-            background: rgba(11, 5, 21, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 24px;
+            background: #fff;
+            border-radius: 4px;
+            padding: 20px;
             position: sticky;
-            top: 100px;
-            height: max-content;
+            top: 20px;
         }
 
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
+        .summary-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin: 0 0 16px 0;
+            line-height: 1.2;
+        }
+
+        .subtotal {
+            font-size: 1.2rem;
             margin-bottom: 16px;
-            color: var(--text-muted);
+        }
+        .subtotal span {
+            font-weight: bold;
         }
 
-        .summary-total {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 24px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: white;
+        .btn-checkout {
+            display: block;
+            width: 100%;
+            background: #ffd814;
+            color: #0f1111;
+            border: 1px solid #fcd200;
+            padding: 10px;
+            border-radius: 100px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px 0 rgba(213,217,217,.5);
+        }
+
+        .btn-checkout:hover {
+            background: #f7ca00;
+        }
+        
+        .empty-cart {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 4px;
         }
     </style>
 </head>
 
 <body>
     <!-- Main EC Navbar -->
-    <nav
-        style="position: sticky; top: 0; z-index: 100; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
-        <div class="flex items-center gap-2" style="min-width: fit-content;">
+    <nav class="main-header">
+        <a href="/" class="header-logo">
             <% if (content && content.visuals && content.visuals.logoImage) { %>
                 <img src="<%= content.visuals.logoImage %>" alt="Logo" style="height: 36px;">
             <% } else { %>
-                <div style="width: 36px; height: 36px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
+                <div style="width: 32px; height: 32px; background: #febd69; color: #0f1111; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
                     N</div>
-                <span style="font-size: 1.4rem; font-weight: 800; color: white; text-decoration: none;">
-                    <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaStock' %>
+                <span>
+                    <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaMart' %>
                 </span>
             <% } %>
-        </div>
+        </a>
 
         <div class="flex items-center gap-4">
-            <a href="/" class="btn btn-secondary" style="padding: 10px 24px; border-radius: 8px; text-decoration: none;">Back Home</a>
+            <a href="/explore" style="color: white; text-decoration: none;">Continue Shopping</a>
         </div>
     </nav>
 
-    <div class="container">
-        <h1 style="margin-top: 40px; font-size: 2.5rem; display: flex; align-items: center; gap: 12px;">
-            <i class="ph ph-shopping-cart"></i> Your Cart
-        </h1>
-
+    <div class="cart-container">
         <% if (cart && cart.length > 0) { 
             let total = 0;
         %>
-            <div class="cart-container">
+            <div class="cart-main">
+                <h1 class="cart-title">Shopping Cart</h1>
+                <div style="text-align: right; color: #565959; font-size: 0.9rem; margin-top: -10px; margin-bottom: 10px;">Price</div>
+                
                 <div class="cart-items">
                     <% cart.forEach(item => { 
                         const price = parseFloat(item.price) < 1000 ? Math.floor(((parseFloat(item.price) * 7391) % 9000) + 1000) : parseFloat(item.price);
@@ -142,56 +205,46 @@
                         <div class="cart-item">
                             <img src="<%= item.image %>" class="cart-img" alt="<%= item.title %>">
                             <div class="cart-item-details">
-                                <div class="text-xs text-muted" style="text-transform: uppercase;"><%= item.brand %></div>
                                 <div class="cart-item-title"><%= item.title %></div>
-                                <div class="cart-item-price">₹<%= price.toLocaleString('en-IN') %></div>
+                                <div class="stock-status">In stock</div>
+                                <div style="font-size: 0.8rem; color: #565959; margin-bottom: 8px;">Brand: <%= item.brand %></div>
+                                
+                                <form action="/cart/remove" method="POST" style="margin: 0; display: inline;">
+                                    <input type="hidden" name="productId" value="<%= item.id %>">
+                                    <button type="submit" class="btn-remove">
+                                        Delete
+                                    </button>
+                                </form>
                             </div>
-                            <form action="/cart/remove" method="POST" style="margin: 0;">
-                                <input type="hidden" name="productId" value="<%= item.id %>">
-                                <button type="submit" class="btn-remove">
-                                    <i class="ph ph-trash"></i> Remove
-                                </button>
-                            </form>
+                            <div class="cart-item-price">₹<%= price.toLocaleString('en-IN') %></div>
                         </div>
                     <% }); %>
                 </div>
-
-                <div class="summary-card">
-                    <h3 style="margin: 0 0 24px 0; font-size: 1.5rem;">Order Summary</h3>
-                    
-                    <div class="summary-row">
-                        <span>Items (<%= cart.length %>)</span>
-                        <span>₹<%= total.toLocaleString('en-IN') %></span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Shipping</span>
-                        <span style="color: #00ff9d;">Free</span>
-                    </div>
-                    <div class="summary-row">
-                        <span>Estimated Tax</span>
-                        <span>₹<%= Math.floor(total * 0.18).toLocaleString('en-IN') %></span>
-                    </div>
-
-                    <div class="summary-total">
-                        <span>Total</span>
-                        <span>₹<%= (total + Math.floor(total * 0.18)).toLocaleString('en-IN') %></span>
-                    </div>
-
-                    <a href="<%= user ? '/checkout?id=' + cart[0].id : '/login' %>" class="btn btn-primary" style="width: 100%; text-decoration: none; padding: 16px; margin-top: 24px; text-align: center; font-size: 1.1rem; border-radius: 8px;">
-                        Proceed to Checkout
-                    </a>
-                    
-                    <a href="/explore" style="display: block; text-align: center; margin-top: 16px; color: var(--text-muted); text-decoration: none;">
-                        &larr; Continue Shopping
-                    </a>
+                
+                <div style="text-align: right; margin-top: 16px; font-size: 1.2rem;">
+                    Subtotal (<%= cart.length %> items): <strong>₹<%= total.toLocaleString('en-IN') %></strong>
                 </div>
             </div>
+
+            <div class="summary-card">
+                <div class="subtotal">
+                    Subtotal (<%= cart.length %> items): <br><span>₹<%= total.toLocaleString('en-IN') %></span>
+                </div>
+                <div style="font-size: 0.9rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                    <i class="ph-fill ph-check-circle" style="color: #067d62; font-size: 1.2rem;"></i>
+                    <span style="color: #067d62;">Your order is eligible for FREE Delivery.</span>
+                </div>
+                
+                <a href="<%= user ? '/checkout?id=' + cart[0].id : '/login' %>" class="btn-checkout">
+                    Proceed to Buy
+                </a>
+            </div>
         <% } else { %>
-            <div style="text-align: center; padding: 100px 20px; background: rgba(255,255,255,0.02); border-radius: 16px; margin: 40px 0;">
-                <i class="ph ph-shopping-cart" style="font-size: 5rem; color: var(--text-muted); margin-bottom: 24px;"></i>
-                <h2 style="margin-bottom: 12px;">Your cart is empty</h2>
-                <p style="color: var(--text-muted); margin-bottom: 32px;">Looks like you haven't added anything to your cart yet.</p>
-                <a href="/explore" class="btn btn-primary" style="padding: 12px 32px; text-decoration: none;">Start Shopping</a>
+            <div style="grid-column: 1 / -1;" class="empty-cart">
+                <i class="ph ph-shopping-cart" style="font-size: 5rem; color: #d5d9d9; margin-bottom: 16px;"></i>
+                <h2 style="font-size: 1.5rem; margin-bottom: 12px; font-weight: 500;">Your Amazon Cart is empty.</h2>
+                <p style="color: #565959; margin-bottom: 24px;">Check your Saved for later items below or continue shopping.</p>
+                <a href="/explore" style="display: inline-block; padding: 10px 20px; background: #ffd814; border: 1px solid #fcd200; border-radius: 8px; color: #0f1111; text-decoration: none; font-weight: 500;">Continue shopping</a>
             </div>
         <% } %>
     </div>

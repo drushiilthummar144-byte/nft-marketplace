@@ -5,35 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Store | Shop Electronics & Fashion</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Discover premium electronics, fashion, and home goods at NovaMart. Huge discounts on smartphones, apparel, and daily essentials.">
+    <meta name="keywords" content="e-commerce, shop, electronics, fashion, home, sports, online shopping">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="NovaMart">
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE_HERE" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Premium Store | Shop Electronics & Fashion">
+    <meta property="og:description" content="Huge discounts on smartphones, electronics, apparel, and daily essentials. Shop now at NovaMart.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://novamart.example.com/">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800">
+
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-
         .cat-bar {
-            background: rgba(11, 5, 21, 0.95);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-light);
             display: flex;
             gap: 24px;
-            padding: 12px 24px;
+            padding: 10px 24px;
             overflow-x: auto;
             white-space: nowrap;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
 
         .cat-item {
-            color: #ccc;
+            color: var(--text-main);
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -46,56 +50,59 @@
         }
 
         .promo-banner {
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(127, 48, 255, 0.4) 0%, rgba(0, 0, 0, 0.5) 100%), url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200') center/cover;
-            padding: 60px 40px;
-            margin: 24px;
-            position: relative;
-            overflow: hidden;
+            border-radius: 4px;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            padding: 40px;
+            margin: 16px 24px;
             display: flex;
             align-items: center;
             min-height: 250px;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
         }
 
-        .promo-banner::before {
+        .promo-banner::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, #05020a 0%, rgba(5, 2, 10, 0.8) 40%, rgba(5, 2, 10, 0.1) 100%);
+            width: 50%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800') no-repeat center right / cover;
+            mask-image: linear-gradient(to right, transparent, black 30%);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
             z-index: 1;
         }
 
         .promo-content {
             position: relative;
             z-index: 2;
-            max-width: 500px;
+            max-width: 50%;
         }
 
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            gap: 16px;
             padding: 0 24px;
         }
 
         .ec-product-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
             padding: 16px;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             position: relative;
+            cursor: pointer;
         }
 
         .ec-product-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(127, 48, 255, 0.3);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #d5d9d9;
         }
 
         .ec-product-img {
@@ -103,7 +110,6 @@
             height: 180px;
             object-fit: contain;
             background: white;
-            border-radius: 8px;
             margin-bottom: 12px;
             padding: 10px;
             box-sizing: border-box;
@@ -113,12 +119,12 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #FF3085;
+            background: #cc0c39; /* Amazon red */
             color: white;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: bold;
             padding: 4px 8px;
-            border-radius: 4px;
+            border-radius: 2px;
             z-index: 2;
         }
 
@@ -127,7 +133,7 @@
             font-weight: 500;
             line-height: 1.4;
             margin-bottom: 6px;
-            color: #fff;
+            color: #0f1111;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             line-clamp: 2;
@@ -138,42 +144,48 @@
         }
 
         .ec-rating {
-            color: #FFB800;
-            font-size: 0.8rem;
+            color: #ffa41c;
+            font-size: 0.9rem;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
         }
 
         .ec-price-row {
             display: flex;
             align-items: baseline;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             margin-top: auto;
         }
 
         .ec-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #0f1111;
+        }
+        
+        .ec-price span {
+            font-size: 0.8rem;
+            position: relative;
+            top: -0.4em;
         }
 
         .ec-old-price {
             font-size: 0.85rem;
-            color: var(--text-muted);
+            color: #565959;
             text-decoration: line-through;
         }
 
         .btn-cart {
             width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: 600;
+            background: #ffd814; /* Amazon yellow button */
+            color: #0f1111;
+            border: 1px solid #fcd200;
+            padding: 8px;
+            border-radius: 100px;
+            font-weight: 500;
             cursor: pointer;
             transition: background 0.2s;
             display: flex;
@@ -181,121 +193,172 @@
             align-items: center;
             gap: 6px;
             text-decoration: none;
+            box-shadow: 0 2px 5px 0 rgba(213,217,217,.5);
         }
 
         .btn-cart:hover {
-            background: #9d5cff;
+            background: #f7ca00;
+            border-color: #f2c200;
+        }
+
+        /* Top Header specific to e-commerce */
+        .main-header {
+            background: #232f3e; /* Amazon dark blue */
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .header-logo {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 800px;
+            display: flex;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-btn {
+            background: #febd69; /* Amazon orange button */
+            border: none;
+            padding: 0 16px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #0f1111;
+        }
+        
+        .search-btn:hover {
+            background: #f3a847;
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-link-item {
+            color: white;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .header-link-small {
+            font-size: 0.75rem;
+            line-height: 14px;
+        }
+
+        .header-link-large {
+            font-size: 0.9rem;
+            font-weight: bold;
+            line-height: 16px;
+            display: flex;
+            align-items: center;
         }
     </style>
-
-    <!-- PWA Setup -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#7F30FF">
-    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=NovaStock&background=7F30FF&color=fff&size=192">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful');
-                }).catch(err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
-    </script>
 </head>
 
 <body>
 
     <!-- Main EC Navbar -->
-    <nav
-        style="position: sticky; top: 0; z-index: 100; padding: 16px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85); display: flex; align-items: center; justify-content: space-between; gap: 24px;">
-        <div class="flex items-center gap-2" style="min-width: fit-content;">
+    <nav class="main-header">
+        <a href="/" class="header-logo">
             <% if (content && content.visuals && content.visuals.logoImage) { %>
                 <img src="<%= content.visuals.logoImage %>" alt="Logo" style="height: 36px;">
-                <% } else { %>
-                    <div
-                        style="width: 36px; height: 36px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
-                        N</div>
-                    <span style="font-size: 1.4rem; font-weight: 800; color: white; text-decoration: none;">
-                        <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText
-                            : 'NovaStock' %>
-                    </span>
-                    <% } %>
+            <% } else { %>
+                <div style="width: 32px; height: 32px; background: #febd69; color: #0f1111; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
+                    N</div>
+                <span>
+                    <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaMart' %>
+                </span>
+            <% } %>
+        </a>
+
+        <div class="search-container hidden md:flex">
+            <input type="text" class="search-input" placeholder="Search for products, brands and more...">
+            <button class="search-btn"><i class="ph ph-magnifying-glass"></i></button>
         </div>
 
-        <div style="flex: 1; max-width: 600px; position: relative;" class="hidden sm:block">
-            <input type="text" placeholder="Search for products, brands and more..."
-                style="width: 100%; padding: 12px 16px 12px 48px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; outline: none; box-sizing: border-box;">
-            <i class="ph ph-magnifying-glass"
-                style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #888; font-size: 1.2rem;"></i>
-        </div>
-
-        <div class="flex items-center gap-4">
+        <div class="header-links">
             <% if (user) { %>
-                <a href="/profile"
-                    style="color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem;">
-                    <i class="ph ph-user" style="font-size: 1.4rem; margin-bottom: 2px;"></i>Profile</a>
-                <a href="/cart"
-                    style="color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem; position: relative;">
-                    <i class="ph ph-shopping-cart" style="font-size: 1.4rem; margin-bottom: 2px;"></i>Cart<span
-                        style="position: absolute; top: -5px; right: -5px; background: #FF3085; color: white; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;"><%= cart ? cart.length : 0 %></span>
+                <a href="/profile" class="header-link-item">
+                    <span class="header-link-small">Hello, User</span>
+                    <span class="header-link-large">Account & Lists</span>
                 </a>
-                <a href="/logout"
-                    style="color: #ff4d4d; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 0.8rem;">
-                    <i class="ph ph-sign-out" style="font-size: 1.4rem; margin-bottom: 2px;"></i>Exit</a>
-                <% } else { %>
-                    <a href="/login" class="btn btn-primary" style="padding: 10px 24px; border-radius: 8px;">Login</a>
-                    <% } %>
+                <a href="/cart" class="header-link-item" style="flex-direction: row; align-items: flex-end; gap: 4px; position: relative;">
+                    <div style="position: relative;">
+                        <i class="ph ph-shopping-cart" style="font-size: 2.2rem; margin-bottom: -4px;"></i>
+                        <span style="position: absolute; top: -2px; left: 16px; color: #f08804; font-weight: bold; font-size: 1rem;"><%= cart ? cart.length : 0 %></span>
+                    </div>
+                    <span class="header-link-large" style="padding-bottom: 2px;">Cart</span>
+                </a>
+                <a href="/logout" class="header-link-item">
+                    <span class="header-link-small">&nbsp;</span>
+                    <span class="header-link-large">Sign Out</span>
+                </a>
+            <% } else { %>
+                <a href="/login" class="header-link-item">
+                    <span class="header-link-small">Hello, sign in</span>
+                    <span class="header-link-large">Account & Lists</span>
+                </a>
+            <% } %>
         </div>
     </nav>
 
     <!-- Sub Navbar (Categories) -->
     <div class="cat-bar">
-        <a href="/explore" class="cat-item"><i class="ph ph-list"></i> All Categories</a>
+        <a href="/explore" class="cat-item" style="font-weight: bold;"><i class="ph ph-list"></i> All</a>
         <a href="/explore?cat=Mobiles" class="cat-item">Mobiles</a>
         <a href="/explore?cat=Electronics" class="cat-item">Electronics</a>
         <a href="/explore?cat=Fashion" class="cat-item">Fashion</a>
-        <a href="/explore?cat=Appliances" class="cat-item">Home Appliances</a>
-        <a href="/explore?cat=Toys" class="cat-item">Toys &amp; Games</a>
+        <a href="/explore?cat=Home" class="cat-item">Home & Kitchen</a>
+        <a href="/explore?cat=Sports" class="cat-item">Sports</a>
         <a href="/explore?cat=Beauty" class="cat-item">Beauty</a>
-        <a href="/explore?cat=Grocery" class="cat-item">Grocery</a>
     </div>
 
     <!-- Promo Banner -->
     <div class="promo-banner">
         <div class="promo-content">
-            <div
-                style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 4px; display: inline-block; font-size: 0.8rem; font-weight: bold; margin-bottom: 12px;">
-                MEGA CLEARANCE SALE</div>
-            <h1 style="font-size: 2.8rem; margin: 0 0 16px 0; line-height: 1.1; font-weight: 800;">Get up to 60%
-                off<br>on Top Brands</h1>
-            <p style="color: #ccc; margin-bottom: 24px; font-size: 1.1rem;">Upgrade your lifestyle with our premium
-                selection of electronics, fashion, and smart home devices. Limited time offer.</p>
-            <a href="/explore" class="btn btn-primary"
-                style="padding: 12px 32px; font-size: 1.1rem; border-radius: 8px; text-decoration: none; display: inline-block;">ShopDeals Now</a>
+            <div style="background: #cc0c39; color: white; padding: 4px 12px; border-radius: 2px; display: inline-block; font-size: 0.8rem; font-weight: bold; margin-bottom: 12px; text-transform: uppercase;">
+                Great Indian Festival
+            </div>
+            <h1 style="font-size: 2.5rem; margin: 0 0 16px 0; line-height: 1.2; font-weight: 700; color: #0f1111;">Up to 70% off<br>on Top Categories</h1>
+            <p style="color: #565959; margin-bottom: 24px; font-size: 1.1rem; max-width: 400px;">Huge discounts on smartphones, electronics, apparel, and daily essentials.</p>
+            <a href="/explore" style="background: #ffd814; color: #0f1111; padding: 12px 32px; font-size: 1rem; border-radius: 100px; text-decoration: none; display: inline-block; font-weight: 500; border: 1px solid #fcd200;">Shop Deals Now</a>
         </div>
     </div>
 
-    <!-- Deal of the Day -->
-    <div style="padding: 16px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
-            <h2 style="font-size: 1.8rem; margin: 0; display: flex; align-items: center; gap: 8px;">Deal of the Day<i class="ph-fill ph-lightning" style="color: #FFB800;"></i>
-            </h2>
-            <a href="/explore"
-                style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">View AllDeals &rarr;</a>
-        </div>
+    <!-- Block Title -->
+    <div style="padding: 16px 24px; margin-top: 10px;">
+        <h2 style="font-size: 1.5rem; margin: 0 0 16px 0; color: #0f1111;">Today's Deals <a href="/explore" style="font-size: 0.9rem; color: #007185; font-weight: 400; margin-left: 12px;">See all deals</a></h2>
 
         <div class="product-grid">
-            <% if (listings && listings.length> 0) { %>
+            <% if (listings && listings.length > 0) { %>
                 <% listings.slice(0, 8).forEach(function(product) { %>
-                    <div class="ec-product-card">
-                        <div class="badge-discount">-<%= Math.floor(Math.random() * 30 + 10) %>%</div>
+                    <div class="ec-product-card" onclick="window.location.href='/asset-details?id=<%= product.id %>'">
+                        <div class="badge-discount">-<%= Math.floor(Math.random() * 40 + 15) %>%</div>
                         <img src="<%= product.image %>" class="ec-product-img" alt="<%= product.title %>">
-                        <div
-                            style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;">
+                        <div style="color: #007185; font-size: 0.8rem; margin-bottom: 4px; font-weight: 500;">
                             <%= product.brand %>
                         </div>
                         <div class="ec-title" title="<%= product.title %>">
@@ -303,126 +366,50 @@
                         </div>
 
                         <div class="ec-rating">
-                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
-                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
-                                class="ph-fill ph-star-half"></i>
-                            <span style="color: var(--text-muted); margin-left: 4px;">(<%= Math.floor(Math.random() *
-                                    500 + 50) %>)</span>
+                            <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
+                            <span style="color: #007185; margin-left: 4px; font-size: 0.8rem;"><%= Math.floor(Math.random() * 5000 + 50) %></span>
                         </div>
 
+                        <% 
+                            let parsedPrice = parseFloat(product.price);
+                            let finalPrice = parsedPrice < 1000 ? Math.floor(((parsedPrice * 7391) % 9000) + 1000) : parsedPrice;
+                        %>
                         <div class="ec-price-row">
-                            <div class="ec-price">₹<%= ((parseFloat(product.price) < 1000 ?
-                                    Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
-                                    parseFloat(product.price))).toLocaleString('en-IN') %>
-                            </div>
-                            <div class="ec-old-price">₹<%= (parseFloat(product.price) * 1.4).toLocaleString('en-IN') %>
-                            </div>
+                            <div class="ec-price"><span>₹</span><%= finalPrice.toLocaleString('en-IN') %></div>
+                            <div class="ec-old-price">M.R.P: ₹<%= (finalPrice * 1.5).toLocaleString('en-IN') %></div>
                         </div>
 
                         <form action="/cart/add" method="POST" style="margin: 0;">
                             <input type="hidden" name="productId" value="<%= product.id %>">
-                            <button type="submit" class="btn-cart">
-                                <i class="ph ph-shopping-cart"></i>Add to Cart</button>
+                            <button type="submit" class="btn-cart" onclick="event.stopPropagation();">Add to Cart</button>
                         </form>
                     </div>
-                    <% }); %>
-                        <% } else { %>
-                            <div
-                                style="grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--text-muted); background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px dashed rgba(255,255,255,0.1);">
-                                <i class="ph ph-package"
-                                    style="font-size: 3rem; margin-bottom: 12px; opacity: 0.5;"></i>
-                                <p>No products available right now. Please check back later.</p>
-                            </div>
-                            <% } %>
-        </div>
-    </div>
-
-    <!-- Popular Categories -->
-    <div style="padding: 40px 24px; margin-top: 20px; background: rgba(0,0,0,0.3);">
-        <h2 style="font-size: 1.8rem; margin: 0 0 24px 0;">Shop by Category</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px;">
-
-            <a href="/explore?cat=Mobiles"
-                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
-                <i class="ph ph-device-mobile" style="font-size: 2.5rem; color: #4facfe; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Mobiles</div>
-            </a>
-
-            <a href="/explore?cat=Electronics"
-                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
-                <i class="ph ph-laptop" style="font-size: 2.5rem; color: #a18cd1; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Electronics</div>
-            </a>
-
-            <a href="/explore?cat=Fashion"
-                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
-                <i class="ph ph-t-shirt" style="font-size: 2.5rem; color: #ff0844; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Fashion</div>
-            </a>
-
-            <a href="/explore?cat=Home"
-                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
-                <i class="ph ph-armchair" style="font-size: 2.5rem; color: #f6d365; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Home &amp; Decor</div>
-            </a>
-
-            <a href="/explore?cat=Sports"
-                style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 16px; text-align: center; text-decoration: none; color: white; transition: 0.2s;">
-                <i class="ph ph-sneaker" style="font-size: 2.5rem; color: #0ba360; margin-bottom: 12px;"></i>
-                <div style="font-weight: 600;">Sports</div>
-            </a>
-
-        </div>
-    </div>
-
-    <!-- Support Block -->
-    <div style="padding: 60px 24px; text-align: center;">
-        <div
-            style="max-width: 800px; margin: 0 auto; background: linear-gradient(135deg, rgba(127,48,255,0.1), transparent); border: 1px solid rgba(127,48,255,0.3); border-radius: 16px; padding: 40px; box-shadow: 0 0 30px rgba(127,48,255,0.1);">
-            <i class="ph ph-headset" style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;"></i>
-            <h2 style="margin: 0 0 16px 0;">24/7 Customer Support</h2>
-            <p style="color: var(--text-muted); margin-bottom: 24px;">Need help with your order? Find answers in ourHelp Center or contact our dedicated support team directly.</p>
-            <button onclick="document.getElementById('contact').scrollIntoView()" class="btn btn-secondary"
-                style="padding: 10px 24px; background: rgba(255,255,255,0.05);">Contact Support</button>
-        </div>
-
-        <!-- Contact Form -->
-        <section id="contact" style="padding-top: 40px; margin-top: 20px;">
-            <h2>Send a Message</h2>
-            <form action="/contact" method="POST" class="glass-card"
-                style="max-width: 600px; margin: 0 auto; padding: 32px; text-align: left;">
-                <div class="form-group mb-6">
-                    <label>Your Name</label>
-                    <input type="text" name="name" class="glass-input w-full" required>
+                <% }); %>
+            <% } else { %>
+                <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--text-muted); background: white; border-radius: 4px; border: 1px solid var(--border-light);">
+                    <i class="ph ph-package" style="font-size: 3rem; margin-bottom: 12px; color: #d5d9d9;"></i>
+                    <p>No products available right now. Please check back later.</p>
                 </div>
-                <div class="form-group mb-6">
-                    <label>Email Address</label>
-                    <input type="email" name="email" class="glass-input w-full" required>
-                </div>
-                <div class="form-group mb-6">
-                    <label>Message</label>
-                    <textarea name="message" class="glass-input w-full" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary w-full">Send Message</button>
-            </form>
-        </section>
+            <% } %>
+        </div>
     </div>
 
     <!-- Footer -->
-    <footer
-        style="background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 24px; margin-top: 40px; text-align: center; color: var(--text-muted);">
-        <div style="font-weight: bold; font-size: 1.2rem; color: white; margin-bottom: 12px;">
-            <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaStock' %>
+    <div style="background: #37475a; padding: 15px; text-align: center; margin-top: 40px; color: white; cursor: pointer;" onclick="window.scrollTo(0,0)">
+        Back to top
+    </div>
+    <footer style="background: #232f3e; padding: 40px 24px; text-align: center; color: #dddddd;">
+        <div style="font-weight: bold; font-size: 1.5rem; color: white; margin-bottom: 12px;">
+            <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'NovaMart' %>
         </div>
-        <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 24px;">
-            <a href="#" style="color: inherit; text-decoration: none;">About</a>
-            <a href="#" style="color: inherit; text-decoration: none;">Returns</a>
-            <a href="#" style="color: inherit; text-decoration: none;">Privacy Policy</a>
-            <a href="#" style="color: inherit; text-decoration: none;">Terms of Service</a>
+        <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; font-size: 0.9rem;">
+            <a href="#" style="color: inherit;">Get to Know Us</a>
+            <a href="#" style="color: inherit;">Returns & Replacement</a>
+            <a href="#" style="color: inherit;">Privacy Policy</a>
+            <a href="#" style="color: inherit;">Terms of Service</a>
         </div>
-        <p>Copyright &copy; <%= new Date().getFullYear() %> NovaStock. All rights reserved.</p>
+        <p style="font-size: 0.8rem;">&copy; <%= new Date().getFullYear() %>, NovaMart, Inc. or its affiliates</p>
     </footer>
 
 </body>
-
 </html>
