@@ -10,6 +10,11 @@ const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/db');
 const User = require('./models/User');
 
+const twilio = require('twilio');
+const twilioClient = (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) 
+    ? twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN) 
+    : null;
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -82,6 +87,41 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+// Twilio OTP Routes
+app.post('/api/send-otp', async (req, res) => {
+    const { phone } = req.body;
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    req.session.otp = otp;
+    
+    if (twilioClient && process.env.TWILIO_PHONE_NUMBER) {
+        try {
+            await twilioClient.messages.create({
+                body: `Your SamKart verification code is ${otp}`,
+                from: process.env.TWILIO_PHONE_NUMBER,
+                to: phone
+            });
+            res.json({ success: true, message: 'OTP sent via Twilio' });
+        } catch (error) {
+            console.error("Twilio Error:", error);
+            res.status(500).json({ success: false, message: 'Failed to send OTP. Check Twilio credentials.' });
+        }
+    } else {
+        // Fallback for testing if Twilio isn't configured yet
+        console.log(`\n[DEV MODE - TWILIO NOT CONFIGURED] OTP for ${phone} is: ${otp}\n`);
+        res.json({ success: true, message: 'Twilio not linked. Check console for OTP.' });
+    }
+});
+
+app.post('/api/verify-otp', (req, res) => {
+    const { otp } = req.body;
+    if (req.session.otp && req.session.otp === otp) {
+        req.session.mobileVerified = true;
+        res.json({ success: true });
+    } else {
+        res.json({ success: false });
+    }
+});
+
 // --- ROUTES ---
 
 // 1. Public Routes
@@ -129,11 +169,35 @@ app.get('/asset-details', (req, res) => {
 });
 app.get('/checkout', (req, res) => {
     const db = getDb();
+    if (req.query.id === 'cart') {
+        if (!req.session.cart || req.session.cart.length === 0) return res.redirect('/cart');
+        const cartTotal = req.session.cart.reduce((acc, item) => {
+            const price = parseFloat(item.price) < 1000 ? Math.floor(((parseFloat(item.price) * 7391) % 9000) + 1000) : parseFloat(item.price);
+            return acc + price;
+        }, 0);
+        const cartProduct = {
+            id: 'cart',
+            title: `Cart Order (${req.session.cart.length} items)`,
+            brand: 'SamKart',
+            category: 'Multiple Items',
+            price: cartTotal.toString(),
+            image: req.session.cart[0] ? req.session.cart[0].image : 'https://picsum.photos/seed/cart/200/200'
+        };
+        return res.render('checkout', { product: cartProduct, cart: req.session.cart });
+    }
     const product = db.listings.find(l => l.id == req.query.id);
     res.render('checkout', { product, cart: req.session.cart || [] });
 });
 app.get('/payment', (req, res) => {
     const db = getDb();
+    if (req.query.id === 'cart') {
+        const cartTotal = (req.session.cart || []).reduce((acc, item) => {
+            const price = parseFloat(item.price) < 1000 ? Math.floor(((parseFloat(item.price) * 7391) % 9000) + 1000) : parseFloat(item.price);
+            return acc + price;
+        }, 0);
+        const cartProduct = { id: 'cart', title: `Cart Order (${req.session.cart.length} items)`, price: cartTotal.toString(), category: 'Multiple Items', brand: 'SamKart' };
+        return res.render('payment', { product: cartProduct });
+    }
     const product = db.listings.find(l => l.id == req.query.id);
     res.render('payment', { product });
 });
@@ -168,9 +232,31 @@ app.post('/cart/remove', (req, res) => {
 app.post('/payment/confirm', (req, res) => {
     if (!req.session.user) return res.redirect('/login');
     const db = getDb();
+    if (!db.orders) db.orders = [];
+
+    if (req.body.id === 'cart' && req.session.cart) {
+        req.session.cart.forEach(product => {
+            db.orders.push({
+                id: Date.now().toString() + Math.floor(Math.random() * 1000),
+                productId: product.id,
+                title: product.title,
+                image: product.image,
+                price: product.price,
+                buyer: req.session.user.username,
+                seller: product.brand,
+                status: 'Confirmed',
+                date: new Date().toISOString()
+            });
+            const dbProduct = db.listings.find(l => l.id == product.id);
+            if (dbProduct) dbProduct.owner = req.session.user.username;
+        });
+        req.session.cart = []; // Empty cart
+        saveDb(db);
+        return res.redirect('/profile?status=ordered');
+    }
+
     const product = db.listings.find(l => l.id == req.body.id);
     if (product) {
-        if (!db.orders) db.orders = [];
         db.orders.push({
             id: Date.now().toString(),
             productId: product.id,
@@ -435,10 +521,11 @@ app.get('/admin/login', (req, res) => {
 // Handle Login Logic
 app.post('/admin/login', (req, res) => {
     const { email, password } = req.body;
+    const cleanEmail = email ? email.trim().toLowerCase() : '';
     const db = getDb();
 
     // Find user with matching credentials and Admin role
-    const user = db.users.find(u => u.email === email && u.role === 'Admin');
+    const user = db.users.find(u => (u.email || '').toLowerCase() === cleanEmail && u.role === 'Admin');
 
     if (!user) {
         return res.redirect('/admin/login?error=Access Denied or User not found');
@@ -457,12 +544,21 @@ app.post('/admin/login', (req, res) => {
 app.get('/admin/dashboard', isAdmin, (req, res) => {
     const db = getDb();
     // Calculate stats
-    const totalUsers = db.users.length;
-    const activeListings = db.listings.filter(l => l.status === 'Active').length;
+    const totalUsers = db.users ? db.users.length : 0;
+    const activeListings = db.listings ? db.listings.filter(l => l.status === 'Active').length : 0;
+    
+    const orders = db.orders || [];
+    const pendingOrders = orders.filter(o => o.status === 'Confirmed' || o.status === 'Pending').length;
+    const totalRevenue = orders.reduce((acc, o) => acc + (parseFloat(o.price) || 0), 0);
+
+    // Mock recent monthly trends based on total
+    const revenueData = [0, totalRevenue * 0.1, totalRevenue * 0.2, totalRevenue * 0.15, totalRevenue * 0.4, totalRevenue * 0.8, totalRevenue];
+
     res.render('admin/dashboard', {
         page: 'dashboard',
-        stats: { totalUsers, activeListings },
-        gateways: db.gateways
+        stats: { totalUsers, activeListings, pendingOrders, totalRevenue },
+        revenueData: JSON.stringify(revenueData),
+        gateways: db.gateways || { paypal: {}, moonpay: {} }
     });
 });
 
@@ -716,7 +812,7 @@ const initApp = async () => {
         app.listen(PORT, () => {
             console.log(`🚀 Server running on port ${PORT}`);
             console.log(`Server running at http://localhost:${PORT}`);
-            console.log(`Admin Login: admin@product.com / admin123`);
+            console.log(`Admin Login: sam@samkart.com / admin123`);
         });
     } catch (e) {
         console.error("Critical DB Load Error:", e);

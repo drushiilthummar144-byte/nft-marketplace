@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SamKart — Control Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: white;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(120, 40, 200, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(40, 120, 255, 0.15) 0%, transparent 50%);
+        }
+
+        header {
+            padding: 32px 48px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, #7828C8, #FF3085);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; font-weight: 900;
+            box-shadow: 0 0 20px rgba(120, 40, 200, 0.5);
+        }
+
+        .logo-text { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; }
+        .logo-sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); font-weight: 400; }
+
+        .status-badge {
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(0, 255, 100, 0.08);
+            border: 1px solid rgba(0, 255, 100, 0.25);
+            padding: 8px 16px; border-radius: 100px;
+            font-size: 0.85rem; color: #00ff64;
+        }
+
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #00ff64;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 40px 48px 80px; }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .welcome h1 {
+            font-size: 2.8rem; font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .welcome p { color: rgba(255,255,255,0.45); font-size: 1rem; }
+
+        .section-title {
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; color: rgba(255,255,255,0.3);
+            margin-bottom: 16px; padding-left: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 24px;
+            text-decoration: none;
+            color: white;
+            display: flex; align-items: center; gap: 18px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(120,40,200,0.08) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.3s;
+        }
+
+        .card:hover { transform: translateY(-3px); border-color: rgba(120,40,200,0.4); }
+        .card:hover::before { opacity: 1; }
+
+        .card-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; flex-shrink: 0;
+        }
+
+        .card-body { flex: 1; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+        .card-desc { font-size: 0.8rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
+        .card-url { font-size: 0.72rem; color: rgba(255,255,255,0.2); margin-top: 6px; font-family: monospace; }
+
+        .card-arrow {
+            font-size: 1.2rem; color: rgba(255,255,255,0.2);
+            transition: transform 0.2s, color 0.2s;
+        }
+        .card:hover .card-arrow { transform: translateX(4px); color: rgba(255,255,255,0.6); }
+
+        /* Color variants */
+        .icon-purple { background: rgba(120,40,200,0.2); }
+        .icon-blue   { background: rgba(40,120,255,0.2); }
+        .icon-green  { background: rgba(0,200,100,0.2); }
+        .icon-orange { background: rgba(255,160,40,0.2); }
+        .icon-pink   { background: rgba(255,48,133,0.2); }
+        .icon-red    { background: rgba(255,60,60,0.2); }
+        .icon-teal   { background: rgba(0,180,180,0.2); }
+        .icon-yellow { background: rgba(255,220,0,0.2); }
+
+        /* Admin credentials box */
+        .creds-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 24px 32px;
+            margin-bottom: 40px;
+            display: flex; align-items: center; gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .creds-box h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; color: rgba(255,255,255,0.6); }
+
+        .cred-item {
+            display: flex; align-items: center; gap: 10px;
+            background: rgba(0,0,0,0.3);
+            padding: 10px 18px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .cred-label { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-bottom: 2px; }
+        .cred-value { font-family: monospace; font-size: 0.95rem; color: #00ff64; font-weight: 600; }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.06); border: none;
+            color: rgba(255,255,255,0.4); cursor: pointer;
+            padding: 4px 8px; border-radius: 6px; font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+
+        .quick-admin {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, #7828C8, #FF3085);
+            color: white; text-decoration: none;
+            padding: 12px 28px; border-radius: 12px;
+            font-weight: 700; font-size: 0.9rem;
+            transition: all 0.3s; margin-left: auto;
+            box-shadow: 0 8px 20px rgba(120,40,200,0.4);
+        }
+        .quick-admin:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(120,40,200,0.6); }
+
+        footer {
+            text-align: center;
+            color: rgba(255,255,255,0.15);
+            font-size: 0.8rem;
+            padding: 24px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">S</div>
+        <div>
+            <div class="logo-text">SamKart</div>
+            <div class="logo-sub">Unified Control Panel</div>
+        </div>
+    </div>
+    <div class="status-badge">
+        <div class="status-dot"></div>
+        Server Online · localhost:3000
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="welcome">
+        <h1>Welcome, Sam 👋</h1>
+        <p>Your complete SamKart platform control panel. Every page in one place.</p>
+    </div>
+
+    <!-- Admin Credentials -->
+    <div class="creds-box">
+        <div>
+            <h3>🔐 Admin Credentials</h3>
+            <div style="display:flex; gap: 12px; flex-wrap: wrap;">
+                <div class="cred-item">
+                    <div>
+                        <div class="cred-label">EMAIL</div>
+                        <div class="cred-value">sam@samkart.com</div>
+                    </div>
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText('sam@samkart.com'); this.textContent='✓'">Copy</button>
+                </div>
+                <div class="cred-item">
+                    <div>
+                        <div class="cred-label">PASSWORD</div>
+                        <div class="cred-value">admin123</div>
+                    </div>
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText('admin123'); this.textContent='✓'">Copy</button>
+                </div>
+            </div>
+        </div>
+        <a href="http://localhost:3000/admin/login" target="_blank" class="quick-admin">
+            🚀 Open Admin Panel
+        </a>
+    </div>
+
+    <!-- Customer Pages -->
+    <div class="section-title">🛍️ Customer Pages</div>
+    <div class="grid">
+        <a href="http://localhost:3000/" target="_blank" class="card">
+            <div class="card-icon icon-purple">🏠</div>
+            <div class="card-body">
+                <div class="card-title">Homepage</div>
+                <div class="card-desc">Main store front with featured products, deals & promo banners.</div>
+                <div class="card-url">localhost:3000/</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/explore" target="_blank" class="card">
+            <div class="card-icon icon-blue">🔍</div>
+            <div class="card-body">
+                <div class="card-title">Explore Products</div>
+                <div class="card-desc">Browse all products with category filters (Mobiles, Fashion, etc.).</div>
+                <div class="card-url">localhost:3000/explore</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/cart" target="_blank" class="card">
+            <div class="card-icon icon-orange">🛒</div>
+            <div class="card-body">
+                <div class="card-title">Shopping Cart</div>
+                <div class="card-desc">View all cart items, total price, and proceed to checkout.</div>
+                <div class="card-url">localhost:3000/cart</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/login" target="_blank" class="card">
+            <div class="card-icon icon-teal">👤</div>
+            <div class="card-body">
+                <div class="card-title">User Login</div>
+                <div class="card-desc">Customer sign-in page for accessing profile and orders.</div>
+                <div class="card-url">localhost:3000/login</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/register" target="_blank" class="card">
+            <div class="card-icon icon-green">✍️</div>
+            <div class="card-body">
+                <div class="card-title">Register</div>
+                <div class="card-desc">New user account registration page.</div>
+                <div class="card-url">localhost:3000/register</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/profile" target="_blank" class="card">
+            <div class="card-icon icon-yellow">⭐</div>
+            <div class="card-body">
+                <div class="card-title">My Profile & Orders</div>
+                <div class="card-desc">View placed orders, account details and purchase history.</div>
+                <div class="card-url">localhost:3000/profile</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+    </div>
+
+    <!-- Admin Pages -->
+    <div class="section-title">⚙️ Admin / CEO Pages</div>
+    <div class="grid">
+        <a href="http://localhost:3000/admin/login" target="_blank" class="card">
+            <div class="card-icon icon-red">🔐</div>
+            <div class="card-body">
+                <div class="card-title">Admin Login</div>
+                <div class="card-desc">CEO secure login portal. sam@samkart.com / admin123</div>
+                <div class="card-url">localhost:3000/admin/login</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/dashboard" target="_blank" class="card">
+            <div class="card-icon icon-purple">📊</div>
+            <div class="card-body">
+                <div class="card-title">CEO Dashboard</div>
+                <div class="card-desc">Real-time revenue stats, order counts & sales trend graphs.</div>
+                <div class="card-url">localhost:3000/admin/dashboard</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/users" target="_blank" class="card">
+            <div class="card-icon icon-blue">👥</div>
+            <div class="card-body">
+                <div class="card-title">User Management</div>
+                <div class="card-desc">View, ban, or promote all registered users on the platform.</div>
+                <div class="card-url">localhost:3000/admin/users</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/listings" target="_blank" class="card">
+            <div class="card-icon icon-orange">📦</div>
+            <div class="card-body">
+                <div class="card-title">Product Listings</div>
+                <div class="card-desc">Approve, manage or remove all product listings in the store.</div>
+                <div class="card-url">localhost:3000/admin/listings</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/transactions" target="_blank" class="card">
+            <div class="card-icon icon-green">💰</div>
+            <div class="card-body">
+                <div class="card-title">Transactions</div>
+                <div class="card-desc">View all platform financial transaction records.</div>
+                <div class="card-url">localhost:3000/admin/transactions</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/cms" target="_blank" class="card">
+            <div class="card-icon icon-pink">🎨</div>
+            <div class="card-body">
+                <div class="card-title">Content Manager (CMS)</div>
+                <div class="card-desc">Edit hero banners, logo text, announcements, and site content.</div>
+                <div class="card-url">localhost:3000/admin/cms</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/settings" target="_blank" class="card">
+            <div class="card-icon icon-teal">⚙️</div>
+            <div class="card-body">
+                <div class="card-title">Platform Settings</div>
+                <div class="card-desc">Configure platform name, support email, fees & maintenance mode.</div>
+                <div class="card-url">localhost:3000/admin/settings</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+
+        <a href="http://localhost:3000/admin/support" target="_blank" class="card">
+            <div class="card-icon icon-yellow">🎧</div>
+            <div class="card-body">
+                <div class="card-title">Support Tickets</div>
+                <div class="card-desc">View and manage all customer support requests and messages.</div>
+                <div class="card-url">localhost:3000/admin/support</div>
+            </div>
+            <div class="card-arrow">→</div>
+        </a>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 SamKart, Inc. — Built by Sam &amp; Antigravity AI &nbsp;·&nbsp; Running on localhost:3000
+</footer>
+
+</body>
+</html>

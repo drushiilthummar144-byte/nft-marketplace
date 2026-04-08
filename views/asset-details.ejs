@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaStock | <%= product.title %>
+    <title>SamKart | <%= product.title %>
     </title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
@@ -13,7 +13,7 @@
     <!-- PWA Setup -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#7F30FF">
-    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=NovaStock&background=7F30FF&color=fff&size=192">
+    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=SamKart&background=7F30FF&color=fff&size=192">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script>
@@ -263,7 +263,7 @@
             <div
                 style="width: 36px; height: 36px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
                 N</div>
-            <a href="/" style="font-size: 1.4rem; font-weight: 800; color: white; text-decoration: none;">NovaStock</a>
+            <a href="/" style="font-size: 1.4rem; font-weight: 800; color: white; text-decoration: none;">SamKart</a>
         </div>
 
         <div class="hidden md:flex items-center gap-6">
@@ -372,10 +372,19 @@
                     <i class="ph-fill ph-lightning"></i>
                     <%= user ? 'Buy Now' : 'Login to Buy' %>
                 </a>
-                <button class="btn-cart-lg"
-                    onclick="<%= user ? 'alert(\'Added to cart successfully!\')' : 'window.location.href=\'/login\'' %>">
-                    <i class="ph ph-shopping-cart"></i> Add to Cart
-                </button>
+                
+                <% if (user) { %>
+                    <form action="/cart/add" method="POST" style="margin: 0;">
+                        <input type="hidden" name="productId" value="<%= product.id %>">
+                        <button type="submit" class="btn-cart-lg" style="width: 100%;">
+                            <i class="ph ph-shopping-cart"></i> Add to Cart
+                        </button>
+                    </form>
+                <% } else { %>
+                    <button class="btn-cart-lg" onclick="window.location.href='/login'">
+                        <i class="ph ph-shopping-cart"></i> Login to Add
+                    </button>
+                <% } %>
             </div>
 
             <div
@@ -389,7 +398,7 @@
     <!-- Footer -->
     <footer
         style="background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 24px; margin-top: 60px; text-align: center; color: var(--text-muted);">
-        <p>Copyright &copy; <%= new Date().getFullYear() %> NovaStock. All rights reserved.</p>
+        <p>Copyright &copy; <%= new Date().getFullYear() %> SamKart. All rights reserved.</p>
     </footer>
 
 </body>

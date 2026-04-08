@@ -52,6 +52,8 @@
             });
         }
     </script>
+    <!-- Chart.js include -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -69,8 +71,8 @@
             <div class="stats-grid">
                 <div class="glass-card stat-card">
                     <div style="color: #a1a1aa; font-size: 0.9rem;">Total Revenue</div>
-                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">₹13,70,000</div>
-                    <div class="trend-up"><i class="ph ph-trend-up"></i> +12.5%</div>
+                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">₹<%= stats.totalRevenue.toLocaleString('en-IN') %></div>
+                    <div class="trend-up"><i class="ph ph-trend-up"></i> Live</div>
                     <div class="stat-icon"><i class="ph ph-currency-inr" style="color: #9C27B0;"></i></div>
                 </div>
 
@@ -93,8 +95,8 @@
 
                 <div class="glass-card stat-card"
                     style="background: rgba(255, 100, 100, 0.05); border-color: rgba(255, 100, 100, 0.1);">
-                    <div style="color: #a1a1aa; font-size: 0.9rem;">Pending Approvals</div>
-                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;">14</div>
+                    <div style="color: #a1a1aa; font-size: 0.9rem;">Pending Approvals/Orders</div>
+                    <div style="font-size: 2rem; font-weight: 700; margin-top: 8px;"><%= stats.pendingOrders %></div>
                     <div class="stat-icon" style="background: rgba(255, 82, 82, 0.1); color: #FF5252;"><i
                             class="ph ph-warning-circle"></i></div>
                 </div>
@@ -104,9 +106,8 @@
             <div class="dashboard-grid">
                 <div class="glass-card" style="padding: 24px;">
                     <h3>Revenue Trends</h3>
-                    <div
-                        style="height: 200px; display: flex; align-items: center; justify-content: center; color: #a1a1aa;">
-                        [Chart Placeholder]
+                    <div style="height: 250px; width: 100%; margin-top: 20px;">
+                        <canvas id="revenueChart"></canvas>
                     </div>
                 </div>
 
@@ -135,6 +136,65 @@
             </div>
 
         </main>
+
+        <script>
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            
+            // Create gradient
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(127, 48, 255, 0.8)');
+            gradient.addColorStop(1, 'rgba(127, 48, 255, 0.1)');
+
+            const dataValues = <%- revenueData || '[]' %>;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Total Realized Revenue (₹)',
+                        data: dataValues,
+                        borderColor: '#7F30FF',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#FF3085',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(5, 2, 10, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#00ff9d',
+                            borderColor: '#7F30FF',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: 'rgba(255,255,255,0.6)' }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: 'rgba(255,255,255,0.6)' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
 </body>
 
 </html>

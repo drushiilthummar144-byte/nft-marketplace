@@ -41,11 +41,14 @@
     <%- include('partials/sidebar') %>
 
         <main class="main-content">
-            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+            <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                 <div>
                     <h2>Users Management</h2>
-                    <p style="color: #a1a1aa; font-size: 0.9rem;">Manage all registered users and their status.
-                    </p>
+                    <p style="color: #a1a1aa; font-size: 0.9rem;">Total Registered Users: <strong style="color: #7F30FF;"><%= users.length %></strong></p>
+                </div>
+                <div style="display:flex; gap:12px; align-items:center;">
+                    <input type="text" id="userSearch" placeholder="🔍 Search users..." oninput="filterUsers()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 16px; color: white; font-size: 0.85rem; outline: none; width: 220px;">
+                    <button onclick="window.location.reload()" style="background: rgba(120,40,200,0.2); border: 1px solid rgba(120,40,200,0.4); color: white; padding: 10px 18px; border-radius: 10px; cursor: pointer; font-size: 0.85rem; font-weight: 600;">🔄 Refresh</button>
                 </div>
             </header>
 
@@ -61,7 +64,7 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="userTbody">
                         <% users.forEach(function(user) { %>
                             <tr>
                                 <td>
@@ -112,6 +115,13 @@
                 </table>
             </div>
         </main>
+<script>
+function filterUsers() {
+    const q = document.getElementById('userSearch').value.toLowerCase();
+    document.querySelectorAll('#userTbody tr').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+    });
+}
+</script>
 </body>
-
 </html>

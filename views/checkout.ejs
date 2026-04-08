@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaStock | Secure Checkout</title>
+    <title>SamKart | Secure Checkout</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/glass.css">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -111,7 +111,7 @@
     <!-- PWA Setup -->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#7F30FF">
-    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=NovaStock&background=7F30FF&color=fff&size=192">
+    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=SamKart&background=7F30FF&color=fff&size=192">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <script>
@@ -147,7 +147,7 @@
                             <a href="/"
                                 style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
                                 <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
-                                    : 'NovaStock' %>
+                                    : 'SamKart' %>
                             </a>
                             <% } %>
                 </div>
@@ -185,7 +185,87 @@
                         parseFloat(product.price))).toLocaleString('en-IN') %>
                 </div>
                 <div class="cost-row">
-                    <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">NovaStock
+                    <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">SamKart
+                        Fee (2.5%) <i class="ph ph-info" style="cursor: pointer;"
+                            title="Covers platform maintenance and network gas fees."></i></span>
+                    ₹<%= (((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
+                        parseFloat(product.price))) * 0.025).toLocaleString('en-IN') %>
+                </div>
+
+                <div class="total-row">
+                    <span>Total Cost</span>
+                    <div style="text-align: right;">
+                        <span style="color: var(--primary);">
+                            ₹<%= (((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) +
+                                1000) : parseFloat(product.price))) * 1.025).toLocaleString('en-IN') %>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="display: flex; align-items: center; gap: 12px; background: rgba(0,255,157,0.05); border: 1px solid rgba(0,255,157,0.2); padding: 16px; border-radius: 12px; margin-bottom: 24px;">
+</head>
+
+<body>
+    <nav class="glass-nav"
+        style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); background: rgba(11, 5, 21, 0.85);">
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <a href="/asset-details?id=<%= product.id %>"
+                    style="color: rgba(255,255,255,0.6); font-size: 1.5rem; text-decoration: none; display: flex; align-items: center; transition: 0.2s;"><i
+                        class="ph ph-arrow-left hover:text-white"></i></a>
+                <div style="width: 1px; height: 24px; background: rgba(255,255,255,0.1);"></div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <% if (content && content.visuals && content.visuals.logoImage) { %>
+                        <img src="<%= content.visuals.logoImage %>" alt="Site Logo"
+                            style="height: 36px; width: auto; object-fit: contain;">
+                        <% } else { %>
+                            <div
+                                style="width: 36px; height: 36px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; box-shadow: 0 0 15px rgba(127, 48, 255, 0.5);">
+                                N</div>
+                            <a href="/"
+                                style="font-size: 1.3rem; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px;">
+                                <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
+                                    : 'SamKart' %>
+                            </a>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="padding-top: 40px; padding-bottom: 80px;">
+        <div class="checkout-card">
+            <h1 style="font-size: 2.5rem; margin-bottom: 8px; text-align: center;">Order Summary</h1>
+            <p style="text-align: center; color: rgba(255,255,255,0.5); margin-bottom: 40px;">Review your transaction
+                details securely.</p>
+
+            <div class="product-preview">
+                <img src="<%= product.image || 'https://picsum.photos/seed/product1/200/200' %>" alt="<%= product.title %>">
+                <div>
+                    <div
+                        style="color: var(--primary); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 1px;">
+                        <%= product.category || 'Digital Asset' %>
+                    </div>
+                    <div style="font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">
+                        <%= product.title %>
+                    </div>
+                    <div style="color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 6px;">
+                        By <%= product.brand %> <i class="ph-fill ph-seal-check" style="color: #00ff9d;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 24px; margin-bottom: 32px;">
+                <div class="cost-row">
+                    <span style="color: rgba(255,255,255,0.7);">Item Price</span>
+                    ₹<%= ((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
+                        parseFloat(product.price))).toLocaleString('en-IN') %>
+                </div>
+                <div class="cost-row">
+                    <span style="color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px;">SamKart
                         Fee (2.5%) <i class="ph ph-info" style="cursor: pointer;"
                             title="Covers platform maintenance and network gas fees."></i></span>
                     ₹<%= (((parseFloat(product.price) < 1000 ? Math.floor(((parseFloat(product.price) * 7391) % 9000) + 1000) :
@@ -210,11 +290,45 @@
                     connection is encrypted and the smart contract is fully audited.</div>
             </div>
 
-            <a href="/payment?id=<%= product.id %>" class="pay-btn">
-                Proceed to Payment <i class="ph-bold ph-arrow-right"></i>
-            </a>
+            <!-- Shipping Form -->
+            <div style="background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+                <h3 style="font-size: 1.2rem; margin-bottom: 20px; align-items: center; display: flex; gap: 8px;">
+                    <i class="ph-fill ph-map-pin" style="color: var(--primary);"></i> Shipping Details & Mobile verification
+                </h3>
+                
+                <form id="checkoutForm" action="/payment" method="GET">
+                    <input type="hidden" name="id" value="<%= product.id %>">
+                    
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Full Name</label>
+                        <input type="text" required style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; color: white; font-size: 1rem; outline: none;">
+                                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Mobile Number</label>
+                        <input type="tel" id="mobileInput" required placeholder="+91 99999 99999" pattern="[0-9+\s\-]+" style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; color: white; font-size: 1rem; outline: none;">
+                    </div>
+
+                    <div style="margin-bottom: 16px;">
+                        <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">Complete Address</label>
+                        <textarea required rows="3" style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; color: white; font-size: 1rem; outline: none; resize: vertical;"></textarea>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">City</label>
+                            <input type="text" required style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; color: white; font-size: 1rem; outline: none;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.7); font-size: 0.9rem;">PIN Code</label>
+                            <input type="text" required style="width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; color: white; font-size: 1rem; outline: none;">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="mainPayBtn" class="pay-btn" style="opacity: 1; pointer-events: auto;">
+                        Proceed to Secure Payment <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
-
 </html>

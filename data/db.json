@@ -4,7 +4,7 @@
       "id": 1,
       "username": "PointsKing",
       "email": "king@points.com",
-      "role": "Seller",
+      "role": "User",
       "status": "Active",
       "joined": "2024-01-12",
       "balance": "4.2",
@@ -14,7 +14,7 @@
       "id": 2,
       "username": "Alice Wonderland",
       "email": "alice@web3.com",
-      "role": "Collector",
+      "role": "User",
       "status": "Active",
       "joined": "2024-02-05",
       "balance": "12.5",
@@ -31,8 +31,8 @@
     },
     {
       "id": 4,
-      "username": "XYZ",
-      "email": "admin@product.com",
+      "username": "Sam (CEO)",
+      "email": "sam@samkart.com",
       "role": "Admin",
       "status": "Active",
       "joined": "2024-01-01",
@@ -96,7 +96,7 @@
       "price": "134999",
       "category": "Mobiles",
       "status": "Active",
-      "image": "https://images.unsplash.com/photo-1707227155694-87f5d475ce30?w=800",
+      "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800",
       "owner": "admin"
     },
     {
@@ -107,7 +107,7 @@
       "category": "Electronics",
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800",
-      "owner": "admin"
+      "owner": "admin@nft.com"
     },
     {
       "id": 204,
@@ -127,7 +127,7 @@
       "category": "Fashion",
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800",
-      "owner": "admin"
+      "owner": "Sam (CEO)"
     },
     {
       "id": 206,
@@ -147,7 +147,7 @@
       "category": "Appliances",
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800",
-      "owner": "admin"
+      "owner": "Sam (CEO)"
     },
     {
       "id": 208,
@@ -167,7 +167,7 @@
       "category": "Toys",
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?w=800",
-      "owner": "admin"
+      "owner": "Sam (CEO)"
     },
     {
       "id": 210,
@@ -177,7 +177,7 @@
       "category": "Beauty",
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800",
-      "owner": "admin"
+      "owner": "admin@nft.com"
     },
     {
       "id": 211,
@@ -202,8 +202,8 @@
   ],
   "transactions": [],
   "settings": {
-    "siteName": "NovaMint",
-    "supportEmail": "support@novamint.com",
+    "siteName": "SamKart",
+    "supportEmail": "ceo@samkart.com",
     "maintenanceMode": false,
     "platformFee": 2.5
   },
@@ -226,37 +226,27 @@
     }
   },
   "content": {
-    "visuals": {
-      "logoImage": "",
-      "logoText": "MegaMart",
-      "primaryColor": "#7F30FF"
-    },
     "hero": {
       "title": "Discover Premium Products & Deep Discounts",
       "subtitle": "Shop the latest electronics, fashion, and luxury goods with lightning fast delivery.",
       "ctaPrimary": "Shop Now",
       "ctaSecondary": "Become a Seller"
     },
-    "features": [
-      {
-        "icon": "shopping-bag",
-        "title": "Wide Selection",
-        "description": "Millions of products at your fingertips"
-      },
-      {
-        "icon": "truck",
-        "title": "Fast Delivery",
-        "description": "Free shipping on orders over ₹499"
-      },
-      {
-        "icon": "shield-check",
-        "title": "Secure Payment",
-        "description": "100% money-back guarantee"
-      }
-    ],
+    "visuals": {
+      "heroImage": "",
+      "logoText": "SamKart",
+      "logoImage": ""
+    },
     "announcement": {
       "enabled": true,
       "text": "Mega Sale Live! Flat 50% Off on Electronics & Fashion. Use CODE: MEGA50"
+    },
+    "footer": {
+      "text": "© 2024 Nexus Store. All rights reserved."
+    },
+    "stats": {
+      "artworks": "",
+      "brands": ""
     }
   },
   "support": [
@@ -277,6 +267,33 @@
       "subject": "New Contact Message",
       "status": "Open",
       "date": "2026-02-26"
+    },
+    {
+      "id": 1774346723505,
+      "name": "Thummar drushil",
+      "email": "drushilthummar123@gmail.com",
+      "message": "hello",
+      "subject": "New Contact Message",
+      "status": "Open",
+      "date": "2026-03-24"
+    },
+    {
+      "id": 1774346767762,
+      "name": "Thummar drushil",
+      "email": "drushilthummar123@gmail.com",
+      "message": "hello",
+      "subject": "New Contact Message",
+      "status": "Open",
+      "date": "2026-03-24"
+    },
+    {
+      "id": 1774352743215,
+      "name": "Thummar drushil",
+      "email": "drushilthummar123@gmail.com",
+      "message": "egrthg b jkiiun 6 7 68 jk88 gn klg fjjhhgfhuihgf  njhgfjgk nbmhi m   \r\n",
+      "subject": "New Contact Message",
+      "status": "Open",
+      "date": "2026-03-24"
     }
   ],
   "collections": [
@@ -313,7 +330,85 @@
       "description": "Trending clothes and fashion"
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "id": "1774592140296",
+      "productId": 209,
+      "title": "Lego Star Wars Millennium Falcon",
+      "image": "https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?w=800",
+      "price": "75990",
+      "buyer": "admin@nft.com",
+      "seller": "LEGO",
+      "status": "Confirmed",
+      "date": "2026-03-27T06:15:40.296Z"
+    },
+    {
+      "id": "1775192373235",
+      "productId": 203,
+      "title": "Sony WH-1000XM5 Noise Cancelling Headphones",
+      "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800",
+      "price": "29990",
+      "buyer": "Sam (CEO)",
+      "seller": "Sony",
+      "status": "Confirmed",
+      "date": "2026-04-03T04:59:33.235Z"
+    },
+    {
+      "id": "1775193128829",
+      "productId": 209,
+      "title": "Lego Star Wars Millennium Falcon",
+      "image": "https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?w=800",
+      "price": "75990",
+      "buyer": "Sam (CEO)",
+      "seller": "LEGO",
+      "status": "Confirmed",
+      "date": "2026-04-03T05:12:08.829Z"
+    },
+    {
+      "id": "1775198812439",
+      "productId": 205,
+      "title": "Nike Air Force 1",
+      "image": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=800",
+      "price": "8495",
+      "buyer": "Sam (CEO)",
+      "seller": "Nike",
+      "status": "Confirmed",
+      "date": "2026-04-03T06:46:52.439Z"
+    },
+    {
+      "id": "1775458959208",
+      "productId": 207,
+      "title": "LG 55 inch 4K OLED TV",
+      "image": "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=800",
+      "price": "145000",
+      "buyer": "Sam (CEO)",
+      "seller": "LG",
+      "status": "Confirmed",
+      "date": "2026-04-06T07:02:39.208Z"
+    },
+    {
+      "id": "1775463541477",
+      "productId": 203,
+      "title": "Sony WH-1000XM5 Noise Cancelling Headphones",
+      "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=800",
+      "price": "29990",
+      "buyer": "admin@nft.com",
+      "seller": "Sony",
+      "status": "Confirmed",
+      "date": "2026-04-06T08:19:01.477Z"
+    },
+    {
+      "id": "1775628610853",
+      "productId": 210,
+      "title": "L'Oreal Paris Revitalift Serum",
+      "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800",
+      "price": "999",
+      "buyer": "admin@nft.com",
+      "seller": "LOreal",
+      "status": "Confirmed",
+      "date": "2026-04-08T06:10:10.853Z"
+    }
+  ],
   "brands": [
     {
       "rank": 1,

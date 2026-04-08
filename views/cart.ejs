@@ -235,7 +235,7 @@
                     <span style="color: #067d62;">Your order is eligible for FREE Delivery.</span>
                 </div>
                 
-                <a href="<%= user ? '/checkout?id=' + cart[0].id : '/login' %>" class="btn-checkout">
+                <a href="<%= user ? '/checkout?id=cart' : '/login' %>" class="btn-checkout">
                     Proceed to Buy
                 </a>
             </div>
@@ -248,5 +248,6 @@
             </div>
         <% } %>
     </div>
+<script src="/js/quicknav.js"></script>
 </body>
 </html>

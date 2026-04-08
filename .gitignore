@@ -1,3 +1,10 @@
 node_modules/
 .env
+npm-debug.log
+*.log
+capture.js
+translate-gujarati.js
+revert-gujarati.js
+update-listings.js
 .DS_Store
+Thumbs.db

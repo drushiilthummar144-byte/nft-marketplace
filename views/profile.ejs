@@ -168,15 +168,15 @@
         </div>
 
         <div class="profile-nav">
-            <div class="profile-nav-item active" onclick="switchTab('created', this)">Created <span
+            <div class="profile-nav-item active" onclick="switchTab('created', this)">My Products <span
                     style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= createdItems.length %>
                 </span></div>
-            <div class="profile-nav-item" onclick="switchTab('collected', this)">Collected <span
+            <div class="profile-nav-item" onclick="switchTab('collected', this)">Wishlist <span
                     style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= collectedItems.length %>
                 </span></div>
-            <div class="profile-nav-item" onclick="switchTab('favorited', this)">Favorited <span
+            <div class="profile-nav-item" style="display:none;" onclick="switchTab('favorited', this)">Favorited <span
                     style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= favoritedItems.length %>
                 </span></div>
@@ -184,7 +184,7 @@
                     style="background: rgba(255,255,255,0.1); padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= typeof myOrders !=='undefined' ? myOrders.length : 0 %>
                 </span></div>
-            <div class="profile-nav-item" onclick="switchTab('sales', this)">Pending Shipments <span
+            <div class="profile-nav-item" onclick="switchTab('sales', this)">Pending Fulfillment <span
                     style="background: rgba(0,255,157,0.1); color: #00ff9d; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; margin-left: 4px;">
                     <%= typeof mySales !=='undefined' ? mySales.length : 0 %>
                 </span></div>
@@ -217,8 +217,8 @@
                                 <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
                                     <i class="ph ph-pencil-simple-slash"
                                         style="font-size: 3rem; color: var(--text-muted); margin-bottom: 16px;"></i>
-                                    <h3 style="color: var(--text-muted);">No items created yet</h3>
-                                    <p style="color: var(--text-muted); opacity: 0.7;">Create your first Product to see
+                                    <h3 style="color: var(--text-muted);">You haven't listed any products</h3>
+                                    <p style="color: var(--text-muted); opacity: 0.7;">Stock your first product to see
                                         it
                                         here!</p>
                                 </div>
@@ -237,14 +237,14 @@
                             <div style="font-weight: 700; font-size: 1.2rem;">
                                 <%= item.title %>
                             </div>
-                            <div style="font-size: 0.9rem; color: var(--text-muted);">Owned by You</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">Added to Wishlist</div>
                         </div>
                         <% }) %>
                             <% } else { %>
                                 <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
                                     <i class="ph ph-shopping-bag-open"
                                         style="font-size: 3rem; color: var(--text-muted); margin-bottom: 16px;"></i>
-                                    <h3 style="color: var(--text-muted);">No items collected yet</h3>
+                                    <h3 style="color: var(--text-muted);">Your Wishlist is Empty</h3>
                                     <button class="btn btn-primary" style="margin-top: 20px;"
                                         onclick="window.location.href='/explore'">Explore Marketplace</button>
                                 </div>
