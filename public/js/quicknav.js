@@ -3,6 +3,69 @@
     // Inject CSS
     const style = document.createElement('style');
     style.textContent = `
+
+        /* ===== BOTTOM NAV BAR ===== */
+        #sk-bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: 64px;
+            background: rgba(15, 52, 96, 0.97);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,210,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 99990;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.3);
+            padding: 0 8px;
+        }
+
+        .sk-bnav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            flex: 1;
+            text-decoration: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.62rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.3px;
+            padding: 8px 0;
+            transition: all 0.2s;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .sk-bnav-item:hover, .sk-bnav-item.active {
+            color: #ffd200;
+        }
+
+        .sk-bnav-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .sk-bnav-cart-badge {
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(4px);
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 0.55rem;
+            font-weight: 800;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Add bottom padding to body so content isn't hidden behind the nav */
+        body { padding-bottom: 70px !important; }
+
+
         #sk-fab {
             position: fixed;
             right: 0;
@@ -194,6 +257,30 @@
 
     // Inject HTML
     const html = `
+        <!-- Bottom Navigation Bar -->
+        <div id="sk-bottom-nav">
+            <a href="/" class="sk-bnav-item ${typeof window !== 'undefined' && window.location.pathname === '/' ? 'active' : ''}">
+                <span class="sk-bnav-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="/explore" class="sk-bnav-item">
+                <span class="sk-bnav-icon">🔍</span>
+                <span>Explore</span>
+            </a>
+            <a href="/cart" class="sk-bnav-item">
+                <span class="sk-bnav-icon">🛒</span>
+                <span>Cart</span>
+            </a>
+            <a href="/login" class="sk-bnav-item">
+                <span class="sk-bnav-icon">👤</span>
+                <span>Login</span>
+            </a>
+            <a href="/admin/login" class="sk-bnav-item">
+                <span class="sk-bnav-icon">⚙️</span>
+                <span>Admin</span>
+            </a>
+        </div>
+
         <div id="sk-overlay" onclick="skClose()"></div>
         <div id="sk-fab">
             <button id="sk-fab-btn" onclick="skToggle()" title="SamKart Quick Nav">
