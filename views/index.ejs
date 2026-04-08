@@ -4,250 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Store | Shop Electronics & Fashion</title>
-    <!-- SEO Meta Tags -->
+    <title>SamKart | Premium Online Shopping</title>
     <meta name="description" content="Discover premium electronics, fashion, and home goods at SamKart. Huge discounts on smartphones, apparel, and daily essentials.">
-    <meta name="keywords" content="e-commerce, shop, electronics, fashion, home, sports, online shopping">
     <meta name="robots" content="index, follow">
-    <meta name="author" content="SamKart">
-    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE_HERE" />
-    
-    <!-- Open Graph / Social Media Meta Tags -->
-    <meta property="og:title" content="Premium Store | Shop Electronics & Fashion">
-    <meta property="og:description" content="Huge discounts on smartphones, electronics, apparel, and daily essentials. Shop now at SamKart.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://samkart.example.com/">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800">
-
-    <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="/styles/glass.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        .cat-bar {
-            background: #ffffff;
-            border-bottom: 1px solid var(--border-light);
-            display: flex;
-            gap: 24px;
-            padding: 10px 24px;
-            overflow-x: auto;
-            white-space: nowrap;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            overflow-x: hidden;
         }
 
-        .cat-item {
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s;
-        }
-
-        .cat-item:hover {
-            color: var(--primary);
-        }
-
-        .promo-banner {
-            border-radius: 4px;
-            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-            padding: 40px;
-            margin: 16px 24px;
-            display: flex;
-            align-items: center;
-            min-height: 250px;
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .promo-banner::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 50%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800') no-repeat center right / cover;
-            mask-image: linear-gradient(to right, transparent, black 30%);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 30%);
-            z-index: 1;
-        }
-
-        .promo-content {
-            position: relative;
-            z-index: 2;
-            max-width: 50%;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 16px;
-            padding: 0 24px;
-        }
-
-        .ec-product-card {
-            background: #ffffff;
-            border: 1px solid var(--border-light);
-            border-radius: 4px;
-            padding: 16px;
-            transition: box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .ec-product-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-color: #d5d9d9;
-        }
-
-        .ec-product-img {
-            width: 100%;
-            height: 180px;
-            object-fit: contain;
-            background: white;
-            margin-bottom: 12px;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .badge-discount {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #cc0c39; /* Amazon red */
+        /* ===== ANNOUNCEMENT BAR ===== */
+        .announcement-bar {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b, #ff6b35, #ff416c);
+            background-size: 300% 100%;
+            animation: gradientShift 4s ease infinite;
             color: white;
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 2px;
-            z-index: 2;
+            text-align: center;
+            padding: 9px 16px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
         }
 
-        .ec-title {
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.4;
-            margin-bottom: 6px;
-            color: #0f1111;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            line-clamp: 2;
-            -webkit-box-orient: vertical;
-            box-orient: vertical;
-            overflow: hidden;
-            height: 2.8em;
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
-        .ec-rating {
-            color: #ffa41c;
-            font-size: 0.9rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 2px;
-        }
-
-        .ec-price-row {
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-            margin-bottom: 12px;
-            margin-top: auto;
-        }
-
-        .ec-price {
-            font-size: 1.4rem;
-            font-weight: 500;
-            color: #0f1111;
-        }
-        
-        .ec-price span {
-            font-size: 0.8rem;
-            position: relative;
-            top: -0.4em;
-        }
-
-        .ec-old-price {
-            font-size: 0.85rem;
-            color: #565959;
-            text-decoration: line-through;
-        }
-
-        .btn-cart {
-            width: 100%;
-            background: #ffd814; /* Amazon yellow button */
-            color: #0f1111;
-            border: 1px solid #fcd200;
-            padding: 8px;
-            border-radius: 100px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            box-shadow: 0 2px 5px 0 rgba(213,217,217,.5);
-        }
-
-        .btn-cart:hover {
-            background: #f7ca00;
-            border-color: #f2c200;
-        }
-
-        /* Top Header specific to e-commerce */
+        /* ===== TOP HEADER ===== */
         .main-header {
-            background: #232f3e; /* Amazon dark blue */
-            padding: 12px 24px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 14px 28px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 24px;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
         .header-logo {
             color: white;
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 900;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            letter-spacing: -1px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; font-weight: 900;
+            color: #1a1a2e;
+            box-shadow: 0 4px 12px rgba(247,151,30,0.4);
         }
 
         .search-container {
             flex: 1;
-            max-width: 800px;
+            max-width: 700px;
             display: flex;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .search-input {
             flex: 1;
-            padding: 10px 16px;
+            padding: 13px 20px;
             border: none;
-            border-radius: 4px 0 0 4px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
+            background: white;
+            color: #1a1a2e;
         }
 
         .search-btn {
-            background: #febd69; /* Amazon orange button */
+            background: linear-gradient(135deg, #f7971e, #ffd200);
             border: none;
-            padding: 0 16px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
+            padding: 0 22px;
             font-size: 1.2rem;
-            color: #0f1111;
+            color: #1a1a2e;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 700;
         }
-        
-        .search-btn:hover {
-            background: #f3a847;
-        }
+
+        .search-btn:hover { background: linear-gradient(135deg, #ffd200, #f7971e); }
 
         .header-links {
             display: flex;
@@ -261,56 +117,646 @@
             flex-direction: column;
             text-decoration: none;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
-        .header-link-small {
-            font-size: 0.75rem;
-            line-height: 14px;
+        .header-link-item:hover { opacity: 0.8; }
+        .header-link-small { font-size: 0.7rem; color: rgba(255,255,255,0.6); line-height: 1.2; }
+        .header-link-large { font-size: 0.9rem; font-weight: 700; line-height: 1.4; }
+
+        .cart-count {
+            position: absolute;
+            top: -4px; left: 16px;
+            color: #ffd200;
+            font-weight: 900;
+            font-size: 1rem;
         }
 
-        .header-link-large {
-            font-size: 0.9rem;
-            font-weight: bold;
-            line-height: 16px;
+        /* ===== CATEGORY BAR ===== */
+        .cat-bar {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+            padding: 0 28px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-bottom: 2px solid rgba(255,210,0,0.3);
+        }
+
+        .cat-bar::-webkit-scrollbar { display: none; }
+
+        .cat-item {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 18px;
+            transition: all 0.2s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .cat-item:hover {
+            color: #ffd200;
+            border-bottom-color: #ffd200;
+            background: rgba(255,210,0,0.08);
+        }
+
+        /* ===== HERO BANNER ===== */
+        .hero-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            padding: 60px 28px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(247,151,30,0.15) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(15,52,96,0.8) 0%, transparent 70%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 580px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(247,151,30,0.15);
+            border: 1px solid rgba(247,151,30,0.4);
+            color: #ffd200;
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-title span {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1rem;
+            text-decoration: none;
+            displayinline-flex;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(247,151,30,0.4);
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(247,151,30,0.6);
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 36px;
+        }
+
+        .hero-stat { text-align: center; }
+        .hero-stat-num { font-size: 1.6rem; font-weight: 900; color: #ffd200; }
+        .hero-stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.5); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .hero-image-area {
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        .hero-img-main {
+            width: 340px;
+            height: 340px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(247,151,30,0.3));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* ===== FEATURES STRIP ===== */
+        .features-strip {
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 18px 28px;
+            border-bottom: 1px solid #e8ecf0;
+            gap: 16px;
+            overflow-x: auto;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .feature-icon {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .feature-text { font-size: 0.82rem; font-weight: 600; color: #1a1a2e; }
+        .feature-sub { font-size: 0.7rem; color: #888; }
+
+        /* ===== SECTION TITLES ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 28px 16px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 24px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            border-radius: 3px;
+            display: block;
+        }
+
+        .section-see-all {
+            color: #0f3460;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: gap 0.2s;
+        }
+
+        .section-see-all:hover { gap: 8px; color: #f7971e; }
+
+        /* ===== PRODUCT GRID ===== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 16px;
+            padding: 0 28px 32px;
+        }
+
+        .ec-product-card {
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #eef0f4;
+            position: relative;
+        }
+
+        .ec-product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+            border-color: #ffd200;
+        }
+
+        .badge-discount {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 100px;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255,65,108,0.4);
+        }
+
+        .ec-product-img-wrap {
+            background: linear-gradient(135deg, #f8f9fc, #edf0f7);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .ec-product-img {
+            max-width: 100%;
+            max-height: 140px;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+
+        .ec-product-card:hover .ec-product-img { transform: scale(1.08); }
+
+        .ec-product-info {
+            padding: 14px 16px 16px;
+        }
+
+        .ec-brand {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #0f3460;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .ec-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.5em;
+        }
+
+        .ec-rating {
+            color: #f7971e;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .ec-rating span { color: #888; font-size: 0.75rem; }
+
+        .ec-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .ec-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #1a1a2e;
+        }
+
+        .ec-price sup { font-size: 0.75rem; position: relative; top: -0.4em; }
+
+        .ec-old-price {
+            font-size: 0.78rem;
+            color: #aaa;
+            text-decoration: line-through;
+        }
+
+        .ec-save {
+            font-size: 0.72rem;
+            color: #00a046;
+            font-weight: 700;
+        }
+
+        .btn-cart {
+            width: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-cart:hover {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            transform: scale(1.02);
+        }
+
+        /* ===== CATEGORY CARDS ===== */
+        .cat-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 14px;
+            padding: 0 28px 32px;
+        }
+
+        .cat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px 16px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid #eef0f4;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+            border-color: #ffd200;
+        }
+
+        .cat-card-icon {
+            font-size: 2rem;
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .cat-card-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .cat-card-count {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        /* ===== BANNER CARDS ===== */
+        .banner-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 0 28px 32px;
+        }
+
+        .banner-card {
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .banner-card:hover { transform: scale(1.02); }
+
+        .banner-card-1 { background: linear-gradient(135deg, #1a1a2e, #0f3460); }
+        .banner-card-2 { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+
+        .banner-tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #ffd200;
+            margin-bottom: 8px;
+        }
+
+        .banner-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .banner-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: white;
+            color: #1a1a2e;
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            width: fit-content;
+        }
+
+        /* ===== FOOTER ===== */
+        .back-top {
+            background: linear-gradient(135deg, #16213e, #0f3460);
+            padding: 16px;
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .back-top:hover { background: linear-gradient(135deg, #0f3460, #1a1a2e); }
+
+        footer {
+            background: #1a1a2e;
+            padding: 48px 28px 28px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand-name {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
+        }
+
+        .footer-brand-desc { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.45); }
+        .footer-col-title { font-size: 0.85rem; font-weight: 700; color: white; margin-bottom: 16px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: #ffd200; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-bottom-text { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+        .footer-admin-link {
+            font-size: 0.78rem;
+            color: #ffd200;
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .footer-admin-link:hover { opacity: 1; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-image-area { display: none; }
+            .banner-grid { grid-template-columns: 1fr; }
+            .hero-section { padding: 36px 20px; }
+            .main-header { padding: 12px 16px; }
+            .search-container { max-width: none; }
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Main EC Navbar -->
+    <!-- Announcement Bar -->
+    <% if (content && content.announcement && content.announcement.enabled) { %>
+    <div class="announcement-bar">
+        🔥 <%= content.announcement.text %> &nbsp;|&nbsp; Free Delivery on orders above ₹499 🚚
+    </div>
+    <% } else { %>
+    <div class="announcement-bar">
+        🔥 Great Indian Festival | Flat 70% OFF on Electronics & Fashion! Use Code: MEGA70 &nbsp;🛒
+    </div>
+    <% } %>
+
+    <!-- Main Header -->
     <nav class="main-header">
         <a href="/" class="header-logo">
-            <% if (content && content.visuals && content.visuals.logoImage) { %>
-                <img src="<%= content.visuals.logoImage %>" alt="Logo" style="height: 36px;">
-            <% } else { %>
-                <div style="width: 32px; height: 32px; background: #febd69; color: #0f1111; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem;">
-                    N</div>
-                <span>
-                    <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'SamKart' %>
-                </span>
-            <% } %>
+            <div class="logo-icon">S</div>
+            <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText : 'SamKart' %>
         </a>
 
-        <div class="search-container hidden md:flex">
-            <input type="text" class="search-input" placeholder="Search for products, brands and more...">
-            <button class="search-btn"><i class="ph ph-magnifying-glass"></i></button>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for products, brands and more..." onkeydown="if(event.key==='Enter') window.location.href='/explore?q='+this.value">
+            <button class="search-btn" onclick="window.location.href='/explore?q='+document.getElementById('searchInput').value">
+                <i class="ph ph-magnifying-glass"></i>
+            </button>
         </div>
 
         <div class="header-links">
             <% if (user) { %>
                 <a href="/profile" class="header-link-item">
-                    <span class="header-link-small">Hello, User</span>
-                    <span class="header-link-large">Account & Lists</span>
+                    <span class="header-link-small">Hello, <%= user.username %></span>
+                    <span class="header-link-large">Account</span>
                 </a>
                 <a href="/cart" class="header-link-item" style="flex-direction: row; align-items: flex-end; gap: 4px; position: relative;">
                     <div style="position: relative;">
-                        <i class="ph ph-shopping-cart" style="font-size: 2.2rem; margin-bottom: -4px;"></i>
-                        <span style="position: absolute; top: -2px; left: 16px; color: #f08804; font-weight: bold; font-size: 1rem;"><%= cart ? cart.length : 0 %></span>
+                        <i class="ph ph-shopping-cart" style="font-size: 2rem; color: white;"></i>
+                        <span class="cart-count"><%= cart ? cart.length : 0 %></span>
                     </div>
-                    <span class="header-link-large" style="padding-bottom: 2px;">Cart</span>
+                    <span class="header-link-large" style="color:white; padding-bottom: 2px;">Cart</span>
                 </a>
                 <a href="/logout" class="header-link-item">
                     <span class="header-link-small">&nbsp;</span>
@@ -321,95 +767,257 @@
                     <span class="header-link-small">Hello, sign in</span>
                     <span class="header-link-large">Account & Lists</span>
                 </a>
+                <a href="/cart" class="header-link-item" style="flex-direction: row; align-items: flex-end; gap: 4px; position: relative;">
+                    <div style="position: relative;">
+                        <i class="ph ph-shopping-cart" style="font-size: 2rem; color: white;"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                    <span class="header-link-large" style="color:white; padding-bottom: 2px;">Cart</span>
+                </a>
             <% } %>
         </div>
     </nav>
 
-    <!-- Sub Navbar (Categories) -->
+    <!-- Category Bar -->
     <div class="cat-bar">
-        <a href="/explore" class="cat-item" style="font-weight: bold;"><i class="ph ph-list"></i> All</a>
-        <a href="/explore?cat=Mobiles" class="cat-item">Mobiles</a>
-        <a href="/explore?cat=Electronics" class="cat-item">Electronics</a>
-        <a href="/explore?cat=Fashion" class="cat-item">Fashion</a>
-        <a href="/explore?cat=Home" class="cat-item">Home & Kitchen</a>
-        <a href="/explore?cat=Sports" class="cat-item">Sports</a>
-        <a href="/explore?cat=Beauty" class="cat-item">Beauty</a>
+        <a href="/explore" class="cat-item"><i class="ph ph-squares-four"></i> All</a>
+        <a href="/explore?cat=Mobiles" class="cat-item">📱 Mobiles</a>
+        <a href="/explore?cat=Electronics" class="cat-item">💻 Electronics</a>
+        <a href="/explore?cat=Fashion" class="cat-item">👗 Fashion</a>
+        <a href="/explore?cat=Home" class="cat-item">🏠 Home & Kitchen</a>
+        <a href="/explore?cat=Appliances" class="cat-item">🧹 Appliances</a>
+        <a href="/explore?cat=Sports" class="cat-item">⚽ Sports</a>
+        <a href="/explore?cat=Beauty" class="cat-item">💄 Beauty</a>
+        <a href="/explore?cat=Toys" class="cat-item">🎮 Toys & Games</a>
+        <a href="/explore?cat=Grocery" class="cat-item">🛒 Grocery</a>
     </div>
 
-    <!-- Promo Banner -->
-    <div class="promo-banner">
-        <div class="promo-content">
-            <div style="background: #cc0c39; color: white; padding: 4px 12px; border-radius: 2px; display: inline-block; font-size: 0.8rem; font-weight: bold; margin-bottom: 12px; text-transform: uppercase;">
-                Great Indian Festival
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge">
+                🔥 Great Indian Festival 2026
             </div>
-            <h1 style="font-size: 2.5rem; margin: 0 0 16px 0; line-height: 1.2; font-weight: 700; color: #0f1111;">Up to 70% off<br>on Top Categories</h1>
-            <p style="color: #565959; margin-bottom: 24px; font-size: 1.1rem; max-width: 400px;">Huge discounts on smartphones, electronics, apparel, and daily essentials.</p>
-            <a href="/explore" style="background: #ffd814; color: #0f1111; padding: 12px 32px; font-size: 1rem; border-radius: 100px; text-decoration: none; display: inline-block; font-weight: 500; border: 1px solid #fcd200;">Shop Deals Now</a>
+            <h1 class="hero-title">
+                Shop Premium<br><span>Up to 70% Off</span><br>Top Brands
+            </h1>
+            <p class="hero-subtitle">
+                Discover millions of products from India's most trusted brands. Lightning-fast delivery, secure payments, and unbeatable prices.
+            </p>
+            <div class="hero-btns">
+                <a href="/explore" class="btn-hero-primary">
+                    🛍️ Shop Now
+                </a>
+                <a href="/explore?cat=Electronics" class="btn-hero-secondary">
+                    ⚡ Top Deals
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">2M+</div>
+                    <div class="hero-stat-label">Products</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">50K+</div>
+                    <div class="hero-stat-label">Brands</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">24/7</div>
+                    <div class="hero-stat-label">Support</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image-area">
+            <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80" alt="Shopping" class="hero-img-main" style="border-radius: 24px;">
         </div>
     </div>
 
-    <!-- Block Title -->
-    <div style="padding: 16px 24px; margin-top: 10px;">
-        <h2 style="font-size: 1.5rem; margin: 0 0 16px 0; color: #0f1111;">Today's Deals <a href="/explore" style="font-size: 0.9rem; color: #007185; font-weight: 400; margin-left: 12px;">See all deals</a></h2>
+    <!-- Features Strip -->
+    <div class="features-strip">
+        <div class="feature-item">
+            <div class="feature-icon" style="background:#fff8e8;">🚚</div>
+            <div>
+                <div class="feature-text">Free Delivery</div>
+                <div class="feature-sub">On orders above ₹499</div>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon" style="background:#f0fff4;">🔒</div>
+            <div>
+                <div class="feature-text">Secure Payment</div>
+                <div class="feature-sub">100% safe checkout</div>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon" style="background:#f0f4ff;">↩️</div>
+            <div>
+                <div class="feature-text">Easy Returns</div>
+                <div class="feature-sub">7-day return policy</div>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon" style="background:#fff0f5;">⭐</div>
+            <div>
+                <div class="feature-text">Top Brands</div>
+                <div class="feature-sub">Certified sellers only</div>
+            </div>
+        </div>
+        <div class="feature-item">
+            <div class="feature-icon" style="background:#f5fff0;">📞</div>
+            <div>
+                <div class="feature-text">24/7 Support</div>
+                <div class="feature-sub">Always here for you</div>
+            </div>
+        </div>
+    </div>
 
-        <div class="product-grid">
-            <% if (listings && listings.length > 0) { %>
-                <% listings.slice(0, 8).forEach(function(product) { %>
-                    <div class="ec-product-card" onclick="window.location.href='/asset-details?id=<%= product.id %>'">
-                        <div class="badge-discount">-<%= Math.floor(Math.random() * 40 + 15) %>%</div>
+    <!-- Shop by Category -->
+    <div class="section-header">
+        <div class="section-title">Shop by Category</div>
+        <a href="/explore" class="section-see-all">See All <i class="ph ph-arrow-right"></i></a>
+    </div>
+    <div class="cat-cards-grid">
+        <a href="/explore?cat=Mobiles" class="cat-card">
+            <div class="cat-card-icon" style="background:#fff8e8;">📱</div>
+            <div class="cat-card-name">Mobiles</div>
+            <div class="cat-card-count">500+ items</div>
+        </a>
+        <a href="/explore?cat=Electronics" class="cat-card">
+            <div class="cat-card-icon" style="background:#f0f4ff;">💻</div>
+            <div class="cat-card-name">Electronics</div>
+            <div class="cat-card-count">1200+ items</div>
+        </a>
+        <a href="/explore?cat=Fashion" class="cat-card">
+            <div class="cat-card-icon" style="background:#fff0f5;">👗</div>
+            <div class="cat-card-name">Fashion</div>
+            <div class="cat-card-count">800+ items</div>
+        </a>
+        <a href="/explore?cat=Appliances" class="cat-card">
+            <div class="cat-card-icon" style="background:#f0fff4;">🧹</div>
+            <div class="cat-card-name">Appliances</div>
+            <div class="cat-card-count">300+ items</div>
+        </a>
+        <a href="/explore?cat=Toys" class="cat-card">
+            <div class="cat-card-icon" style="background:#f5f0ff;">🎮</div>
+            <div class="cat-card-name">Toys</div>
+            <div class="cat-card-count">400+ items</div>
+        </a>
+        <a href="/explore?cat=Beauty" class="cat-card">
+            <div class="cat-card-icon" style="background:#fff8e8;">💄</div>
+            <div class="cat-card-name">Beauty</div>
+            <div class="cat-card-count">600+ items</div>
+        </a>
+    </div>
+
+    <!-- Today's Deals -->
+    <div class="section-header">
+        <div class="section-title">Today's Best Deals 🔥</div>
+        <a href="/explore" class="section-see-all">See All Deals <i class="ph ph-arrow-right"></i></a>
+    </div>
+
+    <div class="product-grid">
+        <% if (listings && listings.length > 0) { %>
+            <% listings.slice(0, 8).forEach(function(product) { %>
+                <%
+                    let parsedPrice = parseFloat(product.price);
+                    let finalPrice = parsedPrice < 1000 ? Math.floor(((parsedPrice * 7391) % 9000) + 1000) : parsedPrice;
+                    let discount = Math.floor(Math.random() * 40 + 15);
+                    let oldPrice = Math.floor(finalPrice * (100 / (100 - discount)));
+                    let rating = (3.5 + Math.random() * 1.5).toFixed(1);
+                    let reviews = Math.floor(Math.random() * 5000 + 50);
+                %>
+                <div class="ec-product-card" onclick="window.location.href='/asset-details?id=<%= product.id %>'">
+                    <div class="badge-discount">-<%= discount %>%</div>
+                    <div class="ec-product-img-wrap">
                         <img src="<%= product.image %>" class="ec-product-img" alt="<%= product.title %>">
-                        <div style="color: #007185; font-size: 0.8rem; margin-bottom: 4px; font-weight: 500;">
-                            <%= product.brand %>
-                        </div>
-                        <div class="ec-title" title="<%= product.title %>">
-                            <%= product.title %>
-                        </div>
-
+                    </div>
+                    <div class="ec-product-info">
+                        <div class="ec-brand"><%= product.brand %></div>
+                        <div class="ec-title" title="<%= product.title %>"><%= product.title %></div>
                         <div class="ec-rating">
                             <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star-half"></i>
-                            <span style="color: #007185; margin-left: 4px; font-size: 0.8rem;"><%= Math.floor(Math.random() * 5000 + 50) %></span>
+                            <span>(<%= reviews %>)</span>
                         </div>
-
-                        <% 
-                            let parsedPrice = parseFloat(product.price);
-                            let finalPrice = parsedPrice < 1000 ? Math.floor(((parsedPrice * 7391) % 9000) + 1000) : parsedPrice;
-                        %>
                         <div class="ec-price-row">
-                            <div class="ec-price"><span>₹</span><%= finalPrice.toLocaleString('en-IN') %></div>
-                            <div class="ec-old-price">M.R.P: ₹<%= (finalPrice * 1.5).toLocaleString('en-IN') %></div>
+                            <div class="ec-price"><sup>₹</sup><%= finalPrice.toLocaleString('en-IN') %></div>
+                            <div class="ec-old-price">₹<%= oldPrice.toLocaleString('en-IN') %></div>
                         </div>
-
+                        <div class="ec-save" style="margin-bottom:10px;">✓ Save ₹<%= (oldPrice - finalPrice).toLocaleString('en-IN') %></div>
                         <form action="/cart/add" method="POST" style="margin: 0;">
                             <input type="hidden" name="productId" value="<%= product.id %>">
-                            <button type="submit" class="btn-cart" onclick="event.stopPropagation();">Add to Cart</button>
+                            <button type="submit" class="btn-cart" onclick="event.stopPropagation();">
+                                <i class="ph ph-shopping-cart"></i> Add to Cart
+                            </button>
                         </form>
                     </div>
-                <% }); %>
-            <% } else { %>
-                <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--text-muted); background: white; border-radius: 4px; border: 1px solid var(--border-light);">
-                    <i class="ph ph-package" style="font-size: 3rem; margin-bottom: 12px; color: #d5d9d9;"></i>
-                    <p>No products available right now. Please check back later.</p>
                 </div>
-            <% } %>
-        </div>
+            <% }); %>
+        <% } else { %>
+            <div style="grid-column: 1 / -1; padding: 60px; text-align: center; color: #888; background: white; border-radius: 16px;">
+                <div style="font-size: 3rem; margin-bottom: 12px;">📦</div>
+                <p>No products available right now. Check back soon!</p>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- Banner Cards -->
+    <div class="banner-grid">
+        <a href="/explore?cat=Electronics" class="banner-card banner-card-1">
+            <div class="banner-tag">⚡ Flash Sale</div>
+            <div class="banner-title">Electronics<br>Up to 60% Off</div>
+            <div class="banner-btn">Shop Now →</div>
+        </a>
+        <a href="/explore?cat=Fashion" class="banner-card banner-card-2">
+            <div class="banner-tag">👗 New Arrivals</div>
+            <div class="banner-title">Fashion<br>Trending Styles</div>
+            <div class="banner-btn">Explore →</div>
+        </a>
+    </div>
+
+    <!-- Back to Top -->
+    <div class="back-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        ↑ Back to Top
     </div>
 
     <!-- Footer -->
-    <div style="background: #37475a; padding: 15px; text-align: center; margin-top: 40px; color: white; cursor: pointer;" onclick="window.scrollTo(0,0)">
-        Back to top
-    </div>
-    <footer style="background: #232f3e; padding: 40px 24px; text-align: center; color: #dddddd;">
-        <div style="font-weight: bold; font-size: 1.5rem; color: white; margin-bottom: 12px;">
-            <%= content && content.visuals && content.visuals.logoText ? content.visuals.logoText : 'SamKart' %>
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand-name">SamKart</div>
+                <div class="footer-brand-desc">India's premium online shopping destination. Trusted by millions, loved by all.</div>
+            </div>
+            <div>
+                <div class="footer-col-title">Quick Links</div>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/explore">All Products</a></li>
+                    <li><a href="/cart">My Cart</a></li>
+                    <li><a href="/profile">My Orders</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Customer Service</div>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-col-title">Policies</div>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
         </div>
-        <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; font-size: 0.9rem;">
-            <a href="#" style="color: inherit;">Get to Know Us</a>
-            <a href="#" style="color: inherit;">Returns & Replacement</a>
-            <a href="#" style="color: inherit;">Privacy Policy</a>
-            <a href="#" style="color: inherit;">Terms of Service</a>
-            <a href="/admin/dashboard" style="color: inherit; font-weight: bold;">Admin Login</a>
+        <div class="footer-bottom">
+            <div class="footer-bottom-text">© <%= new Date().getFullYear() %> SamKart, Inc. All rights reserved.</div>
+            <a href="/admin/login" class="footer-admin-link">⚙ Admin</a>
         </div>
-        <p style="font-size: 0.8rem;">&copy; <%= new Date().getFullYear() %>, SamKart, Inc. or its affiliates</p>
     </footer>
 
 <script src="/js/quicknav.js"></script>
