@@ -1,383 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Store | Login</title>
-    <link rel="stylesheet" href="/styles/main.css">
-    <link rel="stylesheet" href="/styles/glass.css">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <title>SamKart | Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             display: flex;
-            background-color: #05020a;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(120,40,200,0.2), transparent 70%);
+            top: -200px; right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(247,151,30,0.15), transparent 70%);
+            bottom: -100px; left: -100px;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 460px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* LOGO */
+        .login-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-logo-icon {
+            width: 56px; height: 56px;
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #1a1a2e;
+            margin-bottom: 12px;
+            box-shadow: 0 8px 24px rgba(247,151,30,0.4);
+        }
+
+        .login-logo-name {
+            display: block;
+            font-size: 2rem;
+            font-weight: 900;
             color: white;
+            letter-spacing: -1px;
+        }
+
+        .login-logo-sub {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* CARD */
+        .login-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 36px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+        }
+
+        /* TOGGLE TABS */
+        .tab-switcher {
+            display: flex;
+            background: rgba(0,0,0,0.3);
+            border-radius: 14px;
+            padding: 4px;
+            margin-bottom: 32px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.4);
             font-family: 'Inter', sans-serif;
         }
 
-        .split-layout {
-            display: flex;
-            width: 100%;
-            min-height: 100%;
+        .tab-btn.active-customer {
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            color: white;
+            box-shadow: 0 4px 16px rgba(15,52,96,0.5);
         }
 
-        .art-side {
-            flex: 1.3;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            padding: 80px;
+        .tab-btn.active-admin {
+            background: linear-gradient(135deg, #7828C8, #FF3085);
+            color: white;
+            box-shadow: 0 4px 16px rgba(120,40,200,0.5);
         }
 
-        .art-image {
-            position: absolute;
-            inset: -20px;
-            background: url('/images/nft_login_bg.png') center/cover;
-            animation: slowZoom 20s infinite alternate ease-in-out;
-            z-index: 1;
+        /* FORMS */
+        .form-panel { display: none; }
+        .form-panel.visible { display: block; }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 6px;
         }
 
-        @keyframes slowZoom {
-            0% {
-                transform: scale(1);
-            }
-
-            100% {
-                transform: scale(1.1);
-            }
+        .form-sub {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 24px;
         }
 
-        .art-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(5, 2, 10, 1) 0%, rgba(127, 48, 255, 0.2) 40%, rgba(5, 2, 10, 0.5) 100%);
-            z-index: 2;
-            backdrop-filter: blur(2px);
-        }
-
-        .art-content {
-            position: relative;
-            z-index: 3;
-            max-width: 700px;
-            transform: translateY(0);
-            animation: fadeUp 1s ease-out forwards;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-side {
-            flex: 1;
-            background: rgba(11, 5, 21, 0.98);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            position: relative;
-            z-index: 10;
-            box-shadow: -30px 0 60px rgba(0, 0, 0, 0.8);
-            border-left: 1px solid rgba(255, 255, 255, 0.03);
-            box-sizing: border-box;
-        }
-
-        .login-card {
-            width: 100%;
-            max-width: 460px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 48px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            position: relative;
-            box-sizing: border-box;
-        }
-
-        /* Inner Glow for logic card */
-        .login-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
         }
 
         .input-field {
             width: 100%;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
             color: white;
-            padding: 0 24px;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
             outline: none;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            transition: all 0.2s;
         }
 
         .input-field:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(127, 48, 255, 0.3);
-            background: rgba(127, 48, 255, 0.05);
+            border-color: rgba(247,151,30,0.5);
+            box-shadow: 0 0 16px rgba(247,151,30,0.15);
+            background: rgba(0,0,0,0.5);
         }
 
-        .submit-btn {
+        .input-field::placeholder { color: rgba(255,255,255,0.25); }
+
+        .btn-customer {
             width: 100%;
-            height: 60px;
-            border-radius: 16px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #7828C8 0%, #FF3085 100%);
+            padding: 15px;
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            color: white;
             border: none;
-            color: white;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 16px;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(15,52,96,0.4);
+            margin-top: 4px;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(127, 48, 255, 0.5);
-        }
-
-        .social-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 1.05rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
+        .btn-customer:hover {
             transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(15,52,96,0.6);
+        }
+
+        .btn-admin {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #7828C8, #FF3085);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(120,40,200,0.4);
+            margin-top: 4px;
+        }
+
+        .btn-admin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(120,40,200,0.6);
+        }
+
+        /* Error/Info */
+        .alert-error {
+            background: rgba(255,70,70,0.1);
+            border: 1px solid rgba(255,70,70,0.3);
+            color: #ff6b6b;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-bottom: 18px;
+        }
+
+        .admin-hint {
+            background: rgba(120,40,200,0.1);
+            border: 1px solid rgba(120,40,200,0.3);
+            color: rgba(255,255,255,0.7);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .admin-hint strong { color: #ffd200; }
+
+        .divider {
+            text-align: center;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.78rem;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .register-link {
+            text-align: center;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            margin-top: 20px;
+        }
+
+        .register-link a {
+            color: #ffd200;
+            text-decoration: none;
+            font-weight: 700;
         }
 
         .back-home {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            color: var(--text-muted);
-            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-weight: 500;
+            justify-content: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.82rem;
+            margin-top: 24px;
             transition: color 0.2s;
-            z-index: 100;
         }
 
-        .back-home:hover {
-            color: white;
-        }
-
-        @media (max-width: 1024px) {
-            .split-layout {
-                flex-direction: column;
-            }
-
-            .art-side {
-                flex: 0.4;
-                padding: 40px;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-
-            .form-side {
-                flex: 1;
-                border-left: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .art-side {
-                display: none;
-            }
-
-            .form-side {
-                padding: 80px 20px 40px 20px;
-                justify-content: flex-start;
-            }
-
-            .login-card {
-                padding: 24px 16px;
-                background: transparent;
-                border: none;
-                box-shadow: none;
-            }
-
-            .login-card::before {
-                display: none;
-            }
-
-            .back-home {
-                top: 24px;
-                left: 20px;
-                right: auto;
-            }
-
-            .social-grid {
-                grid-template-columns: 1fr !important;
-            }
-        }
+        .back-home:hover { color: rgba(255,255,255,0.7); }
     </style>
-
-    <!-- PWA Setup -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#7F30FF">
-    <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=NovaStock&background=7F30FF&color=fff&size=192">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful');
-                }).catch(err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
-    </script>
 </head>
-
 <body>
-    <div class="split-layout">
 
-        <!-- Left Art Side -->
-        <div class="art-side">
-            <div class="art-image"></div>
-            <div class="art-overlay"></div>
-            <div class="art-content">
-                <div
-                    style="font-size: 4rem; font-weight: 900; line-height: 1.1; margin-bottom: 24px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); letter-spacing: -1px;">
-                    Enter the Next <br><span
-                        style="background: linear-gradient(135deg, #FF3085, #7828C8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Evolution</span>
-                    of Art.
-                </div>
-                <p
-                    style="font-size: 1.25rem; color: rgba(255,255,255,0.8); max-width: 500px; line-height: 1.6; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
-                    Discover, collect, and trade extraordinary digital creations on the world's most immersive Product
-                    marketplace.
-                </p>
-            </div>
+    <div class="login-wrapper">
+
+        <!-- LOGO -->
+        <div class="login-logo">
+            <div class="login-logo-icon">S</div>
+            <span class="login-logo-name">SamKart</span>
+            <div class="login-logo-sub">Welcome back! Please sign in.</div>
         </div>
 
-        <!-- Right Form Side -->
-        <div class="form-side">
-            <a href="/" class="back-home"><i class="ph ph-arrow-left"></i> Back to Home</a>
+        <!-- CARD -->
+        <div class="login-card">
 
-            <div class="login-card">
-
-                <div
-                    style="display: flex; align-items: center; gap: 12px; margin-bottom: 40px; justify-content: center;">
-                    <% if (content && content.visuals && content.visuals.logoImage) { %>
-                        <img src="<%= content.visuals.logoImage %>" alt="Site Logo"
-                            style="height: 40px; width: auto; object-fit: contain;">
-                        <% } else { %>
-                            <div
-                                style="width: 40px; height: 40px; background: linear-gradient(135deg, var(--primary), #FF3085); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; box-shadow: 0 0 20px rgba(127, 48, 255, 0.4);">
-                                N</div>
-                            <span style="font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px;">
-                                <%= (content && content.visuals && content.visuals.logoText) ? content.visuals.logoText
-                                    : 'NovaStock' %>
-                            </span>
-                            <% } %>
-                </div>
-
-                <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="font-size: 2rem; margin-bottom: 8px; font-weight: 700;">Welcome Back</h2>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 1.05rem;">Access your dashboard and collections.
-                    </p>
-                </div>
-
-                <% if (typeof error !=='undefined' && error) { %>
-                    <div
-                        style="background: rgba(255, 69, 58, 0.1); border: 1px solid rgba(255, 69, 58, 0.3); color: #ff453a; padding: 16px; border-radius: 12px; margin-bottom: 24px; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
-                        <i class="ph-fill ph-warning-circle" style="font-size: 1.4rem;"></i>
-                        <%= error %>
-                    </div>
-                    <% } %>
-
-                        <form action="/login" method="POST">
-                            <input type="email" name="email" class="input-field" placeholder="Email Address" required>
-                            <input type="password" name="password" class="input-field" placeholder="Password" required>
-
-                            <button type="submit" class="submit-btn"
-                                style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                Sign In <i class="ph-bold ph-arrow-right"></i>
-                            </button>
-
-                            <!-- Divider -->
-                            <div style="display: flex; align-items: center; margin: 32px 0 24px 0;">
-                                <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
-                                <div
-                                    style="color: rgba(255,255,255,0.4); padding: 0 16px; font-size: 0.85rem; font-weight: 600; letter-spacing: 1px;">
-                                    OR CONTINUE WITH</div>
-                                <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.1);"></div>
-                            </div>
-
-                            <!-- Social Logins -->
-                            <div class="social-grid"
-                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-                                <button type="button" class="social-btn" style="height: 52px;"
-                                    onclick="alert('Google login integration coming soon!')">
-                                    <i class="ph-fill ph-google-logo" style="font-size: 1.3rem;"></i> Google
-                                </button>
-                                <button type="button" class="social-btn" style="height: 52px;"
-                                    onclick="alert('Cart connection coming soon!')">
-                                    <i class="ph-fill ph-cart" style="font-size: 1.3rem;"></i> Cart
-                                </button>
-                            </div>
-                            <button type="button" class="social-btn" style="width: 100%; height: 52px;"
-                                onclick="alert('Apple login integration coming soon!')">
-                                <i class="ph-fill ph-apple-logo" style="font-size: 1.4rem;"></i> Continue with Apple
-                            </button>
-
-                            <div
-                                style="text-align: center; margin-top: 32px; font-size: 1rem; color: rgba(255,255,255,0.5);">
-                                New to NovaStock? <a href="/register"
-                                    style="color: #FF3085; text-decoration: none; font-weight: 600; margin-left: 4px; transition: color 0.2s;">Create
-                                    account</a>
-                            </div>
-                        </form>
+            <!-- TAB SWITCHER -->
+            <div class="tab-switcher">
+                <button class="tab-btn active-customer" id="tabCustomer" onclick="switchTab('customer')">
+                    🛍️ Customer Login
+                </button>
+                <button class="tab-btn" id="tabAdmin" onclick="switchTab('admin')">
+                    👑 Admin Login
+                </button>
             </div>
+
+            <!-- CUSTOMER FORM -->
+            <div class="form-panel visible" id="panelCustomer">
+                <div class="form-title">Customer Sign In</div>
+                <div class="form-sub">Login to track your orders and shopping cart.</div>
+
+                <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert-error">⚠️ <%= error %></div>
+                <% } %>
+
+                <form action="/login" method="POST">
+                    <label class="input-label">Email Address</label>
+                    <input type="email" name="email" class="input-field" placeholder="you@example.com" required>
+
+                    <label class="input-label">Password</label>
+                    <input type="password" name="password" class="input-field" placeholder="Enter your password" required>
+
+                    <button type="submit" class="btn-customer">
+                        🛒 Sign In to Shop
+                    </button>
+                </form>
+
+                <div class="register-link" style="margin-top: 20px;">
+                    New to SamKart? <a href="/register">Create Account</a>
+                </div>
+            </div>
+
+            <!-- ADMIN FORM -->
+            <div class="form-panel" id="panelAdmin">
+                <div class="form-title">Admin / CEO Panel</div>
+                <div class="form-sub">Restricted access — Authorized personnel only.</div>
+
+                <div class="admin-hint">
+                    🔐 <strong>Default Admin Credentials:</strong><br>
+                    Email: <strong>sam@samkart.com</strong><br>
+                    Password: <strong>admin123</strong>
+                </div>
+
+                <form action="/admin/login" method="POST">
+                    <label class="input-label">Admin Email</label>
+                    <input type="email" name="email" class="input-field" placeholder="admin@samkart.com" required>
+
+                    <label class="input-label">Admin Password</label>
+                    <input type="password" name="password" class="input-field" placeholder="Enter admin password" required>
+
+                    <button type="submit" class="btn-admin">
+                        👑 Access CEO Dashboard
+                    </button>
+                </form>
+            </div>
+
         </div>
+
+        <a href="/" class="back-home">← Back to Homepage</a>
+
     </div>
-</body>
 
+<script>
+function switchTab(tab) {
+    const tabCustomer = document.getElementById('tabCustomer');
+    const tabAdmin    = document.getElementById('tabAdmin');
+    const panelCustomer = document.getElementById('panelCustomer');
+    const panelAdmin    = document.getElementById('panelAdmin');
+
+    if (tab === 'customer') {
+        tabCustomer.className = 'tab-btn active-customer';
+        tabAdmin.className    = 'tab-btn';
+        panelCustomer.classList.add('visible');
+        panelAdmin.classList.remove('visible');
+    } else {
+        tabAdmin.className    = 'tab-btn active-admin';
+        tabCustomer.className = 'tab-btn';
+        panelAdmin.classList.add('visible');
+        panelCustomer.classList.remove('visible');
+    }
+}
+</script>
+
+</body>
 </html>
