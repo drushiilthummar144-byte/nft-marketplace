@@ -42,10 +42,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 // Session Config
+const isProduction = process.env.NODE_ENV === 'production';
 app.use(session({
-    secret: 'product-secret-key',
+    secret: process.env.SESSION_SECRET || 'samkart-super-secret-key-2026',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        secure: isProduction,       // HTTPS only on production
+        httpOnly: true,
+        sameSite: isProduction ? 'none' : 'lax',
+        maxAge: 24 * 60 * 60 * 1000  // 24 hours
+    }
 }));
 
 // Fast In-Memory Database + MongoDB Sync
@@ -512,8 +519,11 @@ const isAdmin = (req, res, next) => {
     res.redirect('/admin/login');
 };
 
-// Admin Login Page
+// Admin Login Page - redirect to unified login page
 app.get('/admin/login', (req, res) => {
+    // If already admin, go straight to dashboard
+    if (req.session.isAdmin) return res.redirect('/admin/dashboard');
+    // Otherwise redirect to unified login page with admin tab hint
     res.render('admin/login', { error: req.query.error });
 });
 
