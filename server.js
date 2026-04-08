@@ -42,17 +42,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
 // Session Config
-const isProduction = process.env.NODE_ENV === 'production';
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'samkart-super-secret-key-2026',
+    secret: 'product-secret-key',
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: isProduction,       // HTTPS only on production
-        httpOnly: true,
-        sameSite: isProduction ? 'none' : 'lax',
-        maxAge: 24 * 60 * 60 * 1000  // 24 hours
-    }
+    saveUninitialized: false
 }));
 
 // Fast In-Memory Database + MongoDB Sync
@@ -168,7 +161,7 @@ app.get('/explore', (req, res) => {
     res.render('explore', { listings: db.listings }); // Explore with real data
 });
 
-app.get('/login', (req, res) => res.render('login', { error: req.query.error }));
+app.get('/login', (req, res) => res.render('login', { error: req.query.error, adminTab: req.query.tab === 'admin' }));
 app.get('/asset-details', (req, res) => {
     const db = getDb();
     const product = db.listings.find(l => l.id == req.query.id) || db.listings[0];
@@ -519,12 +512,9 @@ const isAdmin = (req, res, next) => {
     res.redirect('/admin/login');
 };
 
-// Admin Login Page - redirect to unified login page
+// Admin Login Page
 app.get('/admin/login', (req, res) => {
-    // If already admin, go straight to dashboard
-    if (req.session.isAdmin) return res.redirect('/admin/dashboard');
-    // Otherwise redirect to unified login page with admin tab hint
-    res.render('admin/login', { error: req.query.error });
+    res.render('login', { error: req.query.error, adminTab: true });
 });
 
 // Handle Login Logic

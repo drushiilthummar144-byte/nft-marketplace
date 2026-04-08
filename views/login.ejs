@@ -388,6 +388,13 @@ function switchTab(tab) {
         panelCustomer.classList.remove('visible');
     }
 }
+
+// Auto-switch to admin tab if server requested it
+<% if (typeof adminTab !== 'undefined' && adminTab) { %>
+    document.addEventListener('DOMContentLoaded', () => {
+        switchTab('admin');
+    });
+<% } %>
 </script>
 
 </body>
