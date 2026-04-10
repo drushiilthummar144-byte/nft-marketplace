@@ -317,6 +317,27 @@ app.post('/order/cancel', (req, res) => {
     const referer = req.get('Referer') || '/profile';
     res.redirect(referer);
 });
+// Admin Login Routes
+app.get('/admin/login', (req, res) => res.render('admin-login', { error: req.query.error }));
+
+app.post('/admin/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const db = getDb();
+        const user = db.users.find(u => u.email === email && u.role === 'Admin');
+        
+        if (!user) return res.redirect('/admin/login?error=Admin access denied');
+        if (user.password !== password) return res.redirect('/admin/login?error=Incorrect admin password');
+
+        req.session.user = { id: user.id, username: user.username, email: user.email, role: user.role };
+        req.session.isAdmin = true;
+        return res.redirect('/admin/cms');
+    } catch (error) {
+        console.error(error);
+        res.redirect('/admin/login?error=Server Error');
+    }
+});
+
 // User Login Logic (Mock via db.json)
 app.post('/login', async (req, res) => {
     try {
