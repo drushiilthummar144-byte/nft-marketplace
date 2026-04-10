@@ -198,6 +198,186 @@
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=800",
       "owner": "admin"
+    },
+    {
+      "id": 301,
+      "title": "Bose QuietComfort Earbuds II",
+      "brand": "Bose",
+      "price": "22999",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 302,
+      "title": "Apple Watch Series 9",
+      "brand": "Apple",
+      "price": "41900",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1434493789847-2902a52dda8c?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 303,
+      "title": "DJI Mini 3 Pro Drone",
+      "brand": "DJI",
+      "price": "82990",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 304,
+      "title": "Jordan 1 Retro High Dior",
+      "brand": "Nike",
+      "price": "450000",
+      "category": "Fashion",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1597045566677-8cf032ed6634?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 305,
+      "title": "Adidas Yeezy Boost 350",
+      "brand": "Adidas",
+      "price": "29999",
+      "category": "Fashion",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 306,
+      "title": "Calvin Klein Slim Fit Suit",
+      "brand": "Calvin Klein",
+      "price": "18500",
+      "category": "Fashion",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 307,
+      "title": "Rolex Submariner Date",
+      "brand": "Rolex",
+      "price": "1250000",
+      "category": "Fashion",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 308,
+      "title": "Chanel No. 5 Perfume",
+      "brand": "Chanel",
+      "price": "14500",
+      "category": "Beauty",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 309,
+      "title": "Dior Sauvage Eau de Parfum",
+      "brand": "Dior",
+      "price": "12000",
+      "category": "Beauty",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 310,
+      "title": "KitchenAid Stand Mixer",
+      "brand": "KitchenAid",
+      "price": "45900",
+      "category": "Appliances",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1594385208974-2e75f8d7bb48?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 311,
+      "title": "Ninja Professional Blender",
+      "brand": "Ninja",
+      "price": "15990",
+      "category": "Appliances",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1585237832684-256efc5860d4?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 312,
+      "title": "Nintendo Switch OLED",
+      "brand": "Nintendo",
+      "price": "34990",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1617096200347-cb04ae810b1d?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 313,
+      "title": "Logitech MX Master 3S",
+      "brand": "Logitech",
+      "price": "10995",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac1eeb536688?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 314,
+      "title": "Ray-Ban Aviator Classic",
+      "brand": "Ray-Ban",
+      "price": "8590",
+      "category": "Fashion",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 315,
+      "title": "Herschel Little America Backpack",
+      "brand": "Herschel",
+      "price": "9500",
+      "category": "Fashion",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 316,
+      "title": "Amazon Kindle Paperwhite",
+      "brand": "Amazon",
+      "price": "13999",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1592496001020-d31bd830651f?w=800",
+      "owner": "Sam (CEO)"
+    },
+    {
+      "id": 317,
+      "title": "Yamaha F310 Acoustic Guitar",
+      "brand": "Yamaha",
+      "price": "9990",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1550291652-6ea9114a47b1?w=800",
+      "owner": "admin"
+    },
+    {
+      "id": 318,
+      "title": "GoPro HERO12 Black",
+      "brand": "GoPro",
+      "price": "45000",
+      "category": "Electronics",
+      "status": "Active",
+      "image": "https://images.unsplash.com/photo-1563298723-dcfebaa392e3?w=800",
+      "owner": "Sam (CEO)"
     }
   ],
   "transactions": [],
