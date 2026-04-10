@@ -821,7 +821,11 @@ app.get('/api/force-reset', async (req, res) => {
             return db;
         };
 
-        if (mongoose.connection.readyState === 1) {
+        if (mongoose.connection.readyState === 0 && process.env.MONGO_URI) {
+            await mongoose.connect(process.env.MONGO_URI);
+        }
+
+        if (mongoose.connection.readyState === 1 || mongoose.connection.readyState === 2) {
             const doc = await DataStore.findOne({});
             if (doc) {
                 if (doc.data && doc.data.users) {
@@ -842,10 +846,8 @@ app.get('/api/force-reset', async (req, res) => {
             res.send("MongoDB not connected. Updated local Memory DB with db.json!");
         }
     } catch (e) {
-        res.status(500).send(e.message);
+        res.status(500).send("Error: " + e.message);
     }
 });
 
 initApp();
-/ /   f o r c e   r e n d e r   r e s t a r t  
- 
