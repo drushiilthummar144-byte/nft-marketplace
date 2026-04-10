@@ -917,7 +917,7 @@
 
     <div class="product-grid">
         <% if (listings && listings.length > 0) { %>
-            <% listings.slice(0, 8).forEach(function(product) { %>
+            <% listings.forEach(function(product) { %>
                 <%
                     let parsedPrice = parseFloat(product.price);
                     let finalPrice = parsedPrice < 1000 ? Math.floor(((parsedPrice * 7391) % 9000) + 1000) : parsedPrice;
