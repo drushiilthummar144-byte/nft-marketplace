@@ -378,6 +378,141 @@
       "status": "Active",
       "image": "https://images.unsplash.com/photo-1563298723-dcfebaa392e3?w=800",
       "owner": "Sam (CEO)"
+    },
+    {
+      "id": 1031,
+      "title": "LG 1.5 Ton 5 Star AI DUAL Inverter Split AC",
+      "price": "45990",
+      "brand": "LG",
+      "category": "Appliances",
+      "image": "https://images.unsplash.com/photo-1571401344409-548455fa1da5?w=500&q=80",
+      "description": "AI Convertible 6-in-1 Cooling"
+    },
+    {
+      "id": 1032,
+      "title": "Whirlpool 240 L Frost Free Multi-Door Refrigerator",
+      "price": "25490",
+      "brand": "Whirlpool",
+      "category": "Appliances",
+      "image": "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=500&q=80",
+      "description": "Moisture Retention Technology and customized cooling"
+    },
+    {
+      "id": 1033,
+      "title": "Bosch 7 kg Fully-Automatic Front Loading Washing Machine",
+      "price": "28990",
+      "brand": "Bosch",
+      "category": "Appliances",
+      "image": "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=500&q=80",
+      "description": "In-built Heater and AntiTangle Technology"
+    },
+    {
+      "id": 1034,
+      "title": "LEGO Technic McLaren Senna GTR",
+      "price": "4999",
+      "brand": "LEGO",
+      "category": "Toys",
+      "image": "https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?w=500&q=80",
+      "description": "830-piece model car building kit"
+    },
+    {
+      "id": 1035,
+      "title": "Nerf N-Strike Elite Disruptor Blaster",
+      "price": "1299",
+      "brand": "Nerf",
+      "category": "Toys",
+      "image": "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=500&q=80",
+      "description": "6-dart rotating drum and quick-draw blaster"
+    },
+    {
+      "id": 1036,
+      "title": "Barbie Dreamhouse Dollhouse",
+      "price": "18999",
+      "brand": "Barbie",
+      "category": "Toys",
+      "image": "https://images.unsplash.com/photo-1597811234907-fbbafe09eedd?w=500&q=80",
+      "description": "3-story pool, slide, and 75+ accessories"
+    },
+    {
+      "id": 1037,
+      "title": "M.A.C Ruby Woo Matte Lipstick",
+      "price": "1950",
+      "brand": "M.A.C",
+      "category": "Beauty",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500&q=80",
+      "description": "Iconic vivid blue-red ultra-matte finish"
+    },
+    {
+      "id": 1038,
+      "title": "Estée Lauder Advanced Night Repair Serum",
+      "price": "4500",
+      "brand": "Estee Lauder",
+      "category": "Beauty",
+      "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80",
+      "description": "Synchronized Multi-Recovery Complex"
+    },
+    {
+      "id": 1039,
+      "title": "Dyson Airwrap Multi-Styler",
+      "price": "49900",
+      "brand": "Dyson",
+      "category": "Beauty",
+      "image": "https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=500&q=80",
+      "description": "Dry, curl, shape, and hide flyaways without extreme heat"
+    },
+    {
+      "id": 1040,
+      "title": "Atomic Habits by James Clear",
+      "price": "499",
+      "brand": "Penguin",
+      "category": "Books",
+      "image": "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=500&q=80",
+      "description": "An Easy & Proven Way to Build Good Habits & Break Bad Ones"
+    },
+    {
+      "id": 1041,
+      "title": "The Psychology of Money",
+      "price": "299",
+      "brand": "Harriman",
+      "category": "Books",
+      "image": "https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=500&q=80",
+      "description": "Timeless lessons on wealth, greed, and happiness"
+    },
+    {
+      "id": 1042,
+      "title": "Rich Dad Poor Dad",
+      "price": "399",
+      "brand": "Plata",
+      "category": "Books",
+      "image": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&q=80",
+      "description": "What the Rich Teach Their Kids About Money"
+    },
+    {
+      "id": 1043,
+      "title": "Tata Premium Tea, 1 kg",
+      "price": "450",
+      "brand": "Tata",
+      "category": "Grocery",
+      "image": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&q=80",
+      "description": "Unique blend of big and small tea leaves"
+    },
+    {
+      "id": 1044,
+      "title": "India Gate Basmati Rice, 5 kg",
+      "price": "799",
+      "brand": "India Gate",
+      "category": "Grocery",
+      "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80",
+      "description": "Premium quality long grain basmati rice"
+    },
+    {
+      "id": 1045,
+      "title": "Aashirvaad Select Premium Sharbati Atta, 5 kg",
+      "price": "280",
+      "brand": "Aashirvaad",
+      "category": "Grocery",
+      "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=80",
+      "description": "100% MP Sharbati wheat, premium grade"
     }
   ],
   "transactions": [],
