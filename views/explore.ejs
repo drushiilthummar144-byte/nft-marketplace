@@ -278,10 +278,22 @@
                 <button class="filter-pill" data-category="Grocery" onclick="filterItems('Grocery')">Grocery</button>
             </div>
 
-            <div style="display: flex; align-items: center; gap: 8px; border: 1px solid #d5d9d9; border-radius: 8px; padding: 4px 10px; background: #f0f2f2; font-size: 0.9rem;">
-                <span style="color: #0f1111;">Sort by:</span>
-                <select id="sortSelect" style="border: none; background: transparent; color: #0f1111; outline: none; font-weight: 500;">
-                    <option value="featured">Featured</option>
+            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div style="border: 1px solid #d5d9d9; border-radius: 8px; padding: 4px 10px; background: #f0f2f2; font-size: 0.9rem;">
+                    <span style="color: #0f1111;">Price:</span>
+                    <select id="priceSelect" style="border: none; background: transparent; color: #0f1111; outline: none; font-weight: 500;">
+                        <option value="all">Any Price</option>
+                        <option value="under1000">Under ₹1,000</option>
+                        <option value="1000to5000">₹1,000 - ₹5,000</option>
+                        <option value="5000to20000">₹5,000 - ₹20,000</option>
+                        <option value="over20000">Over ₹20,000</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 8px; border: 1px solid #d5d9d9; border-radius: 8px; padding: 4px 10px; background: #f0f2f2; font-size: 0.9rem;">
+                    <span style="color: #0f1111;">Sort by:</span>
+                    <select id="sortSelect" style="border: none; background: transparent; color: #0f1111; outline: none; font-weight: 500;">
+                        <option value="featured">Featured</option>
                     <option value="price-low">Price: Low to High</option>
                     <option value="price-high">Price: High to Low</option>
                 </select>
@@ -359,11 +371,13 @@
         const emptyState = document.getElementById('emptyState');
         const pills = document.querySelectorAll('.filter-pill');
         const sortSelect = document.getElementById('sortSelect');
+        const priceSelect = document.getElementById('priceSelect');
         const productGrid = document.getElementById('productGrid');
 
         let currentCategory = 'all';
         let currentSearch = '';
         let currentSort = 'featured';
+        let currentPrice = 'all';
 
         // Set from URL if present
         const params = new URLSearchParams(window.location.search);
@@ -391,6 +405,11 @@
             applyFilters();
         });
 
+        priceSelect.addEventListener('change', (e) => {
+            currentPrice = e.target.value;
+            applyFilters();
+        });
+
         function applyFilters() {
             let visibleCount = 0;
             const visibleCards = [];
@@ -399,11 +418,18 @@
                 const title = card.dataset.title;
                 const brand = card.dataset.brand;
                 const cardCategory = card.dataset.category;
+                const price = parseFloat(card.dataset.price);
 
                 const matchesSearch = title.includes(currentSearch) || brand.includes(currentSearch);
                 const matchesCategory = currentCategory === 'all' || cardCategory === currentCategory;
+                
+                let matchesPrice = true;
+                if (currentPrice === 'under1000') matchesPrice = price < 1000;
+                else if (currentPrice === '1000to5000') matchesPrice = price >= 1000 && price <= 5000;
+                else if (currentPrice === '5000to20000') matchesPrice = price > 5000 && price <= 20000;
+                else if (currentPrice === 'over20000') matchesPrice = price > 20000;
 
-                if (matchesSearch && matchesCategory) {
+                if (matchesSearch && matchesCategory && matchesPrice) {
                     card.style.display = 'flex';
                     visibleCount++;
                     visibleCards.push(card);
