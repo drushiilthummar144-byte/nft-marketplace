@@ -181,6 +181,33 @@
 
         .input-field::placeholder { color: rgba(255,255,255,0.25); }
 
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 18px;
+        }
+
+        .password-container .input-field {
+            margin-bottom: 0;
+            padding-right: 48px;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            user-select: none;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .toggle-password:hover {
+            color: white;
+        }
+
         .btn-customer {
             width: 100%;
             padding: 15px;
@@ -333,7 +360,10 @@
                     <input type="email" name="email" class="input-field" placeholder="you@example.com" required>
 
                     <label class="input-label">Password</label>
-                    <input type="password" name="password" class="input-field" placeholder="Enter your password" required>
+                    <div class="password-container">
+                        <input type="password" id="customerPassword" name="password" class="input-field" placeholder="Enter your password" required>
+                        <span class="toggle-password" onclick="togglePassword('customerPassword', this)">👁️</span>
+                    </div>
 
                     <button type="submit" class="btn-customer">
                         🛒 Sign In to Shop
@@ -355,7 +385,10 @@
                     <input type="email" name="email" class="input-field" placeholder="admin@samkart.com" required>
 
                     <label class="input-label">Admin Password</label>
-                    <input type="password" name="password" class="input-field" placeholder="Enter admin password" required>
+                    <div class="password-container">
+                        <input type="password" id="adminPassword" name="password" class="input-field" placeholder="Enter admin password" required>
+                        <span class="toggle-password" onclick="togglePassword('adminPassword', this)">👁️</span>
+                    </div>
 
                     <button type="submit" class="btn-admin">
                         👑 Access CEO Dashboard
@@ -386,6 +419,17 @@ function switchTab(tab) {
         tabCustomer.className = 'tab-btn';
         panelAdmin.classList.add('visible');
         panelCustomer.classList.remove('visible');
+    }
+}
+
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerText = '🙈';
+    } else {
+        input.type = 'password';
+        icon.innerText = '👁️';
     }
 }
 
